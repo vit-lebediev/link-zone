@@ -1,0 +1,14 @@
+parameters:
+  database_driver: pdo_pgsql
+  database_host: 127.0.0.1
+  database_port: null
+  database_name: linkzone
+  database_user: linkzone
+  database_password: linkzone
+  mailer_transport: smtp
+  mailer_host: 127.0.0.1
+  mailer_user: null
+  mailer_password: null
+  locale: en
+  secret: 0db21b7004b3128335b494ae132fa3edaaabf4c8
+  database_path: null
