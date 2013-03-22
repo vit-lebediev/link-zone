@@ -1,0 +1,24 @@
+#link_zone_core_login:
+#    pattern:   /login
+#    defaults:  { _controller: LinkZoneCoreAdminBundle:Security:login }
+#
+#link_zone_core_admin_homepage:
+#    pattern:  /admin/{name}
+#    defaults: { _controller: LinkZoneCoreAdminBundle:Default:index }
+#
+#link_zone_core_login_check:
+#    pattern:   /login_check
+
+# FOS User configuration
+
+
+linkzone_core_admin_home:
+    pattern: /
+    defaults: { _controller: LinkZoneCoreAdminBundle:Default:index }
+
+linkzone_core_admin_login:
+    pattern: /login
+    defaults: { _controller: LinkZoneCoreAdminBundle:Security:login }
+
+linkzone_core_admin_login_check:
+    pattern: /login_check

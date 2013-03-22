@@ -1,0 +1,7 @@
+link_zone_core_public:
+    resource: "@LinkZoneCorePublicBundle/Resources/config/routing.yml"
+    prefix:   /
+
+link_zone_core_admin:
+    resource: "@LinkZoneCoreAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin

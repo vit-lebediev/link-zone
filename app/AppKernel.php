@@ -19,6 +19,13 @@ class AppKernel extends Kernel
             new JMS\AopBundle\JMSAopBundle(),
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
+
+//            new FOS\UserBundle\FOSUserBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+
+            // import project bundles
+            new LinkZone\Core\AdminBundle\LinkZoneCoreAdminBundle(),
+            new LinkZone\Core\PublicBundle\LinkZoneCorePublicBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
