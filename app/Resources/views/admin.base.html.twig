@@ -11,7 +11,16 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        <div id="header"></div>
+        <div id="header">
+        {% block header %}
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                <a href="{{ path('linkzone_core_admin_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+            {% endif %}
+        {% endblock %}
+        </div>
         <div id="main_menu">{{ knp_menu_render("main") }}</div>
         <div id="body">{% block body %}{% endblock %}</div>
         <div id="footer"></div>

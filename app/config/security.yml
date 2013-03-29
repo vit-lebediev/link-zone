@@ -19,32 +19,34 @@ security:
         in_memory:
             memory:
                 users:
-                    user:  { password: userpass, roles: [ 'ROLE_USER' ] }
                     admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
 
     firewalls:
-#        dev:
-#            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-#            security: false
-#
-#        login:
-#            pattern:  ^/demo/secured/login$
-#            security: false
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
 
-#        secured_area:
-#            pattern:    ^/demo/secured/
-#            form_login:
-#                check_path: _security_check
-#                login_path: _demo_login
-#            logout:
-#                path:   _demo_logout
-#                target: _demo
-            #anonymous: ~
-            #http_basic:
-            #    realm: "Secured Demo Area"
+        admin_secured_area:
+            pattern: ^/admin/
+            anonymous: true
+            logout:
+                path: linkzone_core_admin_logout
+                target: linkzone_core_admin_login
+            form_login:
+                provider: in_memory
+#                csrf_provider: form.csrf_provider
+                login_path: linkzone_core_admin_login
+                check_path: linkzone_core_admin_login_check
+                default_target_path: linkzone_core_admin_home
+                always_use_default_target_path: true
 
         secured_area:
-            pattern: ^/
+            # any route, not starting with /admin
+            # this will save us from 'firewall overlapping', when
+            # after authenticating against admin_secured_area
+            # we are prompted to authenticate against secured_area, too
+            # http://stackoverflow.com/questions/406230/regular-expression-to-match-string-not-containing-a-word
+            pattern: ^((?!\/admin).*)$
             anonymous: true
             logout: true
             form_login:
@@ -54,16 +56,6 @@ security:
                 check_path: /login_check
                 default_target_path: /profile
                 always_use_default_target_path: true
-
-        admin_secured_area:
-            pattern: ^/admin
-            anonymous: true
-            logout: true
-            form_login:
-#                provider: fos_userbundle
-#                csrf_provider: form.csrf_provider
-                login_path: /admin/login
-                check_path: /admin/login_check
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
@@ -76,7 +68,8 @@ security:
 
         - { path: ^/admin/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/.*, role: ROLE_ADMIN }
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+
+        - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/register$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: ROLE_USER }

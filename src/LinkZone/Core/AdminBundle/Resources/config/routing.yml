@@ -9,3 +9,7 @@ linkzone_core_admin_login:
 linkzone_core_admin_login_check:
     pattern: /login_check
     defaults: { _controller: LinkZoneCoreAdminBundle:Security:check }
+
+linkzone_core_admin_logout:
+    pattern: /logout
+    defaults: { _controller: LinkZoneCoreAdminBundle:Security:logout }
