@@ -3,6 +3,8 @@
 {% endif %}
 
 <form action="{{ path('linkzone_core_admin_login_check') }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
     <label for="username">Username:</label>
     <input type="text" id="username" name="_username" value="{{ last_username }}" />
 

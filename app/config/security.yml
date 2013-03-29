@@ -34,7 +34,7 @@ security:
                 target: linkzone_core_admin_login
             form_login:
                 provider: in_memory
-#                csrf_provider: form.csrf_provider
+                csrf_provider: form.csrf_provider
                 login_path: linkzone_core_admin_login
                 check_path: linkzone_core_admin_login_check
                 default_target_path: linkzone_core_admin_home
