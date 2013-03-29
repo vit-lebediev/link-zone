@@ -1,0 +1,13 @@
+common:
+    id: ID
+    email: E-mail
+
+menu:
+    home:             Начальная страница
+    users_management: Управление пользователями
+users_management:
+    number_of_platforms: Количество площадок
+    last_login:      Последний Вход
+    ballance:            Баланс
+    status:              Статус
+    manage:          Управление

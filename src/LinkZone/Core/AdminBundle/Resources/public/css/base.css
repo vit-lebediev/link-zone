@@ -26,9 +26,9 @@ body {
     border: 1px solid black;
     border-radius: 6px;
     background: #B7B8DD;
-    width: 79%;
+    width: 78%;
     margin: 2px;
-    paddign: 7px;
+    padding: 10px;
 }
 
 #footer {
@@ -38,4 +38,15 @@ body {
     clear: both;
     margin: 2px;
     paddign: 4px;
+}
+
+.table_common
+{
+    width: 100%;
+    margin: 5px;
+}
+
+.table_common td
+{
+    padding: 4px;
 }

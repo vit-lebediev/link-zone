@@ -1,0 +1,36 @@
+{% extends "LinkZoneCoreAdminBundle::layout.html.twig" %}
+
+{% trans_default_domain "LZCoreAdminBundle" %}
+
+{% block title %}{{ "menu.users_management"|trans }}{% endblock %}
+
+{% block body %}
+<h1>{{ "menu.users_management"|trans }}</h1>
+
+<table class="table_common" border="1">
+    <thead>
+        <tr>
+            <td>{{ "common.id"|trans }}</td>
+            <td>{{ "common.email"|trans }}</td>
+            <td>{{ "users_management.number_of_platforms"|trans }}</td>
+            <td>{{ "users_management.last_login"|trans }}</td>
+            <td>{{ "users_management.ballance"|trans }}</td>
+            <td>{{ "users_management.status"|trans }}</td>
+            <td>{{ "users_management.manage"|trans }}</td>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.lastLogin|date("Y.m.d H:i a") }}</td>
+            <td>{{ user.ballance }}</td>
+            <td>{{ user.ballance }}</td>
+            <td><a href="{{ path("linkzone_core_admin_manage_user", {"userId": user.id}) }}">{{ "users_management.manage"|trans }}</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
