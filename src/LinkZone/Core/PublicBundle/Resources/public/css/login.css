@@ -1,0 +1,28 @@
+#login_form_placeholder
+{
+    width: 300px;
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: powderblue;
+}
+
+#login_form_placeholder form label
+{
+    display: inline-block;
+    width: 150px;
+}
+
+#_submit
+{
+    margin: 0 auto;
+    display: block;
+    width: 100px;
+    height: 25px;
+}
+
+#remember_me_placeholder
+{
+    margin: 5px 0;
+}

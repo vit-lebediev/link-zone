@@ -5,7 +5,7 @@ jms_security_extra:
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
-#        FOS\UserBundle\Model\UserInterface: sha512
+        FOS\UserBundle\Model\UserInterface: sha512
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -14,8 +14,8 @@ security:
 #        ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
-#        fos_userbundle:
-#            id: fos_user.user_provider.username
+        fos_userbundle:
+            id: fos_user.user_provider.username
         in_memory:
             memory:
                 users:
@@ -43,6 +43,18 @@ security:
             #http_basic:
             #    realm: "Secured Demo Area"
 
+        secured_area:
+            pattern: ^/
+            anonymous: true
+            logout: true
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: form.csrf_provider
+                login_path: /login
+                check_path: /login_check
+                default_target_path: /profile
+                always_use_default_target_path: true
+
         admin_secured_area:
             pattern: ^/admin
             anonymous: true
@@ -60,8 +72,11 @@ security:
         # starting with the /_internal prefix to only localhost
         #- { path: ^/_internal/secure, roles: IS_AUTHENTICATED_ANONYMOUSLY, ip: 127.0.0.1 }
         #- { path: ^/_internal/secure, roles: ROLE_NO_ACCESS }
+        - { path: ^/css/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+
         - { path: ^/admin/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, role: ROLE_ADMIN }
-#        - { path: ^/, roles: ROLE_USER }
+        - { path: ^/admin/.*, role: ROLE_ADMIN }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }

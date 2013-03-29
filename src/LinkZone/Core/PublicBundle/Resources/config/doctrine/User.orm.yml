@@ -1,0 +1,17 @@
+LinkZone\Core\PublicBundle\Entity\User:
+    type: entity
+    table: users
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        ballance:
+            type: float
+        status:
+            type: string
+            length: '100'
+        registrationDate:
+            type: datetime
+    lifecycleCallbacks: {  }

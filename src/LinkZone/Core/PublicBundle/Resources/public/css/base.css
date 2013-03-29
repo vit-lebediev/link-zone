@@ -1,0 +1,29 @@
+body {
+    padding: 5px;
+}
+
+#header {
+    border: 1px solid black;
+    height: 70px;
+    border-radius: 6px;
+    background: #B7B8DD;
+    margin: 2px;
+    paddign: 5px;
+}
+
+#body {
+    border: 1px solid black;
+    border-radius: 6px;
+    background: #B7B8DD;
+    margin: 2px;
+    paddign: 7px;
+}
+
+#footer {
+    border: 1px solid black;
+    border-radius: 6px;
+    background: #B7B8DD;
+    clear: both;
+    margin: 2px;
+    paddign: 4px;
+}
