@@ -5,14 +5,14 @@
 {% block title %}{{ parent() }} - {{ "user_management.user_management"|trans({"%username%": user.username}) }}{% endblock %}
 
 {% block body %}
-<h1>{{ "user_management.user_management"|trans({"%username%": user.username}) }}</h1>
+<h1 class="center">{{ "user_management.user_management"|trans({"%username%": user.username}) }}</h1>
 
 <div id="um_top_block" class="round_border">todo:statuses</div>
 
 <div>
     <div id="um_left_block" class="round_border">
-        <div>
-            <table class="table_common">
+        <div class="round_border">
+            <table class="table_common um_table_common">
                 <tbody>
                     <tr>
                         <td>{{ "common.email"|trans }}</td>
@@ -24,11 +24,40 @@
                 </tbody>
             </table>
         </div>
-        <div></div>
+        <div class="round_border">
+            <h3 class="center">{{ "user_management.billing_data"|trans }}</h3>
+            <table class="table_common um_table_common">
+                <tbody>
+                    <tr>
+                        <td>{{ "user_management.billing.yaDengy"|trans }}</td>
+                        <td>
+                            <input type="text" id="im_field_yadengy" value="{{ user.billingYaDengy }}" />
+                        </td>
+                        <td><a href="#" id="im_field_yadengy_link">{{ "common.change"|trans }}</a></td>
+                    </tr>
+                    <tr>
+                        <td>{{ "user_management.billing.webmoney.wmr"|trans }}</td>
+                        <td>
+                            <input type="text" id="im_field_wmr" value="{{ user.billingWMR }}" />
+                        </td>
+                        <td><a href="#" id="im_field_wmr_link">{{ "common.change"|trans }}</a></td>
+                    </tr>
+                    <tr>
+                        <td>{{ "user_management.billing.webmoney.wmz"|trans }}</td>
+                        <td>
+                            <input type="text" id="im_field_wmz" value="{{ user.billingWMZ }}" />
+                        </td>
+                        <td><a href="#" id="im_field_wmz_link">{{ "common.change"|trans }}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div></div>
     </div>
     <div id="um_right_block" class="round_border">right column</div>
 </div>
+
+<input type="hidden" id="userId" name="userId" value="{{ user.id }}" />
 
 {% endblock %}
 

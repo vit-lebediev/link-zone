@@ -49,7 +49,6 @@ body {
 .table_common td
 {
     padding: 4px;
-    width: 33%;
 }
 
 .round_border
@@ -87,4 +86,12 @@ body {
 .icon_loading img
 {
     margin: 0 4px;
+}
+
+.center
+{
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    text-align: center;
 }

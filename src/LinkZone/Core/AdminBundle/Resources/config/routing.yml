@@ -29,3 +29,9 @@ linkzone_core_admin_manage_user_ajax_email:
     defaults: { _controller: LinkZoneCoreAdminBundle:ManageUsers:ajaxChangeUserEmail }
     requirements:
         userId: \d+
+
+linkzone_core_admin_manage_user_ajax_billing:
+    pattern: /ajax/manage/user/{userId}/billing
+    defaults: { _controller: LinkZoneCoreAdminBundle:ManageUsers:ajaxChangeUserBilling }
+    requirements:
+        userId: \d+

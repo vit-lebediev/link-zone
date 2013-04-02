@@ -17,3 +17,8 @@
 {
     float: right;
 }
+
+.um_table_common td
+{
+    width: 33%;
+}

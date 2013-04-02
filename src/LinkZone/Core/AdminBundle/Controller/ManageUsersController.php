@@ -9,19 +9,31 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ManageUsersController extends Controller
 {
+    private $_userRepository;
+
+    private $_doctrineManager;
+
+    private $_billingAvailable = array(
+        "yadengy",
+        "wmr",
+        "wmz"
+    );
+
+    public function init()
+    {
+        $this->_userRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:User");
+        $this->_doctrineManager = $this->getDoctrine()->getManager();
+    }
+
     public function listAction()
     {
-        $userRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:User");
-        return $this->render("LinkZoneCoreAdminBundle:ManageUsers:list.html.twig", array('users' => $userRepository->findAll()));
+        return $this->render("LinkZoneCoreAdminBundle:ManageUsers:list.html.twig", array('users' => $this->_userRepository->findAll()));
     }
 
     public function specificAction($userId)
     {
-        $userRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:User");
-        $user = $userRepository->find($userId);
-
         return $this->render("LinkZoneCoreAdminBundle:ManageUsers:specific.html.twig", array(
-            'user' => $user,
+            'user' => $this->_userRepository->find($userId),
         ));
     }
 
@@ -36,11 +48,33 @@ class ManageUsersController extends Controller
 
         $email = $this->getRequest()->get("email");
 
-        $userRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:User");
-        $user = $userRepository->find($userId);
+        $user = $this->_userRepository->find($userId);
         $user->setEmail($email);
         $this->getDoctrine()->getManager()->persist($user);
         $this->getDoctrine()->getManager()->flush($user);
+
+        return new JsonResponse();
+    }
+
+    public function ajaxChangeUserBillingAction($userId)
+    {
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            throw new BadRequestHttpException("This method should only be called as xmlHttp");
+        }
+
+        if (!$billingType = $this->getRequest()->get("type") OR !in_array($billingType, $this->_billingAvailable)) {
+            throw new BadRequestHttpException("You should specify valid 'type' value for billing type");
+        }
+
+        $billingValue = $this->getRequest()->get("value");
+
+        $user = $this->_userRepository->find($userId);
+
+        $methodName = "setBilling" . $billingType;
+        $user->$methodName($billingValue);
+
+        $this->_doctrineManager->persist($user);
+        $this->_doctrineManager->flush($user);
 
         return new JsonResponse();
     }

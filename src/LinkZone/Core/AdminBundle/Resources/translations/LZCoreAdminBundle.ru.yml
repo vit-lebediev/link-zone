@@ -19,3 +19,9 @@ users_management:
 
 user_management:
     user_management: Управление пользователем %username%
+    billing_data:    Платежные данные
+    billing:
+        yaDengy: Я.Деньги
+        webmoney:
+            wmr: WMR
+            wmz: WMZ

@@ -21,9 +21,31 @@ class User extends BaseUser
     private $ballance;
 
     /**
+     * @var float
+     */
+    private $bonus;
+
+    /**
      * @var string
      */
     private $status;
+
+    /**
+     * Account number in Ya.Dengy service
+     *
+     * @var string
+     */
+    private $billingYaDengy;
+
+    /**
+     * @var string
+     */
+    private $billingWMR;
+
+    /**
+     * @var string
+     */
+    private $billingWMZ;
 
     /**
      * @var \DateTime
@@ -55,6 +77,29 @@ class User extends BaseUser
     }
 
     /**
+     * Set bonus
+     *
+     * @param float $bonus
+     * @return Users
+     */
+    public function setBonus($bonus)
+    {
+        $this->bonus = $bonus;
+
+        return $this;
+    }
+
+    /**
+     * Get bonus
+     *
+     * @return float
+     */
+    public function getBonus()
+    {
+        return $this->bonus;
+    }
+
+    /**
      * Set status
      *
      * @param string $status
@@ -75,6 +120,75 @@ class User extends BaseUser
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * Set billingYaDengy
+     *
+     * @param string $billingYaDengy
+     * @return Users
+     */
+    public function setBillingYaDengy($billingYaDengy)
+    {
+        $this->billingYaDengy = $billingYaDengy;
+
+        return $this;
+    }
+
+    /**
+     * Get billingYaDengy
+     *
+     * @return string
+     */
+    public function getBillingYaDengy()
+    {
+        return $this->billingYaDengy;
+    }
+
+    /**
+     * Set billingWMR
+     *
+     * @param string $billingWMR
+     * @return Users
+     */
+    public function setBillingWMR($billingWMR)
+    {
+        $this->billingWMR = $billingWMR;
+
+        return $this;
+    }
+
+    /**
+     * Get billingWMR
+     *
+     * @return string
+     */
+    public function getBillingWMR()
+    {
+        return $this->billingWMR;
+    }
+
+    /**
+     * Set billingWMZ
+     *
+     * @param string $billingWMZ
+     * @return Users
+     */
+    public function setBillingWMZ($billingWMZ)
+    {
+        $this->billingWMZ = $billingWMZ;
+
+        return $this;
+    }
+
+    /**
+     * Get billingWMZ
+     *
+     * @return string
+     */
+    public function getBillingWMZ()
+    {
+        return $this->billingWMZ;
     }
 
     /**

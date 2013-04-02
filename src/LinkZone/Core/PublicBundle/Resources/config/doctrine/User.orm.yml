@@ -9,9 +9,23 @@ LinkZone\Core\PublicBundle\Entity\User:
                 strategy: AUTO
         ballance:
             type: float
+        bonus:
+            type: float
         status:
             type: string
             length: '100'
+        billingYaDengy:
+            type: string
+            length: '20'
+            nullable: true
+        billingWMR:
+            type: string
+            length: '20'
+            nullable: true
+        billingWMZ:
+            type: string
+            length: '20'
+            nullable: true
         registrationDate:
             type: datetime
     lifecycleCallbacks: {  }
