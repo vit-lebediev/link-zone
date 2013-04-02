@@ -49,10 +49,42 @@ body {
 .table_common td
 {
     padding: 4px;
+    width: 33%;
 }
 
 .round_border
 {
     border: 1px solid black;
     border-radius: 6px;
+}
+
+#helper_block {
+    display: none;
+}
+
+#icon_tick {
+    display: none;
+}
+
+#icon_cross {
+    display: none;
+}
+
+#icon_loading {
+    display: none;
+}
+
+.icon_loading,
+.icon_tick,
+.icon_cross
+{
+    width: 125px;
+    height: 20px;
+    display: inline-block;
+    padding: 0 6px;
+}
+
+.icon_loading img
+{
+    margin: 0 4px;
 }
