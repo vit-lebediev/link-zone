@@ -20,6 +20,12 @@ users_management:
 user_management:
     user_management: Управление пользователем %username%
     billing_data:    Платежные данные
+    ballance:        Баланс
+    bonus:           Бонус
+    add_bonus:       Начислить бонус
+    cancel:          Отмена
+    amount:          Сумма
+    comment:         Комментарий
     billing:
         yaDengy: Я.Деньги
         webmoney:

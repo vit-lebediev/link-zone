@@ -54,10 +54,41 @@
         </div>
         <div></div>
     </div>
-    <div id="um_right_block" class="round_border">right column</div>
+    <div id="um_right_block" class="round_border">
+        <div class="round_border">
+            <table class="table_common">
+                <tbody>
+                    <tr>
+                        <td>{{ "user_management.ballance"|trans }}:</td>
+                        <td>{{ user.ballance }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "user_management.bonus"|trans }}:</td>
+                        <td>{{ user.bonus }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="#" id="im_add_bonus_link">+ {{ "user_management.add_bonus"|trans }}</a>
+        </div>
+    </div>
+</div>
+
+<div id="dialog-add-bonus" title="{{ "user_management.add_bonus"|trans }}">
+    <div class="center">
+        <label for="um_modal_amount">{{ "user_management.amount"|trans }}:</label>
+        <input type="text" id="um_modal_amount" class="" value="" />
+    </div>
+
+    <div class="center">
+        <label for="um_modal_comment">{{ "user_management.comment"|trans }}*:</label>
+        <textarea id="um_modal_comment" class="" cols="15" rows="3"></textarea>
+    </div>
+
 </div>
 
 <input type="hidden" id="userId" name="userId" value="{{ user.id }}" />
+<input type="hidden" id="string-add-bonus" value="{{ "user_management.add_bonus"|trans }}" />
+<input type="hidden" id="string-cancel" value="{{ "user_management.cancel"|trans }}" />
 
 {% endblock %}
 

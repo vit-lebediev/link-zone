@@ -78,4 +78,22 @@ class ManageUsersController extends Controller
 
         return new JsonResponse();
     }
+
+    public function ajaxAddBonusAction($userId)
+    {
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            throw new BadRequestHttpException("This method should only be called as xmlHttp");
+        }
+
+        $amount = $this->getRequest()->get("amount");
+        $comment = $this->getRequest()->get("comment");
+
+        $user = $this->_userRepository->find($userId);
+        $user->setBonus($user->getBonus() + $amount);
+
+        $this->_doctrineManager->persist($user);
+        $this->_doctrineManager->flush($user);
+
+        return new JsonResponse();
+    }
 }

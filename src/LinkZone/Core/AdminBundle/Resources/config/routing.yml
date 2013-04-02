@@ -35,3 +35,9 @@ linkzone_core_admin_manage_user_ajax_billing:
     defaults: { _controller: LinkZoneCoreAdminBundle:ManageUsers:ajaxChangeUserBilling }
     requirements:
         userId: \d+
+
+linkzone_core_admin_manage_user_ajax_bonus:
+    pattern: /ajax/manage/user/{userId}/bonus
+    defaults: { _controller: LinkZoneCoreAdminBundle:ManageUsers:ajaxAddBonus }
+    requirements:
+        userId: \d+

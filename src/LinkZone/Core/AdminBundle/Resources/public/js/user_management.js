@@ -71,6 +71,32 @@ jQuery(function(){
     });
 
 
+    var dialogButtons = {};
+    dialogButtons[$("#string-add-bonus").val()] = function() {
+        $.post(app_env + "/admin/ajax/manage/user/" + $("#userId").val() + "/bonus", {
+            amount: $(this).find("input#um_modal_amount").val(),
+            comment: $(this).find("textarea#um_modal_comment").val()
+        });
+        $(this).dialog("close");
+    };
+    dialogButtons[$("#string-cancel").val()] = function() {
+        $(this).dialog("close");
+   };
+
+    $("#dialog-add-bonus").dialog({
+        resizable: false,
+        height: 300,
+        width: 400,
+        modal: true,
+        autoOpen: false,
+        buttons: dialogButtons
+    })
+
+    $("#im_add_bonus_link").click(function() {
+        $("#dialog-add-bonus").dialog("open");
+    });
+
+
     this.startLoading = function (that)
     {
         var element = $(that).parent().find("." + iconLoadingIdAndClass);
