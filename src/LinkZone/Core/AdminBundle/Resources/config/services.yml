@@ -1,10 +1,16 @@
 parameters:
 #    link_zone_core_admin.example.class: LinkZone\Core\AdminBundle\Example
+    controller.listener.class: LinkZone\Core\AdminBundle\EventListener\ControllerListener
 
 services:
 #    link_zone_core_admin.example:
 #        class: %link_zone_core_admin.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    controller.listener:
+        class: %controller.listener.class%
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
     link_zone_core_admin.menu_builder:
         class: LinkZone\Core\AdminBundle\Menu\Builder
         arguments: ["@knp_menu.factory"]
