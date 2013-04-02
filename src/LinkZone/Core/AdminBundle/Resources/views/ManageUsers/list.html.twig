@@ -2,10 +2,12 @@
 
 {% trans_default_domain "LZCoreAdminBundle" %}
 
-{% block title %}{{ "menu.users_management"|trans }}{% endblock %}
+{% block title %}{{ parent() }} - {{ "menu.users_management"|trans }}{% endblock %}
 
 {% block body %}
 <h1>{{ "menu.users_management"|trans }}</h1>
+
+<div>todo:filters</div>
 
 <table class="table_common" border="1">
     <thead>

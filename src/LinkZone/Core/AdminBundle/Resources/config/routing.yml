@@ -21,3 +21,11 @@ linkzone_core_admin_manage_users:
 linkzone_core_admin_manage_user:
     pattern: /manage/user/{userId}
     defaults: { _controller: LinkZoneCoreAdminBundle:ManageUsers:specific }
+    requirements:
+        userId: \d+
+
+linkzone_core_admin_manage_user_ajax_email:
+    pattern: /ajax/manage/user/{userId}/email
+    defaults: { _controller: LinkZoneCoreAdminBundle:ManageUsers:ajaxChangeUserEmail }
+    requirements:
+        userId: \d+

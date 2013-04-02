@@ -1,0 +1,19 @@
+#um_top_block,
+#um_left_block,
+#um_right_block
+{
+    margin: 5px;
+    padding: 5px;
+}
+
+#um_left_block,
+#um_right_block
+{
+    width: 46%;
+    float: left;
+}
+
+#um_right_block
+{
+    float: right;
+}

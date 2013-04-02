@@ -1,4 +1,4 @@
 {% extends "::admin.base.html.twig" %}
-{% block title %}Administration{% endblock %}
+{% block title %}{{ parent() }}{% endblock %}
 {% block body %}{% endblock %}
-{% block javascripts %}{% endblock %}
+{% block javascripts %}{{ parent() }}{% endblock %}

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Administration{% endblock %}</title>
+        <title>{% block title %}{{ "common.admin_panel"|trans({}, "LZCoreAdminBundle") }}{% endblock %}</title>
         {% block stylesheets %}
         {% stylesheets 'bundles/linkzonecoreadmin/css/*' filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
@@ -24,5 +24,9 @@
         <div id="main_menu">{{ knp_menu_render("main") }}</div>
         <div id="body">{% block body %}{% endblock %}</div>
         <div id="footer"></div>
+        {% block javascripts %}
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+        {% endblock %}
     </body>
 </html>

@@ -1,7 +1,38 @@
 {% extends "LinkZoneCoreAdminBundle::layout.html.twig" %}
 
-{% block title %}LinkZoneCoreAdminBundle:ManageUsers:showSpecific{% endblock %}
+{% trans_default_domain "LZCoreAdminBundle" %}
+
+{% block title %}{{ parent() }} - {{ "user_management.user_management"|trans({"%username%": user.username}) }}{% endblock %}
 
 {% block body %}
-<h1>Welcome at the ManageUsers:showSpecific page</h1>
+<h1>{{ "user_management.user_management"|trans({"%username%": user.username}) }}</h1>
+
+<div id="um_top_block" class="round_border">todo:statuses</div>
+
+<div>
+    <div id="um_left_block" class="round_border">
+        <div>
+            <table class="table_common">
+                <tbody>
+                    <tr>
+                        <td>{{ "common.email"|trans }}</td>
+                        <td>
+                            <input type="text" id="im_field_email" value="{{ user.email }}" />
+                        </td>
+                        <td><a href="#" id="im_field_email_link">{{ "common.change"|trans }}</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div></div>
+        <div></div>
+    </div>
+    <div id="um_right_block" class="round_border">right column</div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset("bundles/linkzonecoreadmin/js/user_management.js") }}"></script>
 {% endblock %}
