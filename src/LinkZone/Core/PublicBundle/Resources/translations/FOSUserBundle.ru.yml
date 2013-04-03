@@ -1,3 +1,5 @@
 profile:
     show:
         ballance: Баланс
+        bonus:    Бонус
+        billing_data: Платежные данные
