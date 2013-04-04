@@ -60,11 +60,11 @@
                 <tbody>
                     <tr>
                         <td>{{ "user_management.ballance"|trans }}:</td>
-                        <td>{{ user.ballance }}</td>
+                        <td>{{ user.ballance|number_format(2) }}</td>
                     </tr>
                     <tr>
                         <td>{{ "user_management.bonus"|trans }}:</td>
-                        <td>{{ user.bonus }}</td>
+                        <td>{{ user.bonus|number_format(2) }}</td>
                     </tr>
                 </tbody>
             </table>

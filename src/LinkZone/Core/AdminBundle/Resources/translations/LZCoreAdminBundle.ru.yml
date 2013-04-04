@@ -3,9 +3,6 @@ common:
     email:       E-mail
     admin_panel: Панель управления
     change:      Изменить
-    loading:     Загрузка...
-    success:     Успешно !
-    failure:     Произошла ошибка
 
 menu:
     home:             Начальная страница

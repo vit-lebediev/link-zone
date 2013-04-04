@@ -57,18 +57,9 @@ body {
     border-radius: 6px;
 }
 
-#helper_block {
-    display: none;
-}
-
-#icon_tick {
-    display: none;
-}
-
-#icon_cross {
-    display: none;
-}
-
+#helper_block,
+#icon_tick,
+#icon_cross,
 #icon_loading {
     display: none;
 }
@@ -77,15 +68,20 @@ body {
 .icon_tick,
 .icon_cross
 {
-    width: 125px;
-    height: 20px;
+    width: 16px;
+    height: 16px;
     display: inline-block;
-    padding: 0 6px;
+    margin: 0 6px;
 }
 
-.icon_loading img
+.icon_tick
 {
-    margin: 0 4px;
+    background: url('/bundles/linkzonecoreadmin/images/icon_tick.png') 0 0 no-repeat;
+}
+
+.icon_cross
+{
+    background: url('/bundles/linkzonecoreadmin/images/icon_cross.png') 0 4 no-repeat;
 }
 
 .center

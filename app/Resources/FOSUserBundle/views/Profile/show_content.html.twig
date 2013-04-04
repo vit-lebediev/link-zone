@@ -3,8 +3,8 @@
 <div class="fos_user_user_show">
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-    <p>{{ 'profile.show.ballance'|trans }}: {{ user.ballance }}</p>
-    <p>{{ 'profile.show.bonus'|trans }}: {{ user.bonus }}</p>
+    <p>{{ 'profile.show.ballance'|trans }}: {{ user.ballance|number_format(2) }}</p>
+    <p>{{ 'profile.show.bonus'|trans }}: {{ user.bonus|number_format(2) }}</p>
     <h3>{{ 'profile.show.billing_data'|trans }}</h3>
     <p>{{ 'user_management.billing.yaDengy'|trans({}, 'LZCoreAdminBundle') }}: <u>{{ user.billingYaDengy }}</u></p>
     <p>{{ 'user_management.billing.webmoney.wmr'|trans({}, 'LZCoreAdminBundle') }}: <u>{{ user.billingWMR }}</u></p>
