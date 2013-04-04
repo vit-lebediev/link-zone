@@ -25,14 +25,16 @@
         <div id="main_menu">{{ knp_menu_render("main") }}</div>
         <div id="body">{% block body %}{% endblock %}</div>
         <div id="footer"></div>
-        {% block javascripts %}
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-            <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-        {% endblock %}
         <div id="helper_block">
             <div id="icon_loading"><img src="{{ asset("bundles/linkzonecoreadmin/images/ajax-loader.gif") }}" /><span class="text">{{ "common.loading"|trans({}, "LZCoreAdminBundle") }}</span></div>
             <div id="icon_tick"><span class="text">{{ "common.success"|trans({}, "LZCoreAdminBundle") }}</span></div>
             <div id="icon_cross"><span class="text">{{ "common.failure"|trans({}, "LZCoreAdminBundle") }}</span></div>
         </div>
+        {% block javascripts %}
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+            <script src="{{ asset("bundles/linkzonecoreadmin/js/base.js") }}"></script>
+            <script src="{{ asset("bundles/linkzonecoreadmin/js/jQueryPlugins.js") }}"></script>
+        {% endblock %}
     </body>
 </html>
