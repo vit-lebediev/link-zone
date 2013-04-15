@@ -64,7 +64,7 @@ jQuery(function(){
 
     var dialogButtons = {};
     dialogButtons[$("#string-add-bonus").val()] = function() {
-        $.post(app_env + "/admin/ajax/manage/user/" + $("#userId").val() + "/bonus", {
+        $.post(LinkZone.app_env + "/admin/ajax/manage/user/" + $("#userId").val() + "/bonus", {
             amount: $(this).find("input#um_modal_amount").val(),
             comment: $(this).find("textarea#um_modal_comment").val()
         });
