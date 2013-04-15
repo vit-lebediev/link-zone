@@ -30,11 +30,10 @@
             <div id="icon_tick"></div>
             <div id="icon_cross"></div>
         </div>
-        {% block javascripts %}
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-            <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-            <script src="{{ asset("bundles/linkzonecoreadmin/js/base.js") }}"></script>
-            <script src="{{ asset("bundles/linkzonecoreadmin/js/jQueryPlugins.js") }}"></script>
-        {% endblock %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+        <script src="{{ asset("bundles/linkzonecoreadmin/js/base.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecoreadmin/js/jQueryPlugins.js") }}"></script>
+        {% block javascripts %}{% endblock %}
     </body>
 </html>
