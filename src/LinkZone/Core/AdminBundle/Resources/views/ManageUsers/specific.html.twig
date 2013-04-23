@@ -7,7 +7,11 @@
 {% block body %}
 <h1 class="center">{{ "user_management.user_management"|trans({"%username%": user.username}) }}</h1>
 
-<div id="um_top_block" class="round_border">todo:statuses</div>
+<div id="um_top_block" class="round_border">
+    <form action="" method="POST" {{ form_enctype(statusDropDown) }}>
+        {{ form_widget(statusDropDown)}}
+    </form>
+</div>
 
 <div>
     <div id="um_left_block" class="round_border">

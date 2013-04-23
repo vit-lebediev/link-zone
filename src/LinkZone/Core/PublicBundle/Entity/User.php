@@ -5,6 +5,8 @@ namespace LinkZone\Core\PublicBundle\Entity;
 use FOS\UserBundle\Entity\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\ORMInvalidArgumentException;
+
 /**
  * Users
  */
@@ -52,6 +54,19 @@ class User extends BaseUser
      */
     private $registrationDate;
 
+    const STATUS_ACTIVE          = "ACTIVE";
+    const STATUS_BLOCKED         = "BLOCKED";
+    const STATUS_DELETED         = "DELETED";
+    const STATUS_ACCOUNT_BLOCKED = "FUNDS_BLOCKED";
+    const STATUS_PASSIVE         = "PASSIVE";
+
+    public static $availableStatuses = array(
+        self::STATUS_ACTIVE,
+        self::STATUS_BLOCKED,
+        self::STATUS_DELETED,
+        self::STATUS_ACCOUNT_BLOCKED,
+        self::STATUS_PASSIVE,
+    );
 
     /**
      * Set ballance
@@ -107,6 +122,10 @@ class User extends BaseUser
      */
     public function setStatus($status)
     {
+        if (!in_array($status, self::$availableStatuses)) {
+            throw new ORMInvalidArgumentException("You should provide valid status for a user (pick from: " . implode(", ", self::$availableStatuses) . ")");
+        }
+
         $this->status = $status;
 
         return $this;

@@ -6,12 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Doctrine\ORM\ORMInvalidArgumentException;
+
+use LinkZone\Core\PublicBundle\Entity\User;
 
 class ManageUsersController extends Controller
 {
     private $_userRepository;
 
     private $_doctrineManager;
+
+    private $_translator;
+
+    private $_logger;
 
     private $_billingAvailable = array(
         "yadengy",
@@ -21,19 +28,49 @@ class ManageUsersController extends Controller
 
     public function init()
     {
-        $this->_userRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:User");
+        $this->_userRepository  = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:User");
         $this->_doctrineManager = $this->getDoctrine()->getManager();
+        $this->_translator      = $this->get('translator');
+        $this->_logger          = $this->get('logger');
     }
 
+    /**
+     * List all the users
+     *
+     * @return type
+     */
     public function listAction()
     {
         return $this->render("LinkZoneCoreAdminBundle:ManageUsers:list.html.twig", array('users' => $this->_userRepository->findAll()));
     }
 
+    /**
+     * Show information about specific user
+     *
+     * @param int $userId
+     * @return type
+     */
     public function specificAction($userId)
     {
+        $user = $this->_userRepository->find($userId);
+        $statusDropDown = $this->createFormBuilder($user)
+                     ->add("status", "choice", array(
+                         'choices' => array(
+                             User::STATUS_ACTIVE          => $this->_translator->trans("user_management.statuses." . User::STATUS_ACTIVE,          array(), "LZCoreAdminBundle"),
+                             User::STATUS_ACCOUNT_BLOCKED => $this->_translator->trans("user_management.statuses." . User::STATUS_ACCOUNT_BLOCKED, array(), "LZCoreAdminBundle"),
+                             User::STATUS_DELETED         => $this->_translator->trans("user_management.statuses." . User::STATUS_DELETED,         array(), "LZCoreAdminBundle"),
+                             User::STATUS_BLOCKED         => $this->_translator->trans("user_management.statuses." . User::STATUS_BLOCKED,         array(), "LZCoreAdminBundle"),
+                             User::STATUS_PASSIVE         => $this->_translator->trans("user_management.statuses." . User::STATUS_PASSIVE,         array(), "LZCoreAdminBundle"),
+                         ),
+//                         'data' => $user->getStatus(),
+                         // leave this here for future reference
+//                         'attr' => array(
+//                             'class' => 'user_status',
+//                         ),
+                     ))->getForm();
         return $this->render("LinkZoneCoreAdminBundle:ManageUsers:specific.html.twig", array(
-            'user' => $this->_userRepository->find($userId),
+            'user' => $user,
+            'statusDropDown' => $statusDropDown->createView(),
         ));
     }
 
@@ -50,8 +87,8 @@ class ManageUsersController extends Controller
 
         $user = $this->_userRepository->find($userId);
         $user->setEmail($email);
-        $this->getDoctrine()->getManager()->persist($user);
-        $this->getDoctrine()->getManager()->flush($user);
+        $this->_doctrineManager->persist($user);
+        $this->_doctrineManager->flush($user);
 
         return new JsonResponse();
     }
@@ -93,6 +130,22 @@ class ManageUsersController extends Controller
 
         $this->_doctrineManager->persist($user);
         $this->_doctrineManager->flush($user);
+
+        return new JsonResponse();
+    }
+
+    public function ajaxSetStatusAction($userId)
+    {
+        $status = $this->getRequest()->get("status");
+        $user = $this->_userRepository->find($userId);
+        try {
+            $user->setStatus($status);
+            $this->_doctrineManager->persist($user);
+            $this->_doctrineManager->flush($user);
+        } catch (ORMInvalidArgumentException $e) {
+            $this->_logger->err("Invalid user status provided (" . $status . ")");
+            return (new JsonResponse())->setStatusCode(500);
+        }
 
         return new JsonResponse();
     }

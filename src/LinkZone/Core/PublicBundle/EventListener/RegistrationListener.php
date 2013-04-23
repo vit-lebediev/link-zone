@@ -6,6 +6,8 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\UserEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+use LinkZone\Core\PublicBundle\Entity\User;
+
 /**
  * Listener responsible to fill required fields for newly created user
  */
@@ -25,10 +27,10 @@ class RegistrationListener implements EventSubscriberInterface
     public function onRegistrationInitialize(UserEvent $event)
     {
         $user = $event->getUser();
-        $request = $event->getRequest();
 
         $user->setBallance(0);
-        $user->setStatus("ACTIVE");
+        $user->setBonus(0);
+        $user->setStatus(User::STATUS_ACTIVE);
         $user->setRegistrationDate(new \DateTime());
     }
 }

@@ -41,3 +41,7 @@ linkzone_core_admin_manage_user_ajax_bonus:
     defaults: { _controller: LinkZoneCoreAdminBundle:ManageUsers:ajaxAddBonus }
     requirements:
         userId: \d+
+
+linkzone_core_admin_manage_user_ajax_status:
+    pattern: /ajax/manage/user/{userId}/status
+    defaults: { _controller: LinkZoneCoreAdminBundle:ManageUsers:ajaxSetStatus }

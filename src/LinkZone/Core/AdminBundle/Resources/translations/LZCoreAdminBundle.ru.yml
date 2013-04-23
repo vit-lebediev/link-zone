@@ -28,3 +28,9 @@ user_management:
         webmoney:
             wmr: WMR
             wmz: WMZ
+    statuses:
+        ACTIVE: Активный
+        BLOCKED: Блокированный
+        DELETED: Удален
+        FUNDS_BLOCKED: Блок средств
+        PASSIVE: Пассивный

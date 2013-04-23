@@ -86,4 +86,17 @@ jQuery(function(){
     $("#im_add_bonus_link").click(function() {
         $("#dialog-add-bonus").dialog("open");
     });
+
+    $("select#form_status").change(function() {
+        var thisElement = this;
+        var newStatus = $(thisElement).find("option:selected:first").val();
+        $(thisElement).startLoading();
+        $.post(LinkZone.app_env + "/admin/ajax/manage/user/" + $("#userId").val() + "/status", {
+            status: newStatus
+        }).done(function (jqXHR, textStatus, errorThrown) {
+            $(thisElement).successLoading();
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            $(thisElement).failLoading();
+        });
+    });
 });
