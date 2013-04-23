@@ -2,7 +2,6 @@ jQuery(function(){
     $("#im_field_email_link").click(function() {
         var thisElement = this;
         $(thisElement).startLoading();
-        // TODO: validate field
         $.post(LinkZone.app_env + "/admin/ajax/manage/user/" + $("#userId").val() + "/email", {
             email: $("#im_field_email").val()
         }).done(function (jqXHR, textStatus, errorThrown) {
@@ -17,7 +16,6 @@ jQuery(function(){
     $("#im_field_yadengy_link").click(function() {
         var thisElement = this;
         $(thisElement).startLoading();
-        // TODO: validate field
         $.post(LinkZone.app_env + "/admin/ajax/manage/user/" + $("#userId").val() + "/billing", {
             type: "yadengy",
             value: $("#im_field_yadengy").val()
@@ -33,7 +31,6 @@ jQuery(function(){
     $("#im_field_wmr_link").click(function() {
         var thisElement = this;
         $(thisElement).startLoading();
-        // TODO: validate field
         $.post(LinkZone.app_env + "/admin/ajax/manage/user/" + $("#userId").val() + "/billing", {
             type: "wmr",
             value: $("#im_field_wmr").val()
@@ -49,7 +46,6 @@ jQuery(function(){
     $("#im_field_wmz_link").click(function() {
         var thisElement = this;
         $(thisElement).startLoading();
-        // TODO: validate field
         $.post(LinkZone.app_env + "/admin/ajax/manage/user/" + $("#userId").val() + "/billing", {
             type: "wmz",
             value: $("#im_field_wmz").val()
@@ -98,5 +94,18 @@ jQuery(function(){
         }).fail(function (jqXHR, textStatus, errorThrown) {
             $(thisElement).failLoading();
         });
+    });
+
+    $("#im_reset_password_link").click(function() {
+        var thisElement = this;
+        $(thisElement).startLoading();
+        $.post(LinkZone.app_env + "/admin/ajax/manage/user/" + $("#userId").val() + "/resetPassword")
+        .done(function (jqXHR, textStatus, errorThrown) {
+            $(thisElement).successLoading();
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            $(thisElement).failLoading();
+        });
+
+        return;
     });
 });

@@ -45,3 +45,11 @@ linkzone_core_admin_manage_user_ajax_bonus:
 linkzone_core_admin_manage_user_ajax_status:
     pattern: /ajax/manage/user/{userId}/status
     defaults: { _controller: LinkZoneCoreAdminBundle:ManageUsers:ajaxSetStatus }
+    requirements:
+        userId: \d+
+
+linkzone_core_admin_manage_user_ajax_reset_password:
+    pattern: /ajax/manage/user/{userId}/resetPassword
+    defaults: { _controller: LinkZoneCoreAdminBundle:ManageUsers:ajaxResetPassword }
+    requirements:
+        userId: \d+

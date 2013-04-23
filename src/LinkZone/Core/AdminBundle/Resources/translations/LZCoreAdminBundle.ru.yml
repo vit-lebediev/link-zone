@@ -7,6 +7,7 @@ common:
 menu:
     home:             Начальная страница
     users_management: Управление пользователями
+
 users_management:
     number_of_platforms: Количество площадок
     last_login:          Последний Вход
@@ -23,6 +24,7 @@ user_management:
     cancel:          Отмена
     amount:          Сумма
     comment:         Комментарий
+    reset_password:  Сбросить пароль
     billing:
         yaDengy: Я.Деньги
         webmoney:

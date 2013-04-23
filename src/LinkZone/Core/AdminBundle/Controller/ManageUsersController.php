@@ -149,4 +149,13 @@ class ManageUsersController extends Controller
 
         return new JsonResponse();
     }
+
+    public function ajaxResetPasswordAction($userId)
+    {
+        $this->getRequest()->request->set('username', $this->_userRepository->find($userId)->getUsername());
+        $response = $this->forward("FOSUserBundle:Resetting:sendEmail", array(
+            'request' => $this->getRequest(),
+        ));
+        return new JsonResponse();
+    }
 }
