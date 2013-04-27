@@ -54,6 +54,16 @@ class User extends BaseUser
      */
     private $registrationDate;
 
+    /**
+     * @var string
+     */
+    private $referralValue;
+
+    /**
+     * @var integer
+     */
+    private $referrerId;
+
     const STATUS_ACTIVE          = "ACTIVE";
     const STATUS_BLOCKED         = "BLOCKED";
     const STATUS_DELETED         = "DELETED";
@@ -231,5 +241,51 @@ class User extends BaseUser
     public function getRegistrationDate()
     {
         return $this->registrationDate;
+    }
+
+    /**
+     * Set referralValue
+     *
+     * @param string $referralValue
+     * @return User
+     */
+    public function setReferralValue($referralValue)
+    {
+        $this->referralValue = $referralValue;
+
+        return $this;
+    }
+
+    /**
+     * Get referralValue
+     *
+     * @return string
+     */
+    public function getReferralValue()
+    {
+        return $this->referralValue;
+    }
+
+    /**
+     * Set referrerId
+     *
+     * @param integer $referrerId
+     * @return User
+     */
+    public function setReferrerId($referrerId)
+    {
+        $this->referrerId = $referrerId;
+
+        return $this;
+    }
+
+    /**
+     * Get referrerId
+     *
+     * @return integer
+     */
+    public function getReferrerId()
+    {
+        return $this->referrerId;
     }
 }

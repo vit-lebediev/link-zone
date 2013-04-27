@@ -3,6 +3,7 @@ common:
     email:       E-mail
     admin_panel: Панель управления
     change:      Изменить
+    user:        Пользователь
 
 menu:
     home:             Начальная страница
@@ -25,6 +26,9 @@ user_management:
     amount:          Сумма
     comment:         Комментарий
     reset_password:  Сбросить пароль
+    referrals:       Рефералы
+    spent:           Потрачено
+    referral_funds:  Реф. средства
     billing:
         yaDengy: Я.Деньги
         webmoney:

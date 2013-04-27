@@ -4,5 +4,7 @@ parameters:
 services:
     link_zone_core_public.listener.registration_initialize:
         class: %link_zone_core_public.listener.registration_initialize.class%
+        calls:
+            - [ setContainer, ["@service_container"]]
         tags:
             - { name: kernel.event_subscriber }

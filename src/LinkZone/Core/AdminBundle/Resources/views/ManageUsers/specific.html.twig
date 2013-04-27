@@ -9,7 +9,7 @@
 
 <div id="um_top_block" class="round_border">
     <form action="" method="POST" {{ form_enctype(statusDropDown) }}>
-        {{ form_widget(statusDropDown)}}
+        {{ form_widget(statusDropDown.status)}}
     </form>
 </div>
 
@@ -78,6 +78,25 @@
                 </tbody>
             </table>
             <a href="#" id="im_add_bonus_link">+ {{ "user_management.add_bonus"|trans }}</a>
+        </div>
+        <div class="round_border">
+            <h3 class="center">{{ "user_management.referrals"|trans }}</h3>
+            <table class="table_common">
+                <tbody>
+                    <tr>
+                        <td>{{ "common.user"|trans }}</td>
+                        <td>{{ "user_management.spent"|trans }}</td>
+                        <td>{{ "user_management.referral_funds"|trans }}</td>
+                    </tr>
+                    {% for referral in userReferrals %}
+                    <tr>
+                        <td><a href="{{ path("linkzone_core_admin_manage_user", {"userId": referral.id}) }}">{{ referral.username }}</a></td>
+                        <td>{{ referral.id }}</td>
+                        <td>{{ referral.id }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

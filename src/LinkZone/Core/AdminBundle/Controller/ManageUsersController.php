@@ -70,6 +70,7 @@ class ManageUsersController extends Controller
                      ))->getForm();
         return $this->render("LinkZoneCoreAdminBundle:ManageUsers:specific.html.twig", array(
             'user' => $user,
+            'userReferrals' => $this->_userRepository->findBy(array('referrerId' => $user->getId())),
             'statusDropDown' => $statusDropDown->createView(),
         ));
     }

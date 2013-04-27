@@ -28,4 +28,11 @@ LinkZone\Core\PublicBundle\Entity\User:
             nullable: true
         registrationDate:
             type: datetime
+        referralValue:
+            type: string
+            length: 10
+            unique: true
+        referrerId:
+            type: integer
+            nullable: true
     lifecycleCallbacks: {  }
