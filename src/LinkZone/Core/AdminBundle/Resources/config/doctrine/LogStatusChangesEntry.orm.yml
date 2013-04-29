@@ -1,0 +1,26 @@
+LinkZone\Core\AdminBundle\Entity\LogStatusChangesEntry:
+    type: entity
+    table: LogStatusChanges
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        userId:
+            type: integer
+        fromStatus:
+            type: string
+            length: '100'
+        toStatus:
+            type: string
+            length: '100'
+        date:
+            type: datetime
+        whoChanged:
+            type: string
+            length: 255
+        reason:
+            type: string
+            length: 255
+    lifecycleCallbacks: {  }

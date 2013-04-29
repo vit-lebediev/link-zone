@@ -111,12 +111,28 @@
         <label for="um_modal_comment">{{ "user_management.comment"|trans }}*:</label>
         <textarea id="um_modal_comment" class="" cols="15" rows="3"></textarea>
     </div>
+</div>
 
+<div id="dialog-change-status" title="">
+    <div class="center">
+        <span>{{ "user_management.status_change"|trans({"%username%": user.username}) }}<span id="um_modal_status_change_status"></span></span>
+    </div>
+    <div class="center">
+        <label for="um_modal_status_reason">{{ "user_management.reason"|trans }}*:</label>
+        <textarea id="um_modal_status_reason" class="" cols="15" rows="3"></textarea>
+    </div>
 </div>
 
 <input type="hidden" id="userId" name="userId" value="{{ user.id }}" />
-<input type="hidden" id="string-add-bonus" value="{{ "user_management.add_bonus"|trans }}" />
-<input type="hidden" id="string-cancel" value="{{ "user_management.cancel"|trans }}" />
+<input type="hidden" id="string-add-bonus" value="{{ "user_management.buttons.add_bonus"|trans }}" />
+<input type="hidden" id="string-cancel" value="{{ "user_management.buttons.cancel"|trans }}" />
+<input type="hidden" id="string-change-status" value="{{ "user_management.buttons.change_status"|trans }}" />
+
+<input type="hidden" id="string-status-ACTIVE" value="{{ "user_management.statuses.ACTIVE"|trans }}" />
+<input type="hidden" id="string-status-BLOCKED" value="{{ "user_management.statuses.BLOCKED"|trans }}" />
+<input type="hidden" id="string-status-DELETED" value="{{ "user_management.statuses.DELETED"|trans }}" />
+<input type="hidden" id="string-status-FUNDS_BLOCKED" value="{{ "user_management.statuses.FUNDS_BLOCKED"|trans }}" />
+<input type="hidden" id="string-status-PASSIVE" value="{{ "user_management.statuses.PASSIVE"|trans }}" />
 
 {% endblock %}
 

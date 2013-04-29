@@ -9,6 +9,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Doctrine\ORM\ORMInvalidArgumentException;
 
 use LinkZone\Core\PublicBundle\Entity\User;
+use LinkZone\Core\AdminBundle\Entity\LogStatusChangesEntry;
 
 class ManageUsersController extends Controller
 {
@@ -137,16 +138,32 @@ class ManageUsersController extends Controller
 
     public function ajaxSetStatusAction($userId)
     {
-        $status = $this->getRequest()->get("status");
         $user = $this->_userRepository->find($userId);
+        $status = $this->getRequest()->get("status");
+        $prevStatus = $user->getStatus();
+        $reasonMessage = $this->getRequest()->get("reason");
+        if (strlen($reasonMessage) == 0) {
+            throw new BadRequestHttpException("You must specify reason for status change");
+        }
         try {
             $user->setStatus($status);
             $this->_doctrineManager->persist($user);
-            $this->_doctrineManager->flush($user);
         } catch (ORMInvalidArgumentException $e) {
             $this->_logger->err("Invalid user status provided (" . $status . ")");
-            return (new JsonResponse())->setStatusCode(500);
+            throw new BadRequestHttpException();
+//            return (new JsonResponse())->setStatusCode(500);
         }
+
+        $logStatusEntry = new LogStatusChangesEntry();
+        $logStatusEntry->setDate(new \DateTime());
+        $logStatusEntry->setFromStatus($prevStatus);
+        $logStatusEntry->setToStatus($status);
+        $logStatusEntry->setReason($reasonMessage);
+        $logStatusEntry->setWhoChanged($this->get('security.context')->getToken()->getUser()->getUsername());
+        $logStatusEntry->setUserId($userId);
+        $this->_doctrineManager->persist($logStatusEntry);
+
+        $this->_doctrineManager->flush($user);
 
         return new JsonResponse();
     }

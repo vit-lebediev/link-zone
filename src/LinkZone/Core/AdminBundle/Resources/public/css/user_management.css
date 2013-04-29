@@ -27,3 +27,11 @@
 {
     width: 100px;
 }
+
+#um_modal_status_change_status
+{
+    display: inline-block;
+    border-radius: 3px;
+    border: 1px solid black;
+    padding: 5px;
+}

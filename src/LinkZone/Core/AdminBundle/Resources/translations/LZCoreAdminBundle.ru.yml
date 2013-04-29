@@ -22,13 +22,18 @@ user_management:
     ballance:        Баланс
     bonus:           Бонус
     add_bonus:       Начислить бонус
-    cancel:          Отмена
     amount:          Сумма
     comment:         Комментарий
     reset_password:  Сбросить пароль
     referrals:       Рефералы
     spent:           Потрачено
     referral_funds:  Реф. средства
+    status_change:   Вы меняете статус пользователя %username% на
+    reason:          Причина
+    buttons:
+        add_bonus:       Начислить бонус
+        change_status: Сменить
+        cancel:          Отмена
     billing:
         yaDengy: Я.Деньги
         webmoney:
