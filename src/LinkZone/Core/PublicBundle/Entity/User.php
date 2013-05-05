@@ -60,9 +60,9 @@ class User extends BaseUser
     private $referralValue;
 
     /**
-     * @var integer
+     * @var \LinkZone\Core\PublicBundle\Entity\User
      */
-    private $referrerId;
+    private $referrer;
 
     const STATUS_ACTIVE          = "ACTIVE";
     const STATUS_BLOCKED         = "BLOCKED";
@@ -267,25 +267,25 @@ class User extends BaseUser
     }
 
     /**
-     * Set referrerId
+     * Set referrer
      *
-     * @param integer $referrerId
+     * @param \LinkZone\Core\PublicBundle\Entity\User $referrer
      * @return User
      */
-    public function setReferrerId($referrerId)
+    public function setReferrer(User $referrer = null)
     {
-        $this->referrerId = $referrerId;
+        $this->referrer = $referrer;
 
         return $this;
     }
 
     /**
-     * Get referrerId
+     * Get referrer
      *
-     * @return integer
+     * @return \LinkZone\Core\PublicBundle\Entity\User
      */
-    public function getReferrerId()
+    public function getReferrer()
     {
-        return $this->referrerId;
+        return $this->referrer;
     }
 }

@@ -45,7 +45,7 @@ class RegistrationListener extends ContainerAware implements EventSubscriberInte
         if ($referralValue = $request->get("referralValue") &&
                 $referrer = $userRepository->findOneBy(array('referralValue' => $request->get("referralValue"))))
         {
-                $user->setReferrerId($referrer->getId());
+                $user->setReferrer($referrer);
         }
     }
 }
