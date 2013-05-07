@@ -109,8 +109,6 @@ jQuery(function(){
 
     statusChangeDialogButtons[$("#string-cancel").val()] = function() {
         // return previous status to select box
-        $("select#form_status option:selected").removeAttr("selected");
-        $("select#form_status option[value=" + prevStatus + "]").attr("selected", "selected");
         $(this).dialog("close");
     };
 
@@ -120,7 +118,11 @@ jQuery(function(){
         width: 400,
         modal: true,
         autoOpen: false,
-        buttons: statusChangeDialogButtons
+        buttons: statusChangeDialogButtons,
+        close: function (event, ui) {
+            $("select#form_status option:selected").removeAttr("selected");
+            $("select#form_status option[value=" + prevStatus + "]").attr("selected", "selected");
+        }
     });
 
     $("select#form_status").click(function() {
