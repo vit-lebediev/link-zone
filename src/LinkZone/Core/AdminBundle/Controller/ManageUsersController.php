@@ -2,23 +2,23 @@
 
 namespace LinkZone\Core\AdminBundle\Controller;
 
+// import core Symfony components
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+// import exceptions
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Doctrine\ORM\ORMInvalidArgumentException;
 
+// import project components
 use LinkZone\Core\PublicBundle\Entity\User;
 use LinkZone\Core\AdminBundle\Entity\LogStatusChangesEntry;
 
 class ManageUsersController extends Controller
 {
     private $_userRepository;
-
     private $_doctrineManager;
-
     private $_translator;
-
     private $_logger;
 
     private $_billingAvailable = array(
@@ -42,7 +42,10 @@ class ManageUsersController extends Controller
      */
     public function listAction()
     {
-        return $this->render("LinkZoneCoreAdminBundle:ManageUsers:list.html.twig", array('users' => $this->_userRepository->findAll()));
+        return $this->render("LinkZoneCoreAdminBundle:ManageUsers:list.html.twig", array('users' => $this->_userRepository->findBy(
+                array(),
+                array('registrationDate' => 'DESC')
+        )));
     }
 
     /**
@@ -71,7 +74,6 @@ class ManageUsersController extends Controller
                      ))->getForm();
         return $this->render("LinkZoneCoreAdminBundle:ManageUsers:specific.html.twig", array(
             'user' => $user,
-            'userReferrals' => $this->_userRepository->findBy(array('referrerId' => $user->getId())),
             'statusDropDown' => $statusDropDown->createView(),
         ));
     }

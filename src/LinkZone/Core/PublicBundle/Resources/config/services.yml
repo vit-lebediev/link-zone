@@ -8,3 +8,16 @@ services:
             - [ setContainer, ["@service_container"]]
         tags:
             - { name: kernel.event_subscriber }
+
+    link_zone_core_public.menu_builder:
+        class: LinkZone\Core\PublicBundle\Menu\Builder
+        arguments: ["@knp_menu.factory"]
+
+    link_zone_core_public.menu.main:
+        class: Knp\Menu\MenuItem
+        factory_service: link_zone_core_public.menu_builder
+        factory_method: createMainMenu
+        arguments: ["@request", "@translator"]
+        scope: request
+        tags:
+            - { name: knp_menu.menu, alias: public_main } # The alias is what is used to retrieve the menu

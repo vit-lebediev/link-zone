@@ -104,8 +104,7 @@ jQuery(function(){
             $(thisElement).dialog("close");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             $(thisElement).failLoading();
-        });;
-
+        });
     }
 
     statusChangeDialogButtons[$("#string-cancel").val()] = function() {

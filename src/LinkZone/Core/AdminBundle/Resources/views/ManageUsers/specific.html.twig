@@ -81,14 +81,17 @@
         </div>
         <div class="round_border">
             <h3 class="center">{{ "user_management.referrals"|trans }}</h3>
+            {% if user.referrals.count > 0 %}
             <table class="table_common">
-                <tbody>
+                <thead>
                     <tr>
-                        <td>{{ "common.user"|trans }}</td>
-                        <td>{{ "user_management.spent"|trans }}</td>
-                        <td>{{ "user_management.referral_funds"|trans }}</td>
+                        <th>{{ "common.user"|trans }}</th>
+                        <th>{{ "user_management.spent"|trans }}</th>
+                        <th>{{ "user_management.referral_funds"|trans }}</th>
                     </tr>
-                    {% for referral in userReferrals %}
+                </thead>
+                <tbody>
+                    {% for referral in user.referrals %}
                     <tr>
                         <td><a href="{{ path("linkzone_core_admin_manage_user", {"userId": referral.id}) }}">{{ referral.username }}</a></td>
                         <td>{{ referral.id }}</td>
@@ -97,6 +100,9 @@
                     {% endfor %}
                 </tbody>
             </table>
+            {% else %}
+            <span class="message_info">{{ "user_management.no_referrals"|trans }}</span>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -113,9 +119,9 @@
     </div>
 </div>
 
-<div id="dialog-change-status" title="">
+<div id="dialog-change-status" title="{{ "user_management.status_change"|trans }}">
     <div class="center">
-        <span>{{ "user_management.status_change"|trans({"%username%": user.username}) }}<span id="um_modal_status_change_status"></span></span>
+        <span>{{ "user_management.you_change_status"|trans({"%username%": user.username}) }}<span id="um_modal_status_change_status"></span></span>
     </div>
     <div class="center">
         <label for="um_modal_status_reason">{{ "user_management.reason"|trans }}*:</label>

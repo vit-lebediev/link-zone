@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\ORM\ORMInvalidArgumentException;
 
+use LinkZone\Core\PublicBundle\Entity\Platform;
+
 /**
  * Users
  */
@@ -64,6 +66,16 @@ class User extends BaseUser
      */
     private $referrer;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $referrals;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $platforms;
+
     const STATUS_ACTIVE          = "ACTIVE";
     const STATUS_BLOCKED         = "BLOCKED";
     const STATUS_DELETED         = "DELETED";
@@ -77,6 +89,16 @@ class User extends BaseUser
         self::STATUS_ACCOUNT_BLOCKED,
         self::STATUS_PASSIVE,
     );
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->platforms = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->referrals = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Set ballance
@@ -287,5 +309,71 @@ class User extends BaseUser
     public function getReferrer()
     {
         return $this->referrer;
+    }
+
+    /**
+     * Add referral
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\User $referral
+     * @return User
+     */
+    public function addReferral(User $referral)
+    {
+        $this->referrals[] = $referral;
+
+        return $this;
+    }
+
+    /**
+     * Remove referral
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\User $referral
+     */
+    public function removeReferral(User $referral)
+    {
+        $this->referrals->removeElement($referral);
+    }
+
+    /**
+     * Get referrals
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReferrals()
+    {
+        return $this->referrals;
+    }
+
+    /**
+     * Add platforms
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Platform $platform
+     * @return User
+     */
+    public function addPlatform(Platform $platform)
+    {
+        $this->platforms[] = $platform;
+
+        return $this;
+    }
+
+    /**
+     * Remove platforms
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Platform $platform
+     */
+    public function removePlatform(Platform $platform)
+    {
+        $this->platforms->removeElement($platforms);
+    }
+
+    /**
+     * Get platforms
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPlatforms()
+    {
+        return $this->platforms;
     }
 }

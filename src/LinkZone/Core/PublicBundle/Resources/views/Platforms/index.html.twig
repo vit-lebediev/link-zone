@@ -1,0 +1,70 @@
+{% extends '::public.base.html.twig' %}
+
+{% trans_default_domain "LZCorePublicBundle" %}
+
+{% block title %}{{ parent() }} - {{ "menu.platforms"|trans }}{% endblock %}
+
+{% block body %}
+<h1>{{ "menu.platforms"|trans }}</h1>
+
+<div id="platforms_buttons">
+    <button id="platforms_buttons_add">{{ "common.add"|trans }}</button>
+</div>
+
+{% if platforms.count > 0 %}
+<table class="table_common">
+    <thead>
+        <tr>
+            <th>{{ "platforms.address"|trans }}</th>
+            <th>{{ "platforms.status"|trans }}</th>
+            <th>{{ "platforms.rating"|trans }}</th>
+            <th>{{ "platforms.overall_exchanges"|trans }}</th>
+            <th>{{ "platforms.management"|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for platform in platforms %}
+            <tr>
+                <td>{{ platform.url }}</td>
+                <td>{{ ("platforms.statuses." ~ platform.status)|trans }}</td>
+                <td>{{ platform.status }}</td>
+                <td>{{ platform.status }}</td>
+                <td></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<span class="message_info">{{ "platforms.no_platforms"|trans }}</span>
+{% endif %}
+
+
+<div id="dialog-add-platform" class="invisible" title="{{ "platforms.add_platform"|trans }}">
+    <div class="center">
+        <table>
+            <tbody>
+                <tr>
+                    <td>{{ "platforms.address"|trans }}:</td>
+                    <td>{{ form_widget(platformDialog.url) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ "platforms.topic"|trans }}:</td>
+                    <td>{{ form_widget(platformDialog.topic) }}</td>
+                </tr>
+                <tr>
+                    <td>{{ "platforms.description"|trans }}:</td>
+                    <td>{{ form_widget(platformDialog.description) }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<input type="hidden" id="string-add-platform" value="{{ "common.add"|trans }}" />
+<input type="hidden" id="string-cancel" value="{{ "common.cancel"|trans }}" />
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("bundles/linkzonecorepublic/js/pages/platforms.js") }}"></script>
+{% endblock %}

@@ -38,4 +38,15 @@ LinkZone\Core\PublicBundle\Entity\User:
             joinColumn:
                 name: referrerId
                 referencedColumnName: id
+    oneToMany:
+        referrals:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\User
+            mappedBy: referrer
+            orderBy:
+                registrationDate: DESC
+        platforms:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Platform
+            mappedBy: owner
+            orderBy:
+                created: DESC
     lifecycleCallbacks: {  }

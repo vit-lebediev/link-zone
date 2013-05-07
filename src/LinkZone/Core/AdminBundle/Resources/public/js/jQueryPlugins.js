@@ -1,6 +1,5 @@
 (function($) {
     $.fn.startLoading = function() {
-        console.log("BP0 = " + this.prop("tagName"));
         var element = this.parent().find("." + LinkZone.iconLoadingIdAndClass);
         if (element.size() == 0) {
             this.parent().append($("#" + LinkZone.iconLoadingIdAndClass).clone().attr("id", "").addClass(LinkZone.iconLoadingIdAndClass));

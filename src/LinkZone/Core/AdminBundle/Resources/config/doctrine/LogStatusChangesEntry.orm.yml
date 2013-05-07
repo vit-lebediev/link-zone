@@ -1,6 +1,6 @@
 LinkZone\Core\AdminBundle\Entity\LogStatusChangesEntry:
     type: entity
-    table: LogStatusChanges
+    table: log_status_changes
     fields:
         id:
             type: integer

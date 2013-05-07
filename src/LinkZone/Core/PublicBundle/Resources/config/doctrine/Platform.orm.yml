@@ -1,0 +1,35 @@
+LinkZone\Core\PublicBundle\Entity\Platform:
+    type: entity
+    table: platforms
+    repositoryClass: LinkZone\Core\PublicBundle\Repository\PlatformRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        url:
+            type: string
+            length: 1000
+        description:
+            type: string
+            length: 2000
+        status:
+            type: string
+            length: 100
+        created:
+            type: datetime
+    manyToOne:
+        owner:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\User
+            inversedBy: platforms
+            joinColumn:
+                name: userId
+                referencedColumnName: id
+        topic:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\PlatformTopic
+            inversedBy: platforms
+            joinColumn:
+                name: topic
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

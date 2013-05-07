@@ -1,0 +1,49 @@
+common:
+    profile: Профайл
+    welcome: Добро пожаловать !
+    cancel: Отменить
+    add: Добавить
+
+menu:
+    home: Главная Панель
+    platforms: Мои площадки
+
+platforms:
+    add_platform: Добавить площадку
+    address:      Адрес
+    topic:        Тематика
+    description:  Описание
+    status:       Статус
+    rating:       Рейтинг
+    overall_exchanges: Всего обменов
+    management:        Управление
+    no_platforms:      Вы ещё не добавили ни одной площадки. Воспользуйтесь кнопкой "Добавить" !
+    statuses:
+        ACTIVE:  Активная
+        BLOCKED: Блокирована
+        DELETED: Удалена
+        ON_MODERATION: На модерации
+        DENIED:        Отклонена
+    topics:
+        empty: Не выбрана
+        automoto: Авто- и мототранспорт
+        business: Бизнес и финансы
+        abouteverything: Всё обо всем
+        homehearth:      Домашний очаг
+        healthyliving:   Здоровый образ жизни
+        health:          Здоровье
+        internet:        Интернет
+        computers:       Компьютеры
+        cultureart:      Культура и искусство
+        scienceeducation: Наука и образование
+        realestate:       Недвижимость
+        unknown:          Непознанное
+        news:             Новости
+        restentertainment: Отдых и развлечения
+        politicssociety:   Политика и общество
+        production:        Производство
+        travellingtourism: Путешествия и туризм
+        workincome:        Работа и заработок
+        constructionrepair: Строительство и ремонт
+        goodsservices:      Товары и услуги
+        humor:              Юмор

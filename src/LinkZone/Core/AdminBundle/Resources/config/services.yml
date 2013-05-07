@@ -1,11 +1,7 @@
 parameters:
-#    link_zone_core_admin.example.class: LinkZone\Core\AdminBundle\Example
     controller.listener.class: LinkZone\Core\AdminBundle\EventListener\ControllerListener
 
 services:
-#    link_zone_core_admin.example:
-#        class: %link_zone_core_admin.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
     controller.listener:
         class: %controller.listener.class%
         tags:
@@ -22,4 +18,4 @@ services:
         arguments: ["@request", "@translator"]
         scope: request
         tags:
-            - { name: knp_menu.menu, alias: main } # The alias is what is used to retrieve the menu
+            - { name: knp_menu.menu, alias: admin_main } # The alias is what is used to retrieve the menu

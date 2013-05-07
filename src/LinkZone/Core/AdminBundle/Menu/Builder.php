@@ -1,5 +1,4 @@
 <?php
-// src/Acme/DemoBundle/Menu/Builder.php
 namespace LinkZone\Core\AdminBundle\Menu;
 
 use Knp\Menu\FactoryInterface;

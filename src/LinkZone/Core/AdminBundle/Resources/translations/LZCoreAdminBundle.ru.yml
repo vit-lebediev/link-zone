@@ -17,31 +17,33 @@ users_management:
     manage:              Управление
 
 user_management:
-    user_management: Управление пользователем %username%
-    billing_data:    Платежные данные
-    ballance:        Баланс
-    bonus:           Бонус
-    add_bonus:       Начислить бонус
-    amount:          Сумма
-    comment:         Комментарий
-    reset_password:  Сбросить пароль
-    referrals:       Рефералы
-    spent:           Потрачено
-    referral_funds:  Реф. средства
-    status_change:   Вы меняете статус пользователя %username% на
-    reason:          Причина
+    user_management:   Управление пользователем %username%
+    billing_data:      Платежные данные
+    ballance:          Баланс
+    bonus:             Бонус
+    add_bonus:         Начислить бонус
+    amount:            Сумма
+    comment:           Комментарий
+    reset_password:    Сбросить пароль
+    referrals:         Рефералы
+    spent:             Потрачено
+    referral_funds:    Реф. средства
+    you_change_status: Вы меняете статус пользователя %username% на
+    status_change:     Смена статуса
+    reason:            Причина
+    no_referrals:      У этого пользователя нет рефералов
     buttons:
-        add_bonus:       Начислить бонус
+        add_bonus:     Начислить бонус
         change_status: Сменить
-        cancel:          Отмена
+        cancel:        Отмена
     billing:
         yaDengy: Я.Деньги
         webmoney:
             wmr: WMR
             wmz: WMZ
     statuses:
-        ACTIVE: Активный
-        BLOCKED: Блокированный
-        DELETED: Удален
+        ACTIVE:        Активный
+        BLOCKED:       Блокированный
+        DELETED:       Удален
         FUNDS_BLOCKED: Блок средств
-        PASSIVE: Пассивный
+        PASSIVE:       Пассивный
