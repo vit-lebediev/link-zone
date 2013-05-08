@@ -35,6 +35,7 @@ LinkZone\Core\PublicBundle\Entity\User:
     manyToOne:
         referrer:
             targetEntity: LinkZone\Core\PublicBundle\Entity\User
+            inversedBy: referrals
             joinColumn:
                 name: referrerId
                 referencedColumnName: id

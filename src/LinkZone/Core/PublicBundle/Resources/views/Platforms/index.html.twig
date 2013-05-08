@@ -29,7 +29,7 @@
                 <td>{{ ("platforms.statuses." ~ platform.status)|trans }}</td>
                 <td>{{ platform.status }}</td>
                 <td>{{ platform.status }}</td>
-                <td></td>
+                <td><a href="#" class="platforms_edit_link" data-platform-id="{{ platform.id }}">{{ "platforms.edit"|trans }}</a></td>
             </tr>
         {% endfor %}
     </tbody>
@@ -39,28 +39,10 @@
 {% endif %}
 
 
-<div id="dialog-add-platform" class="invisible" title="{{ "platforms.add_platform"|trans }}">
-    <div class="center">
-        <table>
-            <tbody>
-                <tr>
-                    <td>{{ "platforms.address"|trans }}:</td>
-                    <td>{{ form_widget(platformDialog.url) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ "platforms.topic"|trans }}:</td>
-                    <td>{{ form_widget(platformDialog.topic) }}</td>
-                </tr>
-                <tr>
-                    <td>{{ "platforms.description"|trans }}:</td>
-                    <td>{{ form_widget(platformDialog.description) }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<div id="dialog-add-platform" class="invisible" title="{{ "platforms.add_platform"|trans }}"></div>
 
 <input type="hidden" id="string-add-platform" value="{{ "common.add"|trans }}" />
+<input type="hidden" id="string-edit-platform" value="{{ "common.edit"|trans }}" />
 <input type="hidden" id="string-cancel" value="{{ "common.cancel"|trans }}" />
 
 {% endblock %}

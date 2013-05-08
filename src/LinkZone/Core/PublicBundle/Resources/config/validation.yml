@@ -1,0 +1,10 @@
+LinkZone\Core\PublicBundle\Entity\Platform:
+    properties:
+        url:
+            - NotBlank: ~
+            - Url: ~
+        description:
+            - NotBlank: ~
+            - Length:
+                min: 200
+                max: 2000

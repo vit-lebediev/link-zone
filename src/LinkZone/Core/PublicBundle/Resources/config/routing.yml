@@ -32,8 +32,21 @@ linkzone_core_public_platforms:
     pattern: /platforms
     defaults: { _controller: LinkZoneCorePublicBundle:Platforms:index }
 
+linkzone_core_public_platforms_ajax_platform_dialog:
+    pattern: /ajax/platforms/dialog
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxPlatformDialog }
+    requirements:
+        _mehtod: GET
+
 linkzone_core_public_platforms_ajax_add_platform:
-    pattern: /ajax/platform
+    pattern: /ajax/platforms
     defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxAddPlatform }
     requirements:
         _method: POST
+
+linkzone_core_public_platforms_ajax_edit_platform:
+    pattern: /ajax/platforms/{platformId}
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxEditPlatform }
+    requirements:
+        _method:    POST
+        platformId: "\d+"

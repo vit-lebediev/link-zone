@@ -1,0 +1,20 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<div class="center">
+    <table>
+        <tbody>
+            <tr>
+                <td>{{ "platforms.address"|trans }}:</td>
+                <td>{{ form_widget(platformDialog.url) }}</td>
+            </tr>
+            <tr>
+                <td>{{ "platforms.topic"|trans }}:</td>
+                <td>{{ form_widget(platformDialog.topic) }}</td>
+            </tr>
+            <tr>
+                <td>{{ "platforms.description"|trans }}:</td>
+                <td>{{ form_widget(platformDialog.description) }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,8 +1,9 @@
 common:
     profile: Профайл
     welcome: Добро пожаловать !
-    cancel: Отменить
-    add: Добавить
+    cancel:  Отменить
+    add:     Добавить
+    edit:    Редактировать
 
 menu:
     home: Главная Панель
@@ -18,6 +19,7 @@ platforms:
     overall_exchanges: Всего обменов
     management:        Управление
     no_platforms:      Вы ещё не добавили ни одной площадки. Воспользуйтесь кнопкой "Добавить" !
+    edit:              Редактировать
     statuses:
         ACTIVE:  Активная
         BLOCKED: Блокирована
