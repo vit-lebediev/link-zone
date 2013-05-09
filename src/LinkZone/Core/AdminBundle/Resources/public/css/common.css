@@ -1,0 +1,84 @@
+body {
+    padding: 5px;
+}
+
+.table_common
+{
+    width: 90%;
+    margin: 6px auto;
+    border-collapse: collapse;
+}
+
+.table_common td,
+.table_common th
+{
+    border: 1px solid black;
+    text-align: center;
+    padding: 5px;
+}
+
+.table_common thead th
+{
+    font-weight: bold;
+    font: bold 14pt Garamond, Helvetica, Times New Roman;
+}
+
+.round_border
+{
+    border: 1px solid black;
+    border-radius: 6px;
+}
+
+#helper_block,
+#icon_tick,
+#icon_cross,
+#icon_loading {
+    display: none;
+}
+
+.icon_loading,
+.icon_tick,
+.icon_cross
+{
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin: 0 6px;
+}
+
+.icon_tick
+{
+    background: url('/bundles/linkzonecoreadmin/images/icon_tick.png') 0 0 no-repeat;
+}
+
+.icon_cross
+{
+    background: url('/bundles/linkzonecoreadmin/images/icon_cross.png') 0 0 no-repeat;
+}
+
+.center
+{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 70%;
+    text-align: center;
+}
+
+.message_info
+{
+    font: italic 12pt sans-serif;
+    display: inline-block;
+    margin: 4px 5px;
+}
+
+.invisible {
+    display: none;
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}

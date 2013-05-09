@@ -1,7 +1,3 @@
-body {
-    padding: 5px;
-}
-
 #header
 {
     border: 1px solid black;
@@ -29,52 +25,4 @@ body {
     clear: both;
     margin: 2px;
     padding: 4px;
-}
-
-.left {
-    float: left;
-}
-
-.right {
-    float: right;
-}
-
-.invisible {
-    display: none;
-}
-
-.table_common
-{
-    width: 90%;
-    margin: 6px auto;
-    border-collapse: collapse;
-}
-
-.table_common td,
-.table_common th
-{
-    border: 1px solid black;
-    text-align: center;
-    padding: 5px;
-}
-
-.table_common thead th
-{
-    font-weight: bold;
-    font: bold 14pt Garamond, Helvetica, Times New Roman;
-}
-
-.center
-{
-    margin-left: auto !important;
-    margin-right: auto !important;
-    width: 70%;
-    text-align: center;
-}
-
-.message_info
-{
-    font: italic 12pt sans-serif;
-    display: inline-block;
-    margin: 4px 5px;
 }

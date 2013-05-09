@@ -5,6 +5,7 @@
         <title>{% block title %}{{ "common.welcome"|trans({}, "LZCorePublicBundle") }}{% endblock %}</title>
         {% block stylesheets %}
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
+        <link rel="stylesheet" href="{{ asset("bundles/linkzonecoreadmin/css/common.css") }}"></script>
         {% stylesheets 'bundles/linkzonecorepublic/css/*' filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
