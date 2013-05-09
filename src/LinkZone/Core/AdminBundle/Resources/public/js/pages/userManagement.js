@@ -108,7 +108,6 @@ jQuery(function(){
     }
 
     statusChangeDialogButtons[$("#string-cancel").val()] = function() {
-        // return previous status to select box
         $(this).dialog("close");
     };
 
@@ -128,9 +127,7 @@ jQuery(function(){
     $("select#form_status").click(function() {
         // save prev. status to properly manage cancel operation
         prevStatus = $(this).find("option:selected").val();
-    });
-
-    $("select#form_status").change(function() {
+    }).change(function() {
         $("#um_modal_status_change_status").html($("#string-status-" + $(this).find("option:selected").val()).val());
         $("#dialog-change-status").dialog("open");
     });

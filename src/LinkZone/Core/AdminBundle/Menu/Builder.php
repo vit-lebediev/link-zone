@@ -19,6 +19,7 @@ class Builder
 
         $menu->addChild($translator->trans("menu.home", array(), "LZCoreAdminBundle"), array('route' => 'linkzone_core_admin_home'));
         $menu->addChild($translator->trans("menu.users_management", array(), "LZCoreAdminBundle"), array('route' => 'linkzone_core_admin_manage_users'));
+        $menu->addChild($translator->trans("menu.platforms_management", array(), "LZCoreAdminBundle"), array('route' => 'linkzone_core_admin_manage_platforms'));
 //        $menu->addChild('About Me', array(
 //            'route' => 'linkzone_core_admin_home',
 //            'routeParameters' => array('id' => 42)

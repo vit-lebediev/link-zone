@@ -53,3 +53,23 @@ linkzone_core_admin_manage_user_ajax_reset_password:
     defaults: { _controller: LinkZoneCoreAdminBundle:ManageUsers:ajaxResetPassword }
     requirements:
         userId: \d+
+
+linkzone_core_admin_manage_platforms:
+    pattern: /manage/platforms
+    defaults: { _controller: LinkZoneCoreAdminBundle:ManagePlatforms:list }
+    requirements:
+        _method:    GET
+
+linkzone_core_admin_manage_platform:
+    pattern: /manage/platform/{platformId}
+    defaults: { _controller: LinkZoneCoreAdminBundle:ManagePlatforms:specific }
+    requirements:
+        _method:    GET
+        platformId: \d+
+
+linkzone_core_admin_manage_platform_ajax_status:
+    pattern: /ajax/manage/platform/{platformId}/status
+    defaults: { _controller: LinkZoneCoreAdminBundle:ManagePlatforms:ajaxSetStatus }
+    requirements:
+        _method:    POST
+        platformId: \d+

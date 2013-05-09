@@ -14,3 +14,5 @@ parameters:
 
     locale: ru
     secret: 0db21b7004b3128335b494ae132fa3edaaabf4c8
+
+    default_date_format: "d.m.Y, H:i"

@@ -1,0 +1,42 @@
+{% extends "LinkZoneCoreAdminBundle::layout.html.twig" %}
+
+{% trans_default_domain "LZCoreAdminBundle" %}
+
+{% block title %}{{ parent() }} - {{ "menu.platforms_management"|trans }}{% endblock %}
+
+{% block body %}
+<h1>{{ "menu.platforms_management"|trans }}</h1>
+
+<div>todo:filters</div>
+
+{% if platforms %}
+<table class="table_common" border="1">
+    <thead>
+        <tr>
+            <th>{{ "platforms_management.platform"|trans }}</th>
+            <th>{{ "common.user"|trans }}</th>
+            <th>{{ "platforms_management.index_perc"|trans }}</th>
+            <th>{{ "platforms_management.added"|trans }}</th>
+            <th>{{ "platforms_management.rating"|trans }}</th>
+            <th>{{ "platforms_management.status"|trans }}</th>
+            <th>{{ "common.management"|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for platform in platforms %}
+        <tr>
+            <td>{{ platform.url }}</td>
+            <td>{{ platform.owner.username }}</td>
+            <td>{{ platform.created|date(default_date_format) }}</td>
+            <td></td>
+            <td></td>
+            <td><span class="status platform_{{ platform.status }}">{{ ("platform_management.statuses." ~ platform.status)|trans }}</span></td>
+            <td><a href="{{ path("linkzone_core_admin_manage_platform", {"platformId": platform.id}) }}">{{ "platforms_management.details"|trans }}</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<span class="message_info">{{ "platforms_management.no_platforms"|trans }}</span>
+{% endif %}
+{% endblock %}

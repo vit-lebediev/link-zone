@@ -56,7 +56,9 @@ class ManageUsersController extends Controller
      */
     public function specificAction($userId)
     {
-        $user = $this->_userRepository->find($userId);
+        if (!$user = $this->_userRepository->find($userId)) {
+            throw new BadRequestHttpException("There is no user with ID " . $userId);
+        }
         $statusDropDown = $this->createFormBuilder($user)
                      ->add("status", "choice", array(
                          'choices' => array(
@@ -140,6 +142,10 @@ class ManageUsersController extends Controller
 
     public function ajaxSetStatusAction($userId)
     {
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            throw new BadRequestHttpException("This method should only be called as xmlHttp");
+        }
+
         $user = $this->_userRepository->find($userId);
         $status = $this->getRequest()->get("status");
         $prevStatus = $user->getStatus();
@@ -172,6 +178,10 @@ class ManageUsersController extends Controller
 
     public function ajaxResetPasswordAction($userId)
     {
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            throw new BadRequestHttpException("This method should only be called as xmlHttp");
+        }
+
         $this->getRequest()->request->set('username', $this->_userRepository->find($userId)->getUsername());
         $response = $this->forward("FOSUserBundle:Resetting:sendEmail", array(
             'request' => $this->getRequest(),

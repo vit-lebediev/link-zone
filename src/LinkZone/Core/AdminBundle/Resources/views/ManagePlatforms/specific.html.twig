@@ -1,0 +1,63 @@
+{% extends "LinkZoneCoreAdminBundle::layout.html.twig" %}
+
+{% trans_default_domain "LZCoreAdminBundle" %}
+
+{% block title %}{{ parent() }} - {{ "platform_management.platform_management"|trans({"%platform%": platform.url}) }}{% endblock %}
+
+{% block body %}
+<h1 class="center">{{ "platform_management.platform_management"|trans({"%platform%": platform.url}) }} {{ "common.id"|trans }}: {{ platform.id }}</h1>
+
+<div class="block_common round_border">
+    {{ form_widget(statusDropDown.status) }}
+</div>
+
+<div class="block_common">
+    <div class="block_common round_border left half">
+        <h4 class="center">{{ "platform_management.parameters"|trans }}</h4>
+    </div>
+    <div class="block_common round_border right half">
+        <h4 class="center">{{ "platform_management.activity"|trans }}</h4>
+        <table class="center">
+            <tbody>
+                <tr>
+                    <td class="bold">{{ "platforms_management.added"|trans }}:</td>
+                    <td>{{ platform.created|date(default_date_format) }}</td>
+                </tr>
+                <tr>
+                    <td class="bold">{{ "platforms.overall_exchanges"|trans({}, "LZCorePublicBundle") }}:</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td class="bold">{{ "platform_management.most_recent_exchanges"|trans }}:</td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div id="dialog-change-status" class="invisible" title="{{ "user_management.status_change"|trans }}">
+    <div class="center">
+        <span>{{ "platform_management.you_change_status"|trans({"%platform%": platform.url}) }}<span id="pm_status_to_change" class="status"></span></span>
+    </div>
+    <div class="center">
+        <label for="um_modal_status_reason">{{ "platform_management.reason"|trans }}*:</label>
+        <textarea id="form_change_reason" cols="15" rows="3"></textarea>
+    </div>
+</div>
+
+<input type="hidden" id="platformId" value="{{ platform.id }}" />
+<input type="hidden" id="string-change-status" value="{{ "user_management.buttons.change_status"|trans }}" />
+<input type="hidden" id="string-cancel" value="{{ "user_management.buttons.cancel"|trans }}" />
+
+<input type="hidden" id="string-status-ACTIVE"        value="{{ "platform_management.statuses.ACTIVE"|trans }}" />
+<input type="hidden" id="string-status-BLOCKED"       value="{{ "platform_management.statuses.BLOCKED"|trans }}" />
+<input type="hidden" id="string-status-DELETED"       value="{{ "platform_management.statuses.DELETED"|trans }}" />
+<input type="hidden" id="string-status-ON_MODERATION" value="{{ "platform_management.statuses.ON_MODERATION"|trans }}" />
+<input type="hidden" id="string-status-DENIED"        value="{{ "platform_management.statuses.DENIED"|trans }}" />
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("bundles/linkzonecoreadmin/js/pages/platformManagement.js") }}"></script>
+{% endblock %}

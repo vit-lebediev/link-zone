@@ -26,7 +26,7 @@
         {% for platform in platforms %}
             <tr>
                 <td>{{ platform.url }}</td>
-                <td>{{ ("platforms.statuses." ~ platform.status)|trans }}</td>
+                <td><span class="status platform_{{ platform.status }}">{{ ("platforms.statuses." ~ platform.status)|trans }}</span></td>
                 <td>{{ platform.status }}</td>
                 <td>{{ platform.status }}</td>
                 <td><a href="#" class="platforms_edit_link" data-platform-id="{{ platform.id }}">{{ "platforms.edit"|trans }}</a></td>

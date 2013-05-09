@@ -4,10 +4,12 @@ common:
     admin_panel: Панель управления
     change:      Изменить
     user:        Пользователь
+    management:  Управление
 
 menu:
     home:             Начальная страница
     users_management: Управление пользователями
+    platforms_management: Управление площадками
 
 users_management:
     number_of_platforms: Количество площадок
@@ -47,3 +49,26 @@ user_management:
         DELETED:       Удален
         FUNDS_BLOCKED: Блок средств
         PASSIVE:       Пассивный
+
+platforms_management:
+    platform:   Площадка
+    index_perc: % индекса
+    added:      Добавлена
+    rating:     Рейтинг
+    status:     Статус
+    no_platforms: В системе не добавлено ещё ни одной площадки
+    details:      Подробнее
+
+platform_management:
+    platform_management: Управление площадкой %platform%
+    parameters:          Параметры
+    activity:            Активность
+    most_recent_exchanges: Последние обмены
+    you_change_status:     Вы меняете статус площадки %platform% на
+    reason:                Укажите причину
+    statuses:
+        ACTIVE:  Активная
+        BLOCKED: Блокирована
+        DELETED: Удалена
+        ON_MODERATION: На модерации
+        DENIED:        Отклонена

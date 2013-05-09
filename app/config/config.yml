@@ -22,6 +22,8 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
+    globals:
+        default_date_format: "%default_date_format%"
 
 # Assetic Configuration
 assetic:
