@@ -119,16 +119,39 @@ span.center {
 }
 
 .platform_DELETED {
-    background-color: red;
+    background-color: black;
+    color: white;
 }
 
 .platform_BLOCKED {
-    background-color: #f2a90a;
+    background-color: red;
 }
 
 .platform_DENIED {
     background-color: brown;
     color: white;
+}
+
+.user_ACTIVE {
+    background-color: #2fbe00;
+}
+
+.user_FUNDS_BLOCKED {
+    background-color: yellow;
+}
+
+.user_DELETED {
+    background-color: black;
+    color: white;
+}
+
+.user_BLOCKED {
+    background-color: red;
+}
+
+.user_PASSIVE {
+    background-color: #dddbdb;
+    color: black;
 }
 
 .block_common {

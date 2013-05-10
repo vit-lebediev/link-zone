@@ -91,6 +91,7 @@ jQuery(function(){
      * Change status dialog box
      */
     var statusChangeDialogButtons = {};
+    var prevStatusSaved = false; // dirty workaround
     var prevStatus = null;
 
     statusChangeDialogButtons[$("#string-change-status").val()] = function() {
@@ -101,6 +102,7 @@ jQuery(function(){
             reason: $(this).find("textarea#um_modal_status_reason").val()
         }).done(function (jqXHR, textStatus, errorThrown) {
             $(thisElement).successLoading();
+            prevStatus = $("select#form_status option:selected").val();
             $(thisElement).dialog("close");
         }).fail(function (jqXHR, textStatus, errorThrown) {
             $(thisElement).failLoading();
@@ -113,22 +115,32 @@ jQuery(function(){
 
     $("#dialog-change-status").dialog({
         resizable: false,
-        height: 300,
+        height: 350,
         width: 400,
         modal: true,
         autoOpen: false,
         buttons: statusChangeDialogButtons,
         close: function (event, ui) {
-            $("select#form_status option:selected").removeAttr("selected");
-            $("select#form_status option[value=" + prevStatus + "]").attr("selected", "selected");
+            prevStatusSaved = false;
+            $("select#form_status option:selected").removeProp("selected");
+            $("select#form_status option[value=" + prevStatus + "]").prop("selected", "selected");
         }
     });
 
-    $("select#form_status").click(function() {
+    $("select#form_status").mousedown(function() {
         // save prev. status to properly manage cancel operation
+        if (prevStatusSaved) {
+            return;
+        }
         prevStatus = $(this).find("option:selected").val();
+        prevStatusSaved = true;
     }).change(function() {
-        $("#um_modal_status_change_status").html($("#string-status-" + $(this).find("option:selected").val()).val());
+        prevStatusSaved = false;
+        var newStatus = $(this).find("option:selected").val();
+        $("#um_modal_status_change_status").html($("#string-status-" + newStatus).val())
+                                 .removeClass()
+                                 .addClass("status user_" + newStatus);
+        $("#dialog-change-status #um_modal_status_reason").val("");
         $("#dialog-change-status").dialog("open");
     });
 

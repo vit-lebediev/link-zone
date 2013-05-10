@@ -3,6 +3,7 @@ jQuery(function(){
      * Change status dialog box
      */
     var statusChangeDialogButtons = {};
+    var prevStatusSaved = false; // dirty workaround
     var prevStatus = null;
 
     statusChangeDialogButtons[$("#string-change-status").val()] = function() {
@@ -27,21 +28,27 @@ jQuery(function(){
 
     $("#dialog-change-status").dialog({
         resizable: false,
-        height: 300,
+        height: 350,
         width: 400,
         modal: true,
         autoOpen: false,
         buttons: statusChangeDialogButtons,
         close: function (event, ui) {
-            $("#form_status option:selected").removeAttr("selected");
-            $("#form_status option[value=" + prevStatus + "]").attr("selected", "selected");
+            prevStatusSaved = false;
+            $("#form_status option:selected").removeProp("selected");
+            $("#form_status option[value='" + prevStatus + "']").prop("selected", "selected");
         }
     });
 
-    $("#form_status").focus(function() {
+    $("select#form_status").mousedown(function() {
         // save prev. status to properly manage cancel operation
+        if (prevStatusSaved) {
+            return;
+        }
         prevStatus = $(this).find("option:selected").val();
+        prevStatusSaved = true;
     }).change(function() {
+        prevStatusSaved = false;
         var newStatus = $(this).find("option:selected").val();
         $("#pm_status_to_change").html($("#string-status-" + newStatus).val())
                                  .removeClass()
