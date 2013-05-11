@@ -86,6 +86,7 @@ jQuery(function(){
         $("#dialog-add-bonus").dialog("open");
     });
 
+    $("select#form_status option[value='PASSIVE']").prop("disabled", "disabled");
 
     /**
      * Change status dialog box
