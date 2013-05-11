@@ -13,6 +13,7 @@ LinkZone\Core\PublicBundle\Entity\PlatformTopic:
         transKey:
             type: string
             length: 255
+            column: trans_key
     oneToMany:
         platforms:
             targetEntity: LinkZone\Core\PublicBundle\Entity\Platform

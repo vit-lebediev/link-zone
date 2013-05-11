@@ -9,17 +9,21 @@ LinkZone\Core\AdminBundle\Entity\LogPlatformStatusChangesEntry:
                 strategy: AUTO
         platformId:
             type: integer
+            column: platform_id
         fromStatus:
             type: string
-            length: '100'
+            length: 100
+            column: from_status
         toStatus:
             type: string
-            length: '100'
+            length: 100
+            column: to_status
         date:
             type: datetime
         whoChanged:
             type: string
             length: 255
+            column: who_changed
         reason:
             type: string
             length: 255

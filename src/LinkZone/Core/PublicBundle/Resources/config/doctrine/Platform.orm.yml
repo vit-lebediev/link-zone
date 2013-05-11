@@ -24,7 +24,7 @@ LinkZone\Core\PublicBundle\Entity\Platform:
             targetEntity: LinkZone\Core\PublicBundle\Entity\User
             inversedBy: platforms
             joinColumn:
-                name: userId
+                name: user_id
                 referencedColumnName: id
         topic:
             targetEntity: LinkZone\Core\PublicBundle\Entity\PlatformTopic

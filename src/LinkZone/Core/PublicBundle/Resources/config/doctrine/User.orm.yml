@@ -18,26 +18,31 @@ LinkZone\Core\PublicBundle\Entity\User:
             type: string
             length: '20'
             nullable: true
+            column: billing_ya_dengy
         billingWMR:
             type: string
             length: '20'
             nullable: true
+            column: billing_wmr
         billingWMZ:
             type: string
             length: '20'
             nullable: true
+            column: billing_wmz
         registrationDate:
             type: datetime
+            column: registration_date
         referralValue:
             type: string
             length: 10
             unique: true
+            column: referral_value
     manyToOne:
         referrer:
             targetEntity: LinkZone\Core\PublicBundle\Entity\User
             inversedBy: referrals
             joinColumn:
-                name: referrerId
+                name: referrer_id
                 referencedColumnName: id
     oneToMany:
         referrals:
