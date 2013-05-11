@@ -27,8 +27,8 @@
         <tr>
             <td>{{ platform.url }}</td>
             <td>{{ platform.owner.username }}</td>
-            <td>{{ platform.created|date(default_date_format) }}</td>
             <td></td>
+            <td>{{ platform.created|date(default_date_format) }}</td>
             <td></td>
             <td><span class="status platform_{{ platform.status }}">{{ ("platform_management.statuses." ~ platform.status)|trans }}</span></td>
             <td><a href="{{ path("linkzone_core_admin_manage_platform", {"platformId": platform.id}) }}">{{ "platforms_management.details"|trans }}</a></td>
