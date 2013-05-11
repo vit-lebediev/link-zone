@@ -29,7 +29,7 @@
             <td>{{ user.username }}</td>
             <td>{{ user.lastLogin|date(default_date_format) }}</td>
             <td>{{ user.ballance }}</td>
-            <td><span class="status user_{{ user.status }}">{{ user.status }}</span></td>
+            <td><span class="status user_{{ user.status }}">{{ ("user_management.statuses." ~ user.status)|trans }}</span></td>
             <td><a href="{{ path("linkzone_core_admin_manage_user", {"userId": user.id}) }}">{{ "users_management.manage"|trans }}</a></td>
         </tr>
     {% endfor %}
