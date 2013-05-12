@@ -35,3 +35,35 @@
     margin: 2px;
     paddign: 4px;
 }
+
+/*
+* Main admin menu
+*/
+#main_menu ul
+{
+    margin: 5px 0 0 5px;
+    padding: 0;
+    list-style: none;
+}
+
+#main_menu ul li
+{
+    margin: 0 0 8px 0;
+}
+
+#main_menu ul li a
+{
+    text-decoration: none;
+    color: black;
+    padding: 3px 5px;
+    border-radius: 3px;
+}
+
+#main_menu ul li.current a {
+    background: #8E91CA;
+}
+
+#main_menu ul li a:hover
+{
+    background: #A5A7D5;
+}
