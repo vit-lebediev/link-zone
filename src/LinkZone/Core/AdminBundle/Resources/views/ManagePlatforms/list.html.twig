@@ -13,6 +13,7 @@
 <table class="table_common" border="1">
     <thead>
         <tr>
+            <th>{{ "common.id"|trans }}</th>
             <th>{{ "platforms_management.platform"|trans }}</th>
             <th>{{ "common.user"|trans }}</th>
             <th>{{ "platforms_management.index_perc"|trans }}</th>
@@ -25,6 +26,7 @@
     <tbody>
     {% for platform in platforms %}
         <tr>
+            <td>{{ platform.id }}</td>
             <td>{{ platform.url }}</td>
             <td>{{ platform.owner.username }}</td>
             <td></td>
