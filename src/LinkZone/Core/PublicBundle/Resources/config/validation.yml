@@ -3,6 +3,7 @@ LinkZone\Core\PublicBundle\Entity\Platform:
         url:
             - NotBlank: ~
             - Url: ~
+            - LinkZone\Core\PublicBundle\Validator\Constraints\SiteExists: ~
         description:
             - NotBlank: ~
             - Length:

@@ -21,3 +21,9 @@ services:
         scope: request
         tags:
             - { name: knp_menu.menu, alias: public_main } # The alias is what is used to retrieve the menu
+
+    link_zone.validator.unique.site_exists:
+        class: LinkZone\Core\PublicBundle\Validator\Constraints\SiteExistsValidator
+        arguments: ["@service_container"]
+        tags:
+            - { name: validator.constraint_validator ,alias: site_exists }
