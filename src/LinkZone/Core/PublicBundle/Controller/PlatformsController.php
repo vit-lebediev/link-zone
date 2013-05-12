@@ -108,6 +108,10 @@ class PlatformsController extends Controller
             throw new BadRequestHttpException("There is no platform with id " . $platformId);
         }
 
+        if ($platform->getOwner()->getId() != $this->_user->getId()) {
+            throw new BadRequestHttpException("You can change only platforms, which belong to you");
+        }
+
         $platformDialog = $this->createForm(new PlatformType(), $platform, array(
             'container' => $this->container,
         ));
