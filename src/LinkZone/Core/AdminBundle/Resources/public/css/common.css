@@ -2,7 +2,8 @@ body {
     padding: 5px;
 }
 
-.table_common
+.table_common,
+table.common
 {
     width: 90%;
     margin: 6px auto;
@@ -10,14 +11,17 @@ body {
 }
 
 .table_common td,
-.table_common th
+.table_common th,
+table.common td,
+table.common th
 {
     border: 1px solid black;
     text-align: center;
     padding: 5px;
 }
 
-.table_common thead th
+.table_common thead th,
+table.common thead th
 {
     font-weight: bold;
     font: bold 14pt Garamond, Helvetica, Times New Roman;

@@ -39,6 +39,11 @@ class Platform
      */
     private $created;
 
+        /**
+     * @var boolean
+     */
+    private $hidden;
+
     /**
      * @var \LinkZone\Core\PublicBundle\Entity\User
      */
@@ -167,6 +172,29 @@ class Platform
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Set hidden
+     *
+     * @param boolean $hidden
+     * @return Platform
+     */
+    public function setHidden($hidden)
+    {
+        $this->hidden = $hidden;
+
+        return $this;
+    }
+
+    /**
+     * Get hidden
+     *
+     * @return boolean
+     */
+    public function getHidden()
+    {
+        return $this->hidden;
     }
 
     /**

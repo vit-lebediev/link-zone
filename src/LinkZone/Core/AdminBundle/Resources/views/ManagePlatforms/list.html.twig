@@ -27,7 +27,7 @@
     {% for platform in platforms %}
         <tr>
             <td>{{ platform.id }}</td>
-            <td>{{ platform.url }}</td>
+            <td>{{ platform.url }}{% if platform.hidden %}<sup>({{ "platforms_management.hidden"|trans }})</sup>{% endif %}</td>
             <td>{{ platform.owner.username }}</td>
             <td></td>
             <td>{{ platform.created|date(default_date_format) }}</td>

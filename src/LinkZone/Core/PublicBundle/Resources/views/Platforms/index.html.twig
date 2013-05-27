@@ -25,7 +25,7 @@
     <tbody>
         {% for platform in platforms %}
             <tr>
-                <td>{{ platform.url }}</td>
+                <td>{{ platform.url }}{% if platform.hidden %}<sup>({{ "platforms.hidden"|trans }})</sup>{% endif %}</td>
                 <td><span class="status platform_{{ platform.status }}">{{ ("platforms.statuses." ~ platform.status)|trans }}</span></td>
                 <td>{{ platform.status }}</td>
                 <td>{{ platform.status }}</td>

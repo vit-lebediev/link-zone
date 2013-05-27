@@ -19,6 +19,8 @@ LinkZone\Core\PublicBundle\Entity\Platform:
             length: 100
         created:
             type: datetime
+        hidden:
+            type: boolean
     manyToOne:
         owner:
             targetEntity: LinkZone\Core\PublicBundle\Entity\User

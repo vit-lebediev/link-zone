@@ -30,6 +30,10 @@ class PlatformType extends AbstractType
         $builder->add("description", "textarea", array(
             'required' => false,
         ));
+
+        $builder->add("hidden", "checkbox", array(
+            'required' => false,
+        ));
     }
 
     /**

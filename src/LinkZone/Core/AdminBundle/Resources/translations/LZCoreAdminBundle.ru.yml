@@ -5,6 +5,8 @@ common:
     change:      Изменить
     user:        Пользователь
     management:  Управление
+    yes:         Да
+    no:          Нет
 
 menu:
     home:             Начальная страница
@@ -58,6 +60,7 @@ platforms_management:
     status:     Статус
     no_platforms: В системе не добавлено ещё ни одной площадки
     details:      Подробнее
+    hidden:       Скрытая
 
 platform_management:
     platform_management: Управление площадкой %platform%

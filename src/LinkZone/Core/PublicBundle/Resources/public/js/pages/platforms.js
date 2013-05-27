@@ -14,6 +14,9 @@ jQuery(function(){
                platform['url'] = $("#platform_url").val();
                platform['topic'] = $("#platform_topic").val();
                platform['description'] = $("#platform_description").val();
+               if ($("#platform_visible").prop("checked")) {
+                   platform['visible'] = 1;
+               }
                $.post(LinkZone.app_env + "/ajax/platforms", {
                    platform: platform
                }).done(function (jqXHR, textStatus, errorThrown) {
@@ -32,7 +35,7 @@ jQuery(function(){
 
            $("#dialog-add-platform").dialog({
                resizable: false,
-               height: 300,
+               height: 350,
                width: 500,
                modal: true,
                autoOpen: false,
@@ -60,6 +63,9 @@ jQuery(function(){
                platform['url'] = $("#platform_url").val();
                platform['topic'] = $("#platform_topic").val();
                platform['description'] = $("#platform_description").val();
+               if ($("#platform_visible").prop("checked")) {
+                   platform['visible'] = 1;
+               }
                $.post(LinkZone.app_env + "/ajax/platforms/" + platformId, {
                    platform: platform
                }).done(function (jqXHR, textStatus, errorThrown) {
@@ -78,7 +84,7 @@ jQuery(function(){
 
            $("#dialog-add-platform").dialog({
                resizable: false,
-               height: 300,
+               height: 350,
                width: 500,
                modal: true,
                autoOpen: false,
