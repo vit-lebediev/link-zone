@@ -4,8 +4,12 @@ namespace LinkZone\Core\PublicBundle\EventListener;
 
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Event\UserEvent;
+use FOS\UserBundle\Event\FormEvent;
+
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use LinkZone\Core\PublicBundle\Entity\User;
 
@@ -14,6 +18,10 @@ use LinkZone\Core\PublicBundle\Entity\User;
  */
 class RegistrationListener extends ContainerAware implements EventSubscriberInterface
 {
+    public function __construct(UrlGeneratorInterface $router) {
+        $this->_router = $router;
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -21,7 +29,8 @@ class RegistrationListener extends ContainerAware implements EventSubscriberInte
      */
     public static function getSubscribedEvents() {
         return array(
-            FOSUserEvents::REGISTRATION_INITIALIZE => "onRegistrationInitialize"
+            FOSUserEvents::REGISTRATION_INITIALIZE => "onRegistrationInitialize",
+            FOSUserEvents::REGISTRATION_SUCCESS    => "onRegistrationSuccess",
         );
     }
 
@@ -48,4 +57,10 @@ class RegistrationListener extends ContainerAware implements EventSubscriberInte
                 $user->setReferrer($referrer);
         }
     }
+
+    public function onRegistrationSuccess(FormEvent $event) {
+        $event->setResponse(new RedirectResponse($this->_router->generate("fos_user_profile_show")));
+    }
+
+    private $_router;
 }

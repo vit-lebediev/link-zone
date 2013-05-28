@@ -1,9 +1,10 @@
 parameters:
-    link_zone_core_public.listener.registration_initialize.class: LinkZone\Core\PublicBundle\EventListener\RegistrationListener
+    link_zone_core_public.listener.registration_listener.class: LinkZone\Core\PublicBundle\EventListener\RegistrationListener
 
 services:
-    link_zone_core_public.listener.registration_initialize:
-        class: %link_zone_core_public.listener.registration_initialize.class%
+    link_zone_core_public.listener.registration_listener:
+        class: %link_zone_core_public.listener.registration_listener.class%
+        arguments: ["@router"]
         calls:
             - [ setContainer, ["@service_container"]]
         tags:
