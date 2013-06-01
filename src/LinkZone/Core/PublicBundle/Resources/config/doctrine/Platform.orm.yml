@@ -1,6 +1,6 @@
 LinkZone\Core\PublicBundle\Entity\Platform:
     type: entity
-    table: platforms
+    table: platforms.platforms
     repositoryClass: LinkZone\Core\PublicBundle\Repository\PlatformRepository
     fields:
         id:

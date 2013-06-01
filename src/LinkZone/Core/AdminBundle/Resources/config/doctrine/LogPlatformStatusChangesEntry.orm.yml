@@ -1,6 +1,6 @@
 LinkZone\Core\AdminBundle\Entity\LogPlatformStatusChangesEntry:
     type: entity
-    table: log_platform_status_changes
+    table: platforms.log_status_changes
     fields:
         id:
             type: integer

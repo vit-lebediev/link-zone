@@ -1,6 +1,6 @@
 LinkZone\Core\PublicBundle\Entity\PlatformTopic:
     type: entity
-    table: platform_topics
+    table: platforms.topics
     fields:
         id:
             type: integer
