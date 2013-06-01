@@ -3,7 +3,7 @@ LinkZone\Core\PublicBundle\Entity\Platform:
         url:
             - NotBlank: ~
             - Url: ~
-            - LinkZone\Core\PublicBundle\Validator\Constraints\SiteExists: ~
+            - LinkZone\Core\PublicBundle\Validator\Constraints\SiteExists: { groups: [creation] }
         description:
             - NotBlank: ~
             - Length:

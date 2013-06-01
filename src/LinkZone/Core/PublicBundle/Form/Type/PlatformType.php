@@ -46,6 +46,7 @@ class PlatformType extends AbstractType
             'data_class'     => "LinkZone\Core\PublicBundle\Entity\Platform",
             'csrf_protection'=> false, // TODO: make with CSRF protection (https://trello.com/c/D4bBdwPl)
             'container'      => false,
+            'validation_groups' => array('Default', 'creation'),
         ));
     }
 

@@ -22,7 +22,7 @@ class SiteExistsValidator extends ConstraintValidator
     {
         try {
             $client = new Client($value);
-            $client->get()->send();
+            $client->head()->send();
         } catch (GuzzleException $e) {
             $this->context->addViolation($this->_container->get("translator")->trans("platforms.site_not_exists", array(), "LZCorePublicBundle"));
         }
