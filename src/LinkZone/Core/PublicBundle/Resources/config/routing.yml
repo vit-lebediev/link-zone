@@ -50,3 +50,9 @@ linkzone_core_public_platforms_ajax_edit_platform:
     requirements:
         _method:    POST
         platformId: \d+
+
+linkzone_core_public_platforms_ajax_tags:
+    pattern: /ajax/platforms/tags
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxGetTagsAutocomplete }
+    requirements:
+        _method: GET

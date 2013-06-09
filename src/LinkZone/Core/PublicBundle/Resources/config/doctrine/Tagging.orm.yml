@@ -1,0 +1,19 @@
+LinkZone\Core\PublicBundle\Entity\Tagging:
+    type: entity
+    table: platforms.tagging
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    manyToOne:
+        tag:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Tag
+            inversedBy: tagging
+            joinColumn:
+                name: tag_id
+                referencedColumnName: id
+    uniqueConstraints:
+        tagging_idx:
+            columns: tag_id, resource_type, resource_id

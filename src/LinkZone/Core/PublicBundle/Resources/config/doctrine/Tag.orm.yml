@@ -1,0 +1,15 @@
+LinkZone\Core\PublicBundle\Entity\Tag:
+    type: entity
+    table: platforms.tags
+    repositoryClass: LinkZone\Core\PublicBundle\Repository\TagRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    oneToMany:
+        tagging:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Tagging
+            mappedBy: tag
+            fetch: EAGER

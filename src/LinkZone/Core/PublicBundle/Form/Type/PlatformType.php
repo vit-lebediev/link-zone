@@ -34,6 +34,10 @@ class PlatformType extends AbstractType
         $builder->add("hidden", "checkbox", array(
             'required' => false,
         ));
+
+        $builder->add("tags", null, array(
+            "mapped" => false,
+        ));
     }
 
     /**

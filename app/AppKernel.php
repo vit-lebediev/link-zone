@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new FPN\TagBundle\FPNTagBundle(),
 
             // import project bundles
             new LinkZone\Core\AdminBundle\LinkZoneCoreAdminBundle(),

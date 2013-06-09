@@ -16,6 +16,7 @@ platforms:
     description:  Описание
     hide:         Скрыть площадку
     hidden:       Скрытая
+    keywords:     Ключевые слова
     status:       Статус
     rating:       Рейтинг
     overall_exchanges: Всего обменов

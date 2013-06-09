@@ -6,9 +6,13 @@
         {% block stylesheets %}
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
         <link rel="stylesheet" href="{{ asset("bundles/linkzonecoreadmin/css/common.css") }}"></script>
-        {% stylesheets 'bundles/linkzonecorepublic/css/*' filter='cssrewrite' %}
+        {% stylesheets
+            'bundles/linkzonecorepublic/css/*'
+            'bundles/linkzonecorepublic/css/pages/*'
+            filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -37,6 +41,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
         <script src="{{ asset("bundles/linkzonecoreadmin/js/base.js") }}"></script>
         <script src="{{ asset("bundles/linkzonecoreadmin/js/jQueryPlugins.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/tag-it.min.js") }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

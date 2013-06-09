@@ -2,7 +2,9 @@
 
 namespace LinkZone\Core\PublicBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use DoctrineExtensions\Taggable\Taggable;
 
 use Doctrine\ORM\ORMInvalidArgumentException;
 
@@ -12,7 +14,7 @@ use LinkZone\Core\PublicBundle\Entity\PlatformTopic;
 /**
  * Platform
  */
-class Platform
+class Platform implements Taggable
 {
     /**
      * @var integer
@@ -54,6 +56,12 @@ class Platform
      */
     private $topic;
 
+    /**
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    private $tags;
+
     const STATUS_ACTIVE        = "ACTIVE";
     const STATUS_BLOCKED       = "BLOCKED";
     const STATUS_DELETED       = "DELETED";
@@ -67,6 +75,8 @@ class Platform
         self::STATUS_ON_MODERATION,
         self::STATUS_DENIED,
     ];
+
+    const TAGGABLE_TYPE = "platform";
 
     /**
      * Get id
@@ -241,5 +251,27 @@ class Platform
     public function getTopic()
     {
         return $this->topic;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getTags()
+    {
+        $this->tags = $this->tags ?: new ArrayCollection();
+
+        return $this->tags;
+    }
+
+    public function getTaggableType()
+    {
+        return self::TAGGABLE_TYPE;
+    }
+
+    public function getTaggableId()
+    {
+        return $this->getId();
     }
 }
