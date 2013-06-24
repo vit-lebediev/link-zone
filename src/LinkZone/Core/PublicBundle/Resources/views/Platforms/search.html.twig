@@ -64,8 +64,8 @@
                         <td>{{ platform.url }}</td>
                         <td>{{ platform.url }}</td>
                         <td>
-                            <div><a href="#" id="platform_send_request" data-platform-id="{{ platform.id }}">{{ "platforms.search.send_request"|trans }}</a></div>
-                            <div><a href="#" id="platform_send_message" data-platform-id="{{ platform.id }}">{{ "platforms.search.send_message"|trans }}</a></div>
+                            <div><a href="#" class="platform_send_request" data-platform-id="{{ platform.id }}">{{ "platforms.search.send_request"|trans }}</a></div>
+                            <div><a href="#" class="platform_send_message" data-platform-id="{{ platform.id }}">{{ "platforms.search.send_message"|trans }}</a></div>
                         </td>
                     </tr>
                 {% endfor %}
@@ -75,6 +75,12 @@
         <span class="message_info">{{ "platforms.search.no_results"|trans }}</span>
     {% endif %}
 </div>
+
+<div id="dialog-add-platform" class="invisible" title="{{ "orders.send_order"|trans }}"></div>
+
+<input type="hidden" id="string-send-order" value="{{ "orders.send_order"|trans }}" />
+<input type="hidden" id="string-cancel" value="{{ "common.cancel"|trans }}" />
+
 {% endblock %}
 
 {% block javascripts %}

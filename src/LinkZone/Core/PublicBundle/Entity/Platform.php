@@ -274,4 +274,9 @@ class Platform implements Taggable
     {
         return $this->getId();
     }
+
+    public function __toString()
+    {
+        return $this->getUrl();
+    }
 }

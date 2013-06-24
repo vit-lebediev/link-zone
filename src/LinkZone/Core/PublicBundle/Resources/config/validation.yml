@@ -9,3 +9,17 @@ LinkZone\Core\PublicBundle\Entity\Platform:
             - Length:
                 min: 200
                 max: 2000
+LinkZone\Core\PublicBundle\Entity\Request:
+    properties:
+        senderLink:
+            - NotBlank: ~
+            - Url: ~
+            - LinkZone\Core\PublicBundle\Validator\Constraints\SiteExists: ~
+        senderLinkText:
+            - NotBlank: ~
+        receiverLink:
+            - NotBlank: { groups: [receiver] }
+            - Url: ~
+            - LinkZone\Core\PublicBundle\Validator\Constraints\SiteExists: ~
+        receiverLinkText:
+            - NotBlank: { groups: [receiver] }

@@ -1,0 +1,9 @@
+{% extends '::public.base.html.twig' %}
+
+{% trans_default_domain "LZCorePublicBundle" %}
+
+{% block title %}{{ parent() }} - {{ "menu.requests_in_progress"|trans }}{% endblock %}
+
+{% block body %}
+<h1>{{ "menu.requests_in_progress"|trans }}</h1>
+{% endblock %}

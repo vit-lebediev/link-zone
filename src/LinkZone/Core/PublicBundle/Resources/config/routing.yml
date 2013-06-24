@@ -62,3 +62,27 @@ linkzone_core_public_platforms_search:
     defaults: { _controller: LinkZoneCorePublicBundle:Platforms:search }
     requirements:
         _method: GET
+
+linkzone_core_public_requests_exchange:
+    pattern: /orders/exchange
+    defaults: { _controller: LinkZoneCorePublicBundle:Requests:exchange }
+    requirements:
+        _method: GET
+
+linkzone_core_public_requests_in_progress:
+    pattern: /orders/in_progress
+    defaults: { _controller: LinkZoneCorePublicBundle:Requests:inProgress }
+    requirements:
+        _method: GET
+
+linkzone_core_public_orders_ajax_send_order_dialog:
+    pattern: /ajax/orders/send_order_dialog
+    defaults: { _controller: LinkZoneCorePublicBundle:Requests:ajaxSendOrderDialog }
+    requirements:
+        _method: GET
+
+linkzone_core_public_orders_ajax_send_order:
+    pattern: /ajax/orders/send_order
+    defaults: { _controller: LinkZoneCorePublicBundle:Requests:ajaxSendOrder }
+    requirements:
+        _method: POST

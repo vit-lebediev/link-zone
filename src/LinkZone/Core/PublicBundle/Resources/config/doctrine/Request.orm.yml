@@ -1,6 +1,6 @@
 LinkZone\Core\PublicBundle\Entity\Request:
     type: entity
-    table: null
+    table: platforms.requests
     fields:
         id:
             type: integer

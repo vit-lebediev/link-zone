@@ -20,6 +20,8 @@ class Builder
         $menu->addChild($translator->trans("menu.home", array(), "LZCorePublicBundle"), array('route' => 'linkzone_core_public_home'));
         $menu->addChild($translator->trans("menu.platforms", array(), "LZCorePublicBundle"), array('route' => 'linkzone_core_public_platforms'));
         $menu->addChild($translator->trans("menu.platforms_search", array(), "LZCorePublicBundle"), array('route' => 'linkzone_core_public_platforms_search'));
+        $menu->addChild($translator->trans("menu.requests_exchange", array(), "LZCorePublicBundle"), array('route' => 'linkzone_core_public_requests_exchange'));
+        $menu->addChild($translator->trans("menu.requests_in_progress", array(), "LZCorePublicBundle"), array('route' => 'linkzone_core_public_requests_in_progress'));
 
         return $menu;
     }
