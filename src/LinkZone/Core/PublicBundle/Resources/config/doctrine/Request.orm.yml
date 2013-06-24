@@ -15,14 +15,14 @@ LinkZone\Core\PublicBundle\Entity\Request:
             type: string
             length: 255
             column: sender_link_text
-        recieverLink:
+        receiverLink:
             type: string
             length: 255
-            column: reciever_link
-        recieverLinkText:
+            column: receiver_link
+        receiverLinkText:
             type: string
             length: 255
-            column: reciever_link_text
+            column: receiver_link_text
         status:
             type: string
             length: 255
@@ -42,15 +42,15 @@ LinkZone\Core\PublicBundle\Entity\Request:
             joinColumn:
                 name: sender_platform
                 referencedColumnName: id
-        recieverUser:
+        receiverUser:
             targetEntity: LinkZone\Core\PublicBundle\Entity\User
             inversedBy: requestsRecieved
             joinColumn:
-                name: reciever_user
+                name: receiver_user
                 referencedColumnName: id
-        recieverPlatform:
+        receiverPlatform:
             targetEntity: LinkZone\Core\PublicBundle\Entity\Platform
             joinColumn:
-                name: reciever_platform
+                name: receiver_platform
                 referencedColumnName: id
     lifecycleCallbacks: {  }

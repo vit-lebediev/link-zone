@@ -32,12 +32,12 @@ class Request
     /**
      * @var string
      */
-    private $recieverLink;
+    private $receiverLink;
 
     /**
      * @var string
      */
-    private $recieverLinkText;
+    private $receiverLinkText;
 
     /**
      * @var string
@@ -67,12 +67,12 @@ class Request
     /**
      * @var \LinkZone\Core\PublicBundle\Entity\User
      */
-    private $recieverUser;
+    private $receiverUser;
 
     /**
      * @var \LinkZone\Core\PublicBundle\Entity\Platform
      */
-    private $recieverPlatform;
+    private $receiverPlatform;
 
     const STATUS_EXCHANGE    = "EXCHANGE";
     const STATUS_IN_PROGRESS = "IN_PROGRESS";
@@ -141,49 +141,49 @@ class Request
     }
 
     /**
-     * Set recieverLink
+     * Set receiverLink
      *
-     * @param string $recieverLink
+     * @param string $receiverLink
      * @return Request
      */
-    public function setRecieverLink($recieverLink)
+    public function setReceiverLink($receiverLink)
     {
-        $this->recieverLink = $recieverLink;
+        $this->receiverLink = $receiverLink;
 
         return $this;
     }
 
     /**
-     * Get recieverLink
+     * Get receiverLink
      *
      * @return string
      */
-    public function getRecieverLink()
+    public function getReceiverLink()
     {
-        return $this->recieverLink;
+        return $this->receiverLink;
     }
 
     /**
-     * Set recieverLinkText
+     * Set receiverLinkText
      *
-     * @param string $recieverLinkText
+     * @param string $receiverLinkText
      * @return Request
      */
-    public function setRecieverLinkText($recieverLinkText)
+    public function setReceiverLinkText($receiverLinkText)
     {
-        $this->recieverLinkText = $recieverLinkText;
+        $this->receiverLinkText = $receiverLinkText;
 
         return $this;
     }
 
     /**
-     * Get recieverLinkText
+     * Get receiverLinkText
      *
      * @return string
      */
-    public function getRecieverLinkText()
+    public function getReceiverLinkText()
     {
-        return $this->recieverLinkText;
+        return $this->receiverLinkText;
     }
 
     /**
@@ -306,48 +306,48 @@ class Request
     }
 
     /**
-     * Set recieverUser
+     * Set receiverUser
      *
-     * @param \LinkZone\Core\PublicBundle\Entity\User $recieverUser
+     * @param \LinkZone\Core\PublicBundle\Entity\User $receiverUser
      * @return Request
      */
-    public function setRecieverUser(User $recieverUser = null)
+    public function setReceiverUser(User $receiverUser = null)
     {
-        $this->recieverUser = $recieverUser;
+        $this->receiverUser = $receiverUser;
 
         return $this;
     }
 
     /**
-     * Get recieverUser
+     * Get receiverUser
      *
      * @return \LinkZone\Core\PublicBundle\Entity\User
      */
-    public function getRecieverUser()
+    public function getReceiverUser()
     {
-        return $this->recieverUser;
+        return $this->receiverUser;
     }
 
     /**
-     * Set recieverPlatform
+     * Set receiverPlatform
      *
-     * @param \LinkZone\Core\PublicBundle\Entity\Platform $recieverPlatform
+     * @param \LinkZone\Core\PublicBundle\Entity\Platform $receiverPlatform
      * @return Request
      */
-    public function setRecieverPlatform(Platform $recieverPlatform = null)
+    public function setReceiverPlatform(Platform $receiverPlatform = null)
     {
-        $this->recieverPlatform = $recieverPlatform;
+        $this->receiverPlatform = $receiverPlatform;
 
         return $this;
     }
 
     /**
-     * Get recieverPlatform
+     * Get receiverPlatform
      *
      * @return \LinkZone\Core\PublicBundle\Entity\Platform
      */
-    public function getRecieverPlatform()
+    public function getReceiverPlatform()
     {
-        return $this->recieverPlatform;
+        return $this->receiverPlatform;
     }
 }
