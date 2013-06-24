@@ -3,11 +3,13 @@
 namespace LinkZone\Core\PublicBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\ORMInvalidArgumentException;
+use Doctrine\Common\Collections\ArrayCollection;
 
 use LinkZone\Core\PublicBundle\Entity\Platform;
+use LinkZone\Core\PublicBundle\Entity\Request;
 
 /**
  * Users
@@ -76,6 +78,16 @@ class User extends BaseUser
      */
     private $platforms;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $requestsSent;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $requestsRecieved;
+
     const STATUS_ACTIVE          = "ACTIVE";
     const STATUS_BLOCKED         = "BLOCKED";
     const STATUS_DELETED         = "DELETED";
@@ -96,8 +108,10 @@ class User extends BaseUser
     public function __construct()
     {
         parent::__construct();
-        $this->platforms = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->referrals = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->platforms        = new ArrayCollection();
+        $this->referrals        = new ArrayCollection();
+        $this->requestsSent     = new ArrayCollection();
+        $this->requestsRecieved = new ArrayCollection();
     }
 
     /**
@@ -375,5 +389,71 @@ class User extends BaseUser
     public function getPlatforms()
     {
         return $this->platforms;
+    }
+
+    /**
+     * Add requestsSent
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Request $requestsSent
+     * @return User
+     */
+    public function addRequestsSent(Request $requestsSent)
+    {
+        $this->requestsSent[] = $requestsSent;
+
+        return $this;
+    }
+
+    /**
+     * Remove requestsSent
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Request $requestsSent
+     */
+    public function removeRequestsSent(Request $requestsSent)
+    {
+        $this->requestsSent->removeElement($requestsSent);
+    }
+
+    /**
+     * Get requestsSent
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRequestsSent()
+    {
+        return $this->requestsSent;
+    }
+
+    /**
+     * Add requestsRecieved
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Request $requestsRecieved
+     * @return User
+     */
+    public function addRequestsRecieved(Request $requestsRecieved)
+    {
+        $this->requestsRecieved[] = $requestsRecieved;
+
+        return $this;
+    }
+
+    /**
+     * Remove requestsRecieved
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Request $requestsRecieved
+     */
+    public function removeRequestsRecieved(Request $requestsRecieved)
+    {
+        $this->requestsRecieved->removeElement($requestsRecieved);
+    }
+
+    /**
+     * Get requestsRecieved
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRequestsRecieved()
+    {
+        return $this->requestsRecieved;
     }
 }

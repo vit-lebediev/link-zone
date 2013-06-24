@@ -1,0 +1,56 @@
+LinkZone\Core\PublicBundle\Entity\Request:
+    type: entity
+    table: null
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        senderLink:
+            type: string
+            length: 255
+            column: sender_link
+        senderLinkText:
+            type: string
+            length: 255
+            column: sender_link_text
+        recieverLink:
+            type: string
+            length: 255
+            column: reciever_link
+        recieverLinkText:
+            type: string
+            length: 255
+            column: reciever_link_text
+        status:
+            type: string
+            length: 255
+        created:
+            type: datetime
+        finished:
+            type: datetime
+    manyToOne:
+        senderUser:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\User
+            inversedBy: requestsSent
+            joinColumn:
+                name: sender_user
+                referencedColumnName: id
+        senderPlatform:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Platform
+            joinColumn:
+                name: sender_platform
+                referencedColumnName: id
+        recieverUser:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\User
+            inversedBy: requestsRecieved
+            joinColumn:
+                name: reciever_user
+                referencedColumnName: id
+        recieverPlatform:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Platform
+            joinColumn:
+                name: reciever_platform
+                referencedColumnName: id
+    lifecycleCallbacks: {  }
