@@ -11,8 +11,8 @@
     <button id="platforms_buttons_add">{{ "common.add"|trans }}</button>
 </div>
 
-{% if platforms.count > 0 %}
-<table class="table_common">
+{% if (platforms and platforms.count > 0) %}
+<table class="common">
     <thead>
         <tr>
             <th>{{ "platforms.address"|trans }}</th>
@@ -48,5 +48,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset("bundles/linkzonecorepublic/js/pages/platforms.js") }}"></script>
+    <script src="{{ asset("bundles/linkzonecorepublic/js/pages/platforms/platforms.js") }}"></script>
 {% endblock %}

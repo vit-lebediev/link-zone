@@ -19,6 +19,7 @@ class Builder
 
         $menu->addChild($translator->trans("menu.home", array(), "LZCorePublicBundle"), array('route' => 'linkzone_core_public_home'));
         $menu->addChild($translator->trans("menu.platforms", array(), "LZCorePublicBundle"), array('route' => 'linkzone_core_public_platforms'));
+        $menu->addChild($translator->trans("menu.platforms_search", array(), "LZCorePublicBundle"), array('route' => 'linkzone_core_public_platforms_search'));
 
         return $menu;
     }

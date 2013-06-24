@@ -1,0 +1,82 @@
+{% extends '::public.base.html.twig' %}
+
+{% trans_default_domain "LZCorePublicBundle" %}
+
+{% block title %}{{ parent() }} - {{ "menu.platforms_search"|trans }}{% endblock %}
+
+{% block body %}
+<div id="filter_box" class="round_border clearfix">
+    <form action="{{ path('linkzone_core_public_platforms_search') }}" method="get" {{ form_enctype(platformSearchFilter) }}>
+        <div class="left half">TODO: Filters</div>
+        <div class="right half">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>{{ "platforms.topic"|trans }}</td>
+                        <td>{{ form_widget(platformSearchFilter.topic) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "platforms.search.last_login"|trans }}</td>
+                        <td>{{ form_widget(platformSearchFilter.owner.lastLogin) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "platforms.keywords"|trans }}</td>
+                        <td>
+                            <ul id="platform_tags">
+                            {% if (platformSearchTags and platformSearchTags.count > 0) %}
+                                {% for tag in platformSearchTags %}
+                                    <li>{{ tag }}</li>
+                                {% endfor %}
+                            {% endif %}
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" value="{{ "platforms.search.search"|trans }}" />
+        </div>
+    </form>
+</div>
+
+<div id="platform_list" class="round_border">
+    {% if (platforms and platforms.count > 0) %}
+        <table class="common">
+            <thead>
+                <tr>
+                    <th>{{ "common.site"|trans }}</th>
+                    <th>{{ "platforms.tyc"|trans }}</th>
+                    <th>{{ "platforms.pr"|trans }}</th>
+                    <th>{{ "platforms.yandex_index"|trans }}</th>
+                    <th>{{ "platforms.google_index"|trans }}</th>
+                    <th>{{ "platforms.rating"|trans }}</th>
+                    <th>{{ "platforms.articles_index"|trans }}</th>
+                    <th>{{ "common.actions"|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for platform in platforms %}
+                    <tr>
+                        <td><a href="{{ platform.url }}">{{ platform.url }}</a></td>
+                        <td>{{ platform.id }}</td>
+                        <td>{% if platform.topic %} {{ platform.topic.description }} {% else %} {{ "platforms.topics.empty"|trans }} {% endif %}</td>
+                        <td>{{ platform.owner.lastLogin|date(default_date_format) }}</td>
+                        <td>{{ platform.owner.username }}</td>
+                        <td>{{ platform.url }}</td>
+                        <td>{{ platform.url }}</td>
+                        <td>
+                            <div><a href="#" id="platform_send_request" data-platform-id="{{ platform.id }}">{{ "platforms.search.send_request"|trans }}</a></div>
+                            <div><a href="#" id="platform_send_message" data-platform-id="{{ platform.id }}">{{ "platforms.search.send_message"|trans }}</a></div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <span class="message_info">{{ "platforms.search.no_results"|trans }}</span>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("bundles/linkzonecorepublic/js/pages/platforms/search.js") }}"></script>
+{% endblock %}

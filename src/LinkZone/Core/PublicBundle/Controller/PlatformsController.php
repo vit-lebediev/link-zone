@@ -9,6 +9,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 use LinkZone\Core\PublicBundle\Entity\Platform;
 use LinkZone\Core\PublicBundle\Form\Type\PlatformType;
+use LinkZone\Core\PublicBundle\Form\Type\Platform\Search\PlatformType as PlatformSearchFilter;
 
 class PlatformsController extends BaseController
 {
@@ -38,6 +39,54 @@ class PlatformsController extends BaseController
         return $this->render("LinkZoneCorePublicBundle:Platforms:index.html.twig", array(
             'platformDialog' => $platformDialog->createView(),
             'platforms'      => $this->_user->getPlatforms(),
+        ));
+    }
+
+    public function searchAction(Request $request)
+    {
+        $thereIsFilter      = false;
+        $lastLogin          = null;
+        $filter             = array();
+        $platformSearchTags = array();
+
+        $platform = new Platform();
+        if ($topicId = $request->get("platform_search")['topic'] AND is_numeric($topicId))
+        {
+            $platform->setTopic($this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:PlatformTopic")->find($topicId));
+            $thereIsFilter = true;
+            $filter['topicId'] = $topicId;
+        }
+
+        if (isset($request->get("platform_search")['owner']['lastLogin'])
+                AND $lastLogin = $request->get("platform_search")['owner']['lastLogin']
+                AND !empty($lastLogin))
+        {
+            $thereIsFilter = true;
+            $filter['lastLogin'] = $lastLogin;
+        }
+
+        if ($rawTags = mb_strtolower($request->get("platform_tags")) AND strlen($rawTags) > 0)
+        {
+            $thereIsFilter = true;
+            $tags = $this->_tagManager->loadOrCreateTags($this->_tagManager->splitTagNames($rawTags));
+            $filter['platformSearchTags'] = $tags;
+        }
+
+        $platformSearchFilter = $this->createForm(new PlatformSearchFilter(), $platform, array(
+            'container' => $this->container,
+            'lastLogin' => $lastLogin,
+        ));
+
+        if ($thereIsFilter) {
+            $platforms = $this->_platformRepository->findAllByFilterExceptForUser($this->_user, $filter);
+        } else {
+            $platforms = $this->_platformRepository->findAllNotHiddenExceptForUser($this->_user);
+        }
+
+        return $this->render("LinkZoneCorePublicBundle:Platforms:search.html.twig", array(
+            'platforms' => $platforms,
+            'platformSearchFilter' => $platformSearchFilter->createView(),
+            'platformSearchTags' => $platformSearchTags,
         ));
     }
 

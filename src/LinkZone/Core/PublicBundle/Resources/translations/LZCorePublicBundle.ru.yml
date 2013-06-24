@@ -4,10 +4,13 @@ common:
     cancel:  Отменить
     add:     Добавить
     edit:    Редактировать
+    actions: Действия
+    site:    Сайт
 
 menu:
     home: Главная Панель
     platforms: Мои площадки
+    platforms_search: Поиск площадок
 
 platforms:
     add_platform: Добавить площадку
@@ -24,6 +27,17 @@ platforms:
     no_platforms:      Вы ещё не добавили ни одной площадки. Воспользуйтесь кнопкой "Добавить" !
     edit:              Редактировать
     site_not_exists:   URL, который вы ввели, не является действующим сайтом
+    tyc:               ТИЦ
+    pr:                PR
+    yandex_index:      Индексация Я
+    google_index:      Индексация G
+    articles_index:    Индексация статей
+    search:
+        send_request: Отправить заявку
+        send_message: Написать
+        no_results:   Нет результатов
+        last_login:   Последний визит не раньше
+        search:       Поиск
     statuses:
         ACTIVE:  Активная
         BLOCKED: Блокирована
@@ -31,7 +45,7 @@ platforms:
         ON_MODERATION: На модерации
         DENIED:        Отклонена
     topics:
-        empty: Не выбрана
+        empty: <Не выбрана>
         automoto: Авто- и мототранспорт
         business: Бизнес и финансы
         abouteverything: Всё обо всем

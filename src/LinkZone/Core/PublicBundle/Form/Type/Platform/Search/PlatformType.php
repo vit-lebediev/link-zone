@@ -1,10 +1,12 @@
 <?php
 
-namespace LinkZone\Core\PublicBundle\Form\Type;
+namespace LinkZone\Core\PublicBundle\Form\Type\Platform\Search;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+use LinkZone\Core\PublicBundle\Form\Type\Platform\Search\UserType;
 
 class PlatformType extends AbstractType
 {
@@ -18,23 +20,13 @@ class PlatformType extends AbstractType
             $choicesArray[$topic->getId()] = $translator->trans("platforms.topics." . $topic->getTransKey(), array(), "LZCorePublicBundle");
         }
 
-        // Field Type Guessing
-        // http://symfony.com/doc/current/book/forms.html#field-type-guessing
-        $builder->add("url");
-
         $builder->add("topic", "entity", array(
             'class'       => "LinkZoneCorePublicBundle:PlatformTopic",
             'empty_value' => $translator->trans("platforms.topics.empty", array(), "LZCorePublicBundle"),
             'required'    => false,
         ));
 
-        $builder->add("description", "textarea", array(
-            'required' => false,
-        ));
-
-        $builder->add("hidden", "checkbox", array(
-            'required' => false,
-        ));
+        $builder->add("owner", new UserType());
 
         $builder->add("tags", null, array(
             "mapped" => false,
@@ -50,13 +42,14 @@ class PlatformType extends AbstractType
             // http://symfony.com/doc/master/book/forms.html#creating-form-classes
             'data_class'     => "LinkZone\Core\PublicBundle\Entity\Platform",
             'csrf_protection'=> false, // TODO: make with CSRF protection (https://trello.com/c/D4bBdwPl)
-            'container'      => false,
-            'validation_groups' => array('Default', 'creation'),
+            'cascade_validation' => true,
+            'container'          => false,
+            'lastLogin'          => false,
+//            'validation_groups' => array('Default', 'creation'),
         ));
     }
 
-    public function getName()
-    {
-        return "platform";
+    public function getName() {
+        return "platform_search";
     }
 }
