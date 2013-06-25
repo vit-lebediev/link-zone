@@ -1,6 +1,7 @@
 LinkZone\Core\PublicBundle\Entity\Request:
     type: entity
     table: platforms.requests
+    repositoryClass: LinkZone\Core\PublicBundle\Repository\RequestRepository
     fields:
         id:
             type: integer

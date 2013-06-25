@@ -7,5 +7,87 @@
 {% block body %}
 <h1>{{ "menu.requests_exchange"|trans }}</h1>
 
+<h2>{{ "orders.orders_sent_to_you"|trans }}</h2>
+<div id="requests_received" class="round_border clearfix">
+    {% if (ordersReceived and ordersReceived.count > 0) %}
+
+        <table class="common">
+            <thead>
+                <tr>
+                    <th>{{ "common.site"|trans }}</th>
+                    <th>{{ "orders.your_site_for_exch"|trans }}</th>
+                    <th>{{ "platforms.tyc"|trans }}</th>
+                    <th>{{ "platforms.pr"|trans }}</th>
+                    <th>{{ "platforms.yandex_index"|trans }}</th>
+                    <th>{{ "platforms.google_index"|trans }}</th>
+                    <th>{{ "platforms.rating"|trans }}</th>
+                    <th>{{ "platforms.articles_index"|trans }}</th>
+                    <th>{{ "common.actions"|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in ordersReceived %}
+                    <tr>
+                        <td><a href="{{ order.senderPlatform.url }}">{{ order.senderPlatform.url }}</a></td>
+                        <td><a href="{{ order.receiverPlatform.url }}">{{ order.receiverPlatform.url }}</a></td>
+                        <td>{{ order.senderPlatform.owner.username }}</td>
+                        <td>{{ order.senderPlatform.id }}</td>
+                        <td>{% if order.senderPlatform.topic %} {{ order.senderPlatform.description }} {% else %} {{ "platforms.topics.empty"|trans }} {% endif %}</td>
+                        <td>{{ order.receiverPlatform.id }}</td>
+                        <td>{% if order.receiverPlatform.topic %} {{ order.receiverPlatform.description }} {% else %} {{ "platforms.topics.empty"|trans }} {% endif %}</td>
+                        <td>{{ order.receiverPlatform.url }}</td>
+                        <td>
+                            <div><a href="#" class="orders_review_order" data-order-id="{{ order.id }}">{{ "orders.review_order"|trans }}</a></div>
+                            <div><a href="#" class="orders_write_to_sender" data-sender-id="{{ order.senderUser.id }}">{{ "common.send_message"|trans }}</a></div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <span class="message_info">{{ "orders.no_received_orders"|trans }}</span>
+    {% endif %}
+</div>
+
+<h2>{{ "orders.orders_sent_by_you"|trans }}</h2>
+<div id="requests_sent" class="round_border clearfix">
+    {% if (ordersSent and ordersSent.count > 0) %}
+
+        <table class="common">
+            <thead>
+                <tr>
+                    <th>{{ "common.site"|trans }}</th>
+                    <th>{{ "orders.your_site_for_exch"|trans }}</th>
+                    <th>{{ "platforms.tyc"|trans }}</th>
+                    <th>{{ "platforms.pr"|trans }}</th>
+                    <th>{{ "platforms.yandex_index"|trans }}</th>
+                    <th>{{ "platforms.google_index"|trans }}</th>
+                    <th>{{ "platforms.rating"|trans }}</th>
+                    <th>{{ "platforms.articles_index"|trans }}</th>
+                    <th>{{ "common.actions"|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in ordersSent %}
+                    <tr>
+                        <td><a href="{{ order.senderPlatform.url }}">{{ order.senderPlatform.url }}</a></td>
+                        <td><a href="{{ order.receiverPlatform.url }}">{{ order.receiverPlatform.url }}</a></td>
+                        <td>{{ order.senderPlatform.owner.username }}</td>
+                        <td>{{ order.senderPlatform.id }}</td>
+                        <td>{% if order.senderPlatform.topic %} {{ order.senderPlatform.description }} {% else %} {{ "platforms.topics.empty"|trans }} {% endif %}</td>
+                        <td>{{ order.receiverPlatform.id }}</td>
+                        <td>{% if order.receiverPlatform.topic %} {{ order.receiverPlatform.description }} {% else %} {{ "platforms.topics.empty"|trans }} {% endif %}</td>
+                        <td>{{ order.receiverPlatform.url }}</td>
+                        <td>
+                            <div><a href="#" class="orders_delete_order" data-order-id="{{ order.id }}">{{ "common.delete"|trans }}</a></div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <span class="message_info">{{ "orders.no_sent_orders"|trans }}</span>
+    {% endif %}
+</div>
 
 {% endblock %}
