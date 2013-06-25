@@ -57,13 +57,13 @@ LinkZone\Core\PublicBundle\Entity\User:
                 created: DESC
         requestsSent:
             targetEntity: LinkZone\Core\PublicBundle\Entity\Request
-            mappedBy: userSender
+            mappedBy: senderUser
             orderBy:
                 finished: DESC
                 created: DESC
         requestsRecieved:
             targetEntity: LinkZone\Core\PublicBundle\Entity\Request
-            mappedBy: userReciever
+            mappedBy: receiverUser
             orderBy:
                 finished: DESC
                 created: DESC
