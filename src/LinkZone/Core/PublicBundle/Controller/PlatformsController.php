@@ -13,21 +13,13 @@ use LinkZone\Core\PublicBundle\Form\Type\Platform\Search\PlatformType as Platfor
 
 class PlatformsController extends BaseController
 {
-    private $_platformRepository;
-    private $_doctrineManager;
-    private $_translator;
-    private $_logger;
     private $_tagManager;
-    private $_user;
 
     public function init()
     {
-        $this->_platformRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:Platform");
-        $this->_doctrineManager    = $this->getDoctrine()->getManager();
-        $this->_translator         = $this->get("translator");
-        $this->_logger             = $this->get("logger");
+        parent::_init();
+
         $this->_tagManager         = $this->get("fpn_tag.tag_manager");
-        $this->_user               = $this->get("security.context")->getToken()->getUser();
     }
 
     public function indexAction()

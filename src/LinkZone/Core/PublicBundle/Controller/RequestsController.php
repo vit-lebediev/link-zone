@@ -13,23 +13,15 @@ use LinkZone\Core\PublicBundle\Form\Type\Request\ReviewRequestType;
 
 class RequestsController extends BaseController
 {
-    private $_platformRepository;
-    private $_userRepository;
     private $_requestRepository;
     private $_requestManager;
-    private $_doctrineManager;
-    private $_logger;
-    private $_user;
 
     public function init()
     {
-        $this->_platformRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:Platform");
-        $this->_userRepository     = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:User");
+        parent::_init();
+
         $this->_requestRepository  = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:Request");
         $this->_requestManager     = $this->get("link_zone.core.public.manager.request");
-        $this->_doctrineManager    = $this->getDoctrine()->getManager();
-        $this->_logger             = $this->get("logger");
-        $this->_user               = $this->get("security.context")->getToken()->getUser();
     }
 
     public function exchangeAction()
