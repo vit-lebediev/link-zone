@@ -77,11 +77,13 @@ class Request
     const STATUS_EXCHANGE    = "EXCHANGE";
     const STATUS_IN_PROGRESS = "IN_PROGRESS";
     const STATUS_FINISHED    = "FINISHED";
+    const STATUS_DENIED      = "DENIED";
 
     public static $availableStatuses = array(
         self::STATUS_EXCHANGE,
         self::STATUS_IN_PROGRESS,
         self::STATUS_FINISHED,
+        self::STATUS_DENIED,
     );
 
     /**

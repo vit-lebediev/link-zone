@@ -1,0 +1,23 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<div class="center">
+    <table>
+        <tbody>
+            <tr>
+                <td>{{ "orders.code_for_exchange"|trans }}:</td>
+                <td>{{ form_widget(reviewRequestDialog.senderLinkHTML) }}</td>
+            </tr>
+            <tr>
+                <td>{{ "orders.your_link"|trans }}:</td>
+                <td>{{ form_widget(reviewRequestDialog.receiverLink) }}</td>
+            </tr>
+            <tr>
+                <td>{{ "orders.anchor"|trans }}:</td>
+                <td>{{ form_widget(reviewRequestDialog.receiverLinkText) }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {{ form_widget(reviewRequestDialog.id) }}
+    {{ form_widget(reviewRequestDialog._token) }}
+
+</div>

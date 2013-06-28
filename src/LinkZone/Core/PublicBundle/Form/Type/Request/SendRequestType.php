@@ -1,6 +1,6 @@
 <?php
 
-namespace LinkZone\Core\PublicBundle\Form\Type;
+namespace LinkZone\Core\PublicBundle\Form\Type\Request;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -55,8 +55,9 @@ class SendRequestType extends AbstractType
             'container'       => false,
             'user'            => false,
             'default_receiver_platform_id' => null,
-            'csrf_protection'              => true, // TODO: make with CSRF protection (https://trello.com/c/D4bBdwPl)
+            'csrf_protection'              => true,
             'csrf_field_name'              => '_token',
+            'validation_groups'            => array('sender'),
         ));
     }
 

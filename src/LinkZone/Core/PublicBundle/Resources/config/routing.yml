@@ -64,25 +64,46 @@ linkzone_core_public_platforms_search:
         _method: GET
 
 linkzone_core_public_requests_exchange:
-    pattern: /orders/exchange
+    pattern: /orders/for-exchange
     defaults: { _controller: LinkZoneCorePublicBundle:Requests:exchange }
     requirements:
         _method: GET
 
 linkzone_core_public_requests_in_progress:
-    pattern: /orders/in_progress
+    pattern: /orders/in-progress
     defaults: { _controller: LinkZoneCorePublicBundle:Requests:inProgress }
     requirements:
         _method: GET
 
 linkzone_core_public_orders_ajax_send_order_dialog:
-    pattern: /ajax/orders/send_order_dialog
+    pattern: /ajax/orders/send-order-dialog
     defaults: { _controller: LinkZoneCorePublicBundle:Requests:ajaxSendOrderDialog }
     requirements:
         _method: GET
 
 linkzone_core_public_orders_ajax_send_order:
-    pattern: /ajax/orders/send_order
+    pattern: /ajax/orders/send-order
     defaults: { _controller: LinkZoneCorePublicBundle:Requests:ajaxSendOrder }
     requirements:
         _method: POST
+
+linkzone_core_public_orders_ajax_dialog_order_review:
+    pattern: /ajax/dialog/orders/{orderId}/review
+    defaults: { _controller: LinkZoneCorePublicBundle:Requests:ajaxDialogReviewOrder }
+    requirements:
+        _method: GET
+        orderId: \d+
+
+linkzone_core_public_orders_ajax_approve_order:
+    pattern: /ajax/orders/{orderId}/approve
+    defaults: { _controller: LinkZoneCorePublicBundle:Requests:ajaxApproveOrder }
+    requirements:
+        _method: POST
+        orderId: \d+
+
+linkzone_core_public_orders_ajax_deny_order:
+    pattern: /ajax/orders/{orderId}/deny
+    defaults: { _controller: LinkZoneCorePublicBundle:Requests:ajaxDenyOrder }
+    requirements:
+        _method: POST
+        orderId: \d+

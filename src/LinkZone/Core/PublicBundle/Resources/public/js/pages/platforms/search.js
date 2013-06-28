@@ -20,7 +20,7 @@ jQuery(function()
         request['senderLinkText'] = $("#send_request_senderLinkText").val();
         request['receiverPlatformId'] = $("#send_request_receiverPlatformId").val();
         request['_token'] = $("#send_request__token").val();
-        $.post(LinkZone.app_env + "/ajax/orders/send_order", {
+        $.post(LinkZone.app_env + "/ajax/orders/send-order", {
             send_request: request
         }).done(function (jqXHR, textStatus, errorThrown) {
             $(thisElement).successLoading();
@@ -39,7 +39,7 @@ jQuery(function()
     // send order onclick
     $(".platform_send_request").click(function() {
         var platformId = $(this).data("platformId");
-        $.get(LinkZone.app_env + "/ajax/orders/send_order_dialog", { platform_id: platformId }, function(data) {
+        $.get(LinkZone.app_env + "/ajax/orders/send-order-dialog", { platform_id: platformId }, function(data) {
             $("#dialog-add-platform").html(data);
             $("#dialog-add-platform").dialog({
                 resizable: false,

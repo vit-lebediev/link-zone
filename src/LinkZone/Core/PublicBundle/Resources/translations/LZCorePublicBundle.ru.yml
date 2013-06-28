@@ -83,3 +83,6 @@ orders:
     orders_sent_to_you: Заявки, присланные вам на рассмотрение
     orders_sent_by_you: Заявки, которые вы отправили на рассмотрение
     review_order:       Рассмотреть заявку
+    approve:            Одобрить
+    deny:               Отклонить
+    code_for_exchange:  Код к обмену

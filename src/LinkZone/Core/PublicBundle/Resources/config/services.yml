@@ -28,3 +28,8 @@ services:
         arguments: ["@service_container"]
         tags:
             - { name: validator.constraint_validator ,alias: site_exists }
+
+    link_zone.core.public.manager.request:
+        class: LinkZone\Core\PublicBundle\Manager\RequestManager
+        calls:
+            - [ setContainer, ["@service_container"] ]

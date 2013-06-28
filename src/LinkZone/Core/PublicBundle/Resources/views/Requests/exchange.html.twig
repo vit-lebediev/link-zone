@@ -35,7 +35,7 @@
                         <td>{% if order.senderPlatform.topic %} {{ order.senderPlatform.description }} {% else %} {{ "platforms.topics.empty"|trans }} {% endif %}</td>
                         <td>{{ order.receiverPlatform.id }}</td>
                         <td>{% if order.receiverPlatform.topic %} {{ order.receiverPlatform.description }} {% else %} {{ "platforms.topics.empty"|trans }} {% endif %}</td>
-                        <td>{{ order.receiverPlatform.url }}</td>
+                        <td>{{ order.id }}</td>
                         <td>
                             <div><a href="#" class="orders_review_order" data-order-id="{{ order.id }}">{{ "orders.review_order"|trans }}</a></div>
                             <div><a href="#" class="orders_write_to_sender" data-sender-id="{{ order.senderUser.id }}">{{ "common.send_message"|trans }}</a></div>
@@ -77,7 +77,7 @@
                         <td>{% if order.senderPlatform.topic %} {{ order.senderPlatform.description }} {% else %} {{ "platforms.topics.empty"|trans }} {% endif %}</td>
                         <td>{{ order.receiverPlatform.id }}</td>
                         <td>{% if order.receiverPlatform.topic %} {{ order.receiverPlatform.description }} {% else %} {{ "platforms.topics.empty"|trans }} {% endif %}</td>
-                        <td>{{ order.receiverPlatform.url }}</td>
+                        <td>{{ order.id }}</td>
                         <td>
                             <div><a href="#" class="orders_delete_order" data-order-id="{{ order.id }}">{{ "common.delete"|trans }}</a></div>
                         </td>
@@ -90,4 +90,13 @@
     {% endif %}
 </div>
 
+<div id="dialog-review-order" class="invisible" title="{{ "orders.review_order"|trans }}"></div>
+
+<input type="hidden" id="string-approve-order" value="{{ "orders.approve"|trans }}" />
+<input type="hidden" id="string-deny-order" value="{{ "orders.deny"|trans }}" />
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("bundles/linkzonecorepublic/js/pages/orders/exchange.js") }}"></script>
 {% endblock %}

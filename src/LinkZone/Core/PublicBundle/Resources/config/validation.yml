@@ -12,14 +12,14 @@ LinkZone\Core\PublicBundle\Entity\Platform:
 LinkZone\Core\PublicBundle\Entity\Request:
     properties:
         senderLink:
-            - NotBlank: ~
-            - Url: ~
-            - LinkZone\Core\PublicBundle\Validator\Constraints\SiteExists: ~
+            - NotBlank: { groups: [sender] }
+            - Url:      { groups: [sender] }
+            - LinkZone\Core\PublicBundle\Validator\Constraints\SiteExists: { groups: [sender] }
         senderLinkText:
-            - NotBlank: ~
+            - NotBlank: { groups: [sender] }
         receiverLink:
             - NotBlank: { groups: [receiver] }
-            - Url: ~
-            - LinkZone\Core\PublicBundle\Validator\Constraints\SiteExists: ~
+            - Url:      { groups: [receiver] }
+            - LinkZone\Core\PublicBundle\Validator\Constraints\SiteExists: { groups: [receiver] }
         receiverLinkText:
             - NotBlank: { groups: [receiver] }
