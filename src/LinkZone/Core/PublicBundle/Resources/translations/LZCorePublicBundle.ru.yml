@@ -8,6 +8,8 @@ common:
     site:    Сайт
     send_message: Написать
     delete:       Удалить
+    send:         Отправить
+    accept:       Принять
 
 menu:
     home: Главная Панель
@@ -86,3 +88,7 @@ orders:
     approve:            Одобрить
     deny:               Отклонить
     code_for_exchange:  Код к обмену
+    code_to_insert:     Код для вставки
+    sender_code_is_here: Здесь пользователь найдёт свой код
+    our_code_is_here:    Здесь вы найдете ваш код
+    user_not_placed_code: Пользователь ещё не разместил ваш код

@@ -26,21 +26,37 @@ class RequestsController extends BaseController
 
     public function exchangeAction()
     {
-        $ordersReceived = $this->_requestRepository->findAllReceivedForExchangeForUser($this->_user);
+        $ordersForExchangeReceived = $this->_requestRepository->findAllReceivedForExchangeForUser($this->_user);
 
-        $ordersSent = $this->_requestRepository->findAllSentForExchangeForUser($this->_user);
+        $ordersForExchangeSent = $this->_requestRepository->findAllSentForExchangeForUser($this->_user);
 
         return $this->render("LinkZoneCorePublicBundle:Requests:exchange.html.twig", array(
-            'ordersReceived' => $ordersReceived,
-            'ordersSent'     => $ordersSent,
+            'ordersReceived' => $ordersForExchangeReceived,
+            'ordersSent'     => $ordersForExchangeSent,
         ));
     }
 
     public function inProgressAction()
     {
-        return $this->render("LinkZoneCorePublicBundle:Requests:inProgress.html.twig");
+        $ordersInProgressReceived = $this->_requestRepository->findAllReceivedInProgressForUser($this->_user);
+
+        $ordersInProgressSent = $this->_requestRepository->findAllSentInProgressForUser($this->_user);
+
+        return $this->render("LinkZoneCorePublicBundle:Requests:inProgress.html.twig", array(
+            'ordersReceived' => $ordersInProgressReceived,
+            'ordersSent' => $ordersInProgressSent,
+        ));
     }
 
+    /**
+     * Ajax handlers
+     */
+
+    /**
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return type
+     */
     public function ajaxSendOrderDialogAction(Request $request)
     {
         $this->_verifyIsXmlHttpRequest();
@@ -142,7 +158,7 @@ class RequestsController extends BaseController
         }
     }
 
-    public function ajaxDenyOrderAction($orderId, Request $request)
+    public function ajaxDenyOrderAction($orderId)
     {
         $this->_verifyIsXmlHttpRequest();
 
@@ -154,6 +170,79 @@ class RequestsController extends BaseController
         }
 
         $platformRequest->setStatus(PlatformRequest::STATUS_DENIED);
+
+        $this->_doctrineManager->persist($platformRequest);
+        $this->_doctrineManager->flush();
+
+        return new JsonResponse();
+    }
+
+    public function ajaxReceiverLinkLocationAction($orderId, Request $request)
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        $platformRequest = $this->_requestRepository->find($orderId);
+
+        if ($this->_user != $platformRequest->getReceiverUser()) {
+            $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
+            throw new BadRequestHttpException("You do not have rights to access");
+        }
+
+        $platformRequest->setReceiverLinkLocation($request->get("linkLocation"));
+
+        $this->_doctrineManager->persist($platformRequest);
+        $this->_doctrineManager->flush();
+
+        return new JsonResponse();
+    }
+
+    public function ajaxSenderLinkLocationAction($orderId, Request $request)
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        $platformRequest = $this->_requestRepository->find($orderId);
+
+        if ($this->_user != $platformRequest->getSenderUser()) {
+            $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
+            throw new BadRequestHttpException("You do not have rights to access");
+        }
+
+        $platformRequest->setSenderLinkLocation($request->get("linkLocation"));
+
+        $this->_doctrineManager->persist($platformRequest);
+        $this->_doctrineManager->flush();
+
+        return new JsonResponse();
+    }
+
+    public function ajaxAcceptOrderAction($orderId, Request $request)
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        $platformRequest = $this->_requestRepository->find($orderId);
+
+        if (!$platformRequest) {
+            throw new BadRequestHttpException("There is no order with id " . $orderId);
+        }
+
+        if ($this->_user != $platformRequest->getReceiverUser() AND $this->_user != $platformRequest->getSenderUser()) {
+            $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
+            throw new BadRequestHttpException("You do not have rights to access");
+        }
+
+        $accept = ("false" == $request->get("accept")) ? false : true;
+
+        if ($this->_user == $platformRequest->getReceiverUser()) {
+            $platformRequest->setReceiverAccepted($accept);
+        } else {
+            $platformRequest->setSenderAccepted($accept);
+        }
+
+        if ($platformRequest->getSenderAccepted() && $platformRequest->getReceiverAccepted()) {
+            $platformRequest->setStatus(PlatformRequest::STATUS_FINISHED);
+
+            // TODO: Charge users
+        }
 
         $this->_doctrineManager->persist($platformRequest);
         $this->_doctrineManager->flush();

@@ -39,4 +39,26 @@ class RequestRepository extends EntityRepository
                 array('created' => "DESC")
         ));
     }
+
+    public function findAllReceivedInProgressForUser(UserInterface $user)
+    {
+        return new ArrayCollection($this->findBy(
+                array(
+                    'receiverUser' => $user,
+                    'status'       => Request::STATUS_IN_PROGRESS,
+                ),
+                array('created' => "DESC")
+        ));
+    }
+
+    public function findAllSentInProgressForUser(UserInterface $user)
+    {
+        return new ArrayCollection($this->findBy(
+                array(
+                    'senderUser' => $user,
+                    'status'     => Request::STATUS_IN_PROGRESS,
+                ),
+                array('created' => "DESC")
+        ));
+    }
 }

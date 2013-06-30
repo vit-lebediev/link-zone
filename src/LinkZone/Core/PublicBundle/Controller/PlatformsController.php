@@ -82,6 +82,10 @@ class PlatformsController extends BaseController
         ));
     }
 
+    /**
+     * Ajax handlers
+     */
+
     public function ajaxPlatformDialogAction(Request $request)
     {
         $this->_verifyIsXmlHttpRequest();

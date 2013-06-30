@@ -6,4 +6,97 @@
 
 {% block body %}
 <h1>{{ "menu.requests_in_progress"|trans }}</h1>
+
+<h2>{{ "orders.orders_sent_to_you"|trans }}</h2>
+<div id="requests_in_progress" class="round_border clearfix">
+    {% if (ordersReceived and ordersReceived.count > 0) %}
+        <table class="common">
+            <thead>
+                <tr>
+                    <th>{{ "common.site"|trans }}</th>
+                    <th>{{ "orders.your_site_for_exch"|trans }}</th>
+                    <th>{{ "orders.code_to_insert"|trans }}</th>
+                    <th>{{ "orders.sender_code_is_here"|trans }}</th>
+                    <th>{{ "orders.our_code_is_here"|trans }}</th>
+                    <th>{{ "common.actions"|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in ordersReceived %}
+                    <tr>
+                        <td><a href="{{ order.senderPlatform.url }}">{{ order.senderPlatform.url }}</a></td>
+                        <td><a href="{{ order.receiverPlatform.url }}">{{ order.receiverPlatform.url }}</a></td>
+                        <td>{{ senderLinkHtmlCode(order) }}</td>
+                        <td>
+                            <div><input type="text" class="code_for_user" value="{% if order.receiverLinkLocation %} {{ order.receiverLinkLocation }} {% endif %}" /></div>
+                            <div><a href="#" class="send_code_for_user" data-for="receiver" data-order-id="{{ order.id }}">{{ "common.send"|trans }}</a></div>
+                        </td>
+                        <td>{% if order.senderLinkLocation is not null %} {{ order.senderLinkLocation }} {% else %} <span class="message_info">{{ "orders.user_not_placed_code"|trans }} </span> {% endif %}</td>
+                        <td>
+                            <div><a href="#" class="orders_write_to_sender" data-sender-id="{{ order.senderUser.id }}">{{ "common.send_message"|trans }}</a></div>
+                            <div>
+                                {% if order.receiverAccepted %}
+                                    <a href="#" class="orders_cancel_order" data-order-id="{{ order.id }}">{{ "common.cancel"|trans }}</a>
+                                {% else %}
+                                    <a href="#" class="orders_accept_order" data-order-id="{{ order.id }}">{{ "common.accept"|trans }}</a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <span class="message_info">{{ "orders.no_received_orders"|trans }}</span>
+    {% endif %}
+</div>
+
+<h2>{{ "orders.orders_sent_by_you"|trans }}</h2>
+<div id="requests_sent" class="round_border clearfix">
+    {% if (ordersSent and ordersSent.count > 0) %}
+        <table class="common">
+            <thead>
+                <tr>
+                    <th>{{ "common.site"|trans }}</th>
+                    <th>{{ "orders.your_site_for_exch"|trans }}</th>
+                    <th>{{ "orders.code_to_insert"|trans }}</th>
+                    <th>{{ "orders.sender_code_is_here"|trans }}</th>
+                    <th>{{ "orders.our_code_is_here"|trans }}</th>
+                    <th>{{ "common.actions"|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in ordersSent %}
+                    <tr>
+                        <td><a href="{{ order.receiverPlatform.url }}">{{ order.receiverPlatform.url }}</a></td>
+                        <td><a href="{{ order.senderPlatform.url }}">{{ order.senderPlatform.url }}</a></td>
+                        <td>{{ receiverLinkHtmlCode(order) }}</td>
+                        <td>
+                            <div><input type="text" class="code_for_user" value="{% if order.senderLinkLocation %} {{ order.senderLinkLocation }} {% endif %}" /></div>
+                            <div><a href="#" class="send_code_for_user" data-for="sender" data-order-id="{{ order.id }}">{{ "common.send"|trans }}</a></div>
+                        </td>
+                        <td>{% if order.receiverLinkLocation is not null %} {{ order.receiverLinkLocation }} {% else %} <span class="message_info">{{ "orders.user_not_placed_code"|trans }} </span> {% endif %}</td>
+                        <td>
+                            <div><a href="#" class="orders_write_to_sender" data-sender-id="{{ order.senderUser.id }}">{{ "common.send_message"|trans }}</a></div>
+                            <div>
+                                {% if order.senderAccepted %}
+                                    <a href="#" class="orders_cancel_order" data-order-id="{{ order.id }}">{{ "common.cancel"|trans }}</a>
+                                {% else %}
+                                    <a href="#" class="orders_accept_order" data-order-id="{{ order.id }}">{{ "common.accept"|trans }}</a>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <span class="message_info">{{ "orders.no_sent_orders"|trans }}</span>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("bundles/linkzonecorepublic/js/pages/orders/in-progress.js") }}"></script>
 {% endblock %}

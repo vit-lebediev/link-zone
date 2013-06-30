@@ -33,3 +33,11 @@ services:
         class: LinkZone\Core\PublicBundle\Manager\RequestManager
         calls:
             - [ setContainer, ["@service_container"] ]
+
+    link_zone.core.twig.extension:
+        class: LinkZone\Core\PublicBundle\Twig\Extension\CoreExtension
+        public: false
+        calls:
+            - [ setContainer, ["@service_container"] ]
+        tags:
+            - { name: twig.extension }

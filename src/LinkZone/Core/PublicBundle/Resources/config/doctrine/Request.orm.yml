@@ -16,6 +16,10 @@ LinkZone\Core\PublicBundle\Entity\Request:
             type: string
             length: 255
             column: sender_link_text
+        senderLinkLocation:
+            type: string
+            length: 255
+            column: sender_link_location
         receiverLink:
             type: string
             length: 255
@@ -24,9 +28,19 @@ LinkZone\Core\PublicBundle\Entity\Request:
             type: string
             length: 255
             column: receiver_link_text
+        receiverLinkLocation:
+            type: string
+            length: 255
+            column: receiver_link_location
         status:
             type: string
             length: 255
+        senderAccepted:
+            type: boolean
+            column: sender_accepted
+        receiverAccepted:
+            type: boolean
+            column: receiver_accepted
         created:
             type: datetime
         finished:

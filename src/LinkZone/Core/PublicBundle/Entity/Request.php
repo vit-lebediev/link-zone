@@ -32,6 +32,11 @@ class Request
     /**
      * @var string
      */
+    private $senderLinkLocation;
+
+    /**
+     * @var string
+     */
     private $receiverLink;
 
     /**
@@ -42,7 +47,22 @@ class Request
     /**
      * @var string
      */
+    private $receiverLinkLocation;
+
+    /**
+     * @var string
+     */
     private $status;
+
+    /**
+     * @var boolean
+     */
+    private $senderAccepted;
+
+    /**
+     * @var boolean
+     */
+    private $receiverAccepted;
 
     /**
      * @var \DateTime
@@ -143,6 +163,29 @@ class Request
     }
 
     /**
+     * Set senderLinkLocation
+     *
+     * @param string $senderLinkLocation
+     * @return Request
+     */
+    public function setSenderLinkLocation($senderLinkLocation)
+    {
+        $this->senderLinkLocation = $senderLinkLocation;
+
+        return $this;
+    }
+
+    /**
+     * Get senderLinkLocation
+     *
+     * @return string
+     */
+    public function getSenderLinkLocation()
+    {
+        return $this->senderLinkLocation;
+    }
+
+    /**
      * Set receiverLink
      *
      * @param string $receiverLink
@@ -189,6 +232,29 @@ class Request
     }
 
     /**
+     * Set receiverLinkLocation
+     *
+     * @param string $receiverLinkLocation
+     * @return Request
+     */
+    public function setReceiverLinkLocation($receiverLinkLocation)
+    {
+        $this->receiverLinkLocation = $receiverLinkLocation;
+
+        return $this;
+    }
+
+    /**
+     * Get receiverLinkLocation
+     *
+     * @return string
+     */
+    public function getReceiverLinkLocation()
+    {
+        return $this->receiverLinkLocation;
+    }
+
+    /**
      * Set status
      *
      * @param string $status
@@ -226,6 +292,52 @@ class Request
         $this->created = $created;
 
         return $this;
+    }
+
+    /**
+     * Set senderAccepted
+     *
+     * @param boolean $senderAccepted
+     * @return Request
+     */
+    public function setSenderAccepted($senderAccepted)
+    {
+        $this->senderAccepted = $senderAccepted;
+
+        return $this;
+    }
+
+    /**
+     * Get senderAccepted
+     *
+     * @return boolean
+     */
+    public function getSenderAccepted()
+    {
+        return $this->senderAccepted;
+    }
+
+    /**
+     * Set receiverAccepted
+     *
+     * @param boolean $receiverAccepted
+     * @return Request
+     */
+    public function setReceiverAccepted($receiverAccepted)
+    {
+        $this->receiverAccepted = $receiverAccepted;
+
+        return $this;
+    }
+
+    /**
+     * Get receiverAccepted
+     *
+     * @return boolean
+     */
+    public function getReceiverAccepted()
+    {
+        return $this->receiverAccepted;
     }
 
     /**
