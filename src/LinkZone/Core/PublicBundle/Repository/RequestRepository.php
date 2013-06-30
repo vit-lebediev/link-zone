@@ -61,4 +61,26 @@ class RequestRepository extends EntityRepository
                 array('created' => "DESC")
         ));
     }
+
+    public function findAllReceivedFinishedForUser(UserInterface $user)
+    {
+        return new ArrayCollection($this->findBy(
+                array(
+                    'receiverUser' => $user,
+                    'status'     => Request::STATUS_FINISHED,
+                ),
+                array('created' => "DESC")
+        ));
+    }
+
+    public function findAllSentFinishedForUser(UserInterface $user)
+    {
+        return new ArrayCollection($this->findBy(
+                array(
+                    'senderUser' => $user,
+                    'status'     => Request::STATUS_FINISHED,
+                ),
+                array('created' => "DESC")
+        ));
+    }
 }

@@ -38,13 +38,17 @@ class RequestsController extends BaseController
 
     public function inProgressAction()
     {
-        $ordersInProgressReceived = $this->_requestRepository->findAllReceivedInProgressForUser($this->_user);
-
-        $ordersInProgressSent = $this->_requestRepository->findAllSentInProgressForUser($this->_user);
-
         return $this->render("LinkZoneCorePublicBundle:Requests:inProgress.html.twig", array(
-            'ordersReceived' => $ordersInProgressReceived,
-            'ordersSent' => $ordersInProgressSent,
+            'ordersReceived' => $this->_requestRepository->findAllReceivedInProgressForUser($this->_user),
+            'ordersSent'     => $this->_requestRepository->findAllSentInProgressForUser($this->_user),
+        ));
+    }
+
+    public function finishedAction()
+    {
+        return $this->render("LinkZoneCorePublicBundle:Requests:finished.html.twig", array(
+            'ordersReceived' => $this->_requestRepository->findAllReceivedFinishedForUser($this->_user),
+            'ordersSent' => $this->_requestRepository->findAllSentFinishedForUser($this->_user),
         ));
     }
 
@@ -240,6 +244,7 @@ class RequestsController extends BaseController
 
         if ($platformRequest->getSenderAccepted() && $platformRequest->getReceiverAccepted()) {
             $platformRequest->setStatus(PlatformRequest::STATUS_FINISHED);
+            $platformRequest->setFinished(new \DateTime());
 
             // TODO: Charge users
         }

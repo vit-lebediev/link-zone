@@ -17,6 +17,7 @@ menu:
     platforms_search: Поиск площадок
     requests_exchange: Заявки на обмен
     requests_in_progress: Заявки в работе
+    requests_finished: Завершенные заявки
 
 platforms:
     add_platform: Добавить площадку
@@ -92,3 +93,7 @@ orders:
     sender_code_is_here: Здесь пользователь найдёт свой код
     our_code_is_here:    Здесь вы найдете ваш код
     user_not_placed_code: Пользователь ещё не разместил ваш код
+    no_finished_orders:   Ещё нет завершенных заявок
+    received:             Получена
+    sent:                 Отправлена
+    finished:             Завершена
