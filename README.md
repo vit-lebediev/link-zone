@@ -26,8 +26,7 @@ This project is built upon next technologies:
 In order to deploy the application, you need to perform next steps:
 
 ### 1) Clone repository
-  `git clone git@github.com:Malgin/link-zone.git LinkZone
-cd LinkZone`
+  `git clone git@github.com:Malgin/link-zone.git LinkZone && cd LinkZone`
 ### 2) Fetch dependencies
 If you do not have composer installed, you can get it installed by issuing `curl -s http://getcomposer.org/installer | php`
 Then, in order to install dependencies, run
@@ -36,4 +35,4 @@ Then, in order to install dependencies, run
 ### 3) Deploy Database Structure
 For this, first edit `app/config/parameters.yml` file and set proper database credentials. Then issue
   `php app/console doctrine:migrations:migrate`
-This will update your database to the most recent version
+This will update your database to the most recent version  
