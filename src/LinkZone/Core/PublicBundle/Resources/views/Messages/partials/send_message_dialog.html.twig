@@ -1,0 +1,15 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<div class="center">
+    <table>
+        <tbody>
+            <tr>
+                <td>{{ "common.message"|trans }}:</td>
+                <td>{{ form_widget(sendMessageDialog.message) }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {{ form_widget(sendMessageDialog.senderPlatformId) }}
+    {{ form_widget(sendMessageDialog.receiverPlatformId) }}
+    {{ form_widget(sendMessageDialog._token) }}
+</div>

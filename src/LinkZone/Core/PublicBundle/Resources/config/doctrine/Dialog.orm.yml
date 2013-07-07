@@ -1,0 +1,42 @@
+LinkZone\Core\PublicBundle\Entity\Dialog:
+    type: entity
+    table: users.dialogues
+    repositoryClass: LinkZone\Core\PublicBundle\Repository\DialogRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        created:
+            type: datetime
+    manyToOne:
+        senderUser:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\User
+            inversedBy: dialogsSent
+            joinColumn:
+                name: sender_user_id
+                referencedColumnName: id
+        receiverUser:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\User
+            inversedBy: dialogsReceived
+            joinColumn:
+                name: receiver_user_id
+                referencedColumnName: id
+        senderPlatform:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Platform
+            joinColumn:
+                name: sender_platform_id
+                referencedColumnName: id
+        receiverPlatform:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Platform
+            joinColumn:
+                name: receiver_platform_id
+                referencedColumnName: id
+    oneToMany:
+        messages:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Message
+            mappedBy: dialog
+            orderBy:
+                sent: DESC
+    lifecycleCallbacks: {  }

@@ -10,6 +10,7 @@ common:
     delete:       Удалить
     send:         Отправить
     accept:       Принять
+    message:      Сообщение
 
 menu:
     home: Главная Панель

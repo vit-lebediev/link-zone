@@ -34,4 +34,18 @@ LinkZone\Core\PublicBundle\Entity\Platform:
             joinColumn:
                 name: topic
                 referencedColumnName: id
+    oneToMany:
+        requestsSent:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Request
+            mappedBy: senderPlatform
+            orderBy:
+                finished: DESC
+                created: DESC
+        requestsReceived:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Request
+            mappedBy: receiverPlatform
+            orderBy:
+                finished: DESC
+                created: DESC
+
     lifecycleCallbacks: {  }

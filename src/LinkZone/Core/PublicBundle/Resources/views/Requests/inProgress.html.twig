@@ -33,7 +33,9 @@
                         </td>
                         <td>{% if order.senderLinkLocation is not null %} {{ order.senderLinkLocation }} {% else %} <span class="message_info">{{ "orders.user_not_placed_code"|trans }} </span> {% endif %}</td>
                         <td>
-                            <div><a href="#" class="orders_write_to_sender" data-sender-id="{{ order.senderUser.id }}">{{ "common.send_message"|trans }}</a></div>
+                            <div><a href="#" class="orders_write_to_user"
+                                    data-sender-platform="{{ order.receiverPlatform.id }}"
+                                    data-receiver-platform="{{ order.senderPlatform.id }}">{{ "common.send_message"|trans }}</a></div>
                             <div>
                                 {% if order.receiverAccepted %}
                                     <a href="#" class="orders_cancel_order" data-order-id="{{ order.id }}">{{ "common.cancel"|trans }}</a>
@@ -77,7 +79,9 @@
                         </td>
                         <td>{% if order.receiverLinkLocation is not null %} {{ order.receiverLinkLocation }} {% else %} <span class="message_info">{{ "orders.user_not_placed_code"|trans }} </span> {% endif %}</td>
                         <td>
-                            <div><a href="#" class="orders_write_to_sender" data-sender-id="{{ order.senderUser.id }}">{{ "common.send_message"|trans }}</a></div>
+                            <div><a href="#" class="orders_write_to_user"
+                                    data-sender-platform="{{ order.senderPlatform.id }}"
+                                    data-receiver-platform="{{ order.receiverPlatform.id }}"">{{ "common.send_message"|trans }}</a></div>
                             <div>
                                 {% if order.senderAccepted %}
                                     <a href="#" class="orders_cancel_order" data-order-id="{{ order.id }}">{{ "common.cancel"|trans }}</a>
@@ -95,8 +99,14 @@
     {% endif %}
 </div>
 
+<div id="dialog-sendmessage" class="invisible" title="{{ "common.message"|trans }}"></div>
+
+<input type="hidden" id="string-send" value="{{ "common.send"|trans }}" />
+<input type="hidden" id="string-cancel" value="{{ "common.cancel"|trans }}" />
+
 {% endblock %}
 
 {% block javascripts %}
     <script src="{{ asset("bundles/linkzonecorepublic/js/pages/orders/in-progress.js") }}"></script>
+    <script src="{{ asset("bundles/linkzonecorepublic/js/pages/orders/messaging.js") }}"></script>
 {% endblock %}

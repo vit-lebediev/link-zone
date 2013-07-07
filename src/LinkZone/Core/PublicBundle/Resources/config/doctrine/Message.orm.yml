@@ -1,0 +1,33 @@
+LinkZone\Core\PublicBundle\Entity\Message:
+    type: entity
+    table: users.messages
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        message:
+            type: string
+            length: '1000'
+        sent:
+            type: datetime
+    manyToOne:
+        dialog:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Dialog
+            inversedBy: messages
+            joinColumn:
+                name: dialog_id
+                referencedColumnName: id
+            cascade: ["persist"]
+        senderPlatform:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Platform
+            joinColumn:
+                name: sender_platform_id
+                referencedColumnName: id
+        receiverPlatform:
+            targetEntity: LinkZone\Core\PublicBundle\Entity\Platform
+            joinColumn:
+                name: receiver_platform_id
+                referencedColumnName: id
+    lifecycleCallbacks: {  }

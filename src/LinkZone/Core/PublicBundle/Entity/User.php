@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use LinkZone\Core\PublicBundle\Entity\Platform;
 use LinkZone\Core\PublicBundle\Entity\Request;
+use LinkZone\Core\PublicBundle\Entity\Dialog;
 
 /**
  * Users
@@ -88,6 +89,16 @@ class User extends BaseUser
      */
     private $requestsRecieved;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $dialogsSent;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $dialogsReceived;
+
     const STATUS_ACTIVE          = "ACTIVE";
     const STATUS_BLOCKED         = "BLOCKED";
     const STATUS_DELETED         = "DELETED";
@@ -112,6 +123,8 @@ class User extends BaseUser
         $this->referrals        = new ArrayCollection();
         $this->requestsSent     = new ArrayCollection();
         $this->requestsRecieved = new ArrayCollection();
+        $this->dialogsSent      = new ArrayCollection();
+        $this->dialogsReceived  = new ArrayCollection();
     }
 
     /**
@@ -455,5 +468,71 @@ class User extends BaseUser
     public function getRequestsRecieved()
     {
         return $this->requestsRecieved;
+    }
+
+    /**
+     * Add sent dialog
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Dialog $dialog
+     * @return User
+     */
+    public function addDialogsSent(Dialog $dialog)
+    {
+        $this->dialogsSent[] = $dialog;
+
+        return $this;
+    }
+
+    /**
+     * Remove sent dialog
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Dialog $dialog
+     */
+    public function removeDialogsSent(Dialog $dialog)
+    {
+        $this->dialogsSent->removeElement($dialog);
+    }
+
+    /**
+     * Get sent dialogs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDialogsSent()
+    {
+        return $this->dialogsSent;
+    }
+
+    /**
+     * Add received dialog
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Dialog $dialog
+     * @return User
+     */
+    public function addDialogsReceived(Dialog $dialog)
+    {
+        $this->dialogsReceived[] = $dialog;
+
+        return $this;
+    }
+
+    /**
+     * Remove received dialog
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Dialog $dialog
+     */
+    public function removeDialogsReceived(Dialog $dialog)
+    {
+        $this->dialogsReceived->removeElement($dialog);
+    }
+
+    /**
+     * Get received dialogs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDialogsReceived()
+    {
+        return $this->dialogsReceived;
     }
 }

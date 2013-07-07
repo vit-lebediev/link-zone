@@ -54,6 +54,7 @@ LinkZone\Core\PublicBundle\Entity\Request:
                 referencedColumnName: id
         senderPlatform:
             targetEntity: LinkZone\Core\PublicBundle\Entity\Platform
+            inversedBy: requestsSent
             joinColumn:
                 name: sender_platform
                 referencedColumnName: id
@@ -65,6 +66,7 @@ LinkZone\Core\PublicBundle\Entity\Request:
                 referencedColumnName: id
         receiverPlatform:
             targetEntity: LinkZone\Core\PublicBundle\Entity\Platform
+            inversedBy: requestsReceived
             joinColumn:
                 name: receiver_platform
                 referencedColumnName: id

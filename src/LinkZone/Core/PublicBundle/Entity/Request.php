@@ -464,4 +464,9 @@ class Request
     {
         return $this->receiverPlatform;
     }
+
+    public function isActive()
+    {
+        return (in_array($this->getStatus(), array(self::STATUS_EXCHANGE, self::STATUS_IN_PROGRESS))) ? true : false;
+    }
 }

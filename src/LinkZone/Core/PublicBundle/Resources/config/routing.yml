@@ -134,3 +134,15 @@ linkzone_core_public_orders_ajax_accept_order:
     requirements:
         _method: POST
         orderId: \d+
+
+linkzone_core_public_orders_ajax_dialog_send_message:
+    pattern: /ajax/dialog/send-message
+    defaults: { _controller: LinkZoneCorePublicBundle:Messages:ajaxDialogSendMessage }
+    requirements:
+        _method: GET
+
+linkzone_core_public_orders_ajax_send_message:
+    pattern: /ajax/messages/send
+    defaults: { _controller: LinkZoneCorePublicBundle:Messages:ajaxSendMessage }
+    requirements:
+        _method: POST

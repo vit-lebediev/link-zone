@@ -10,6 +10,7 @@ use Doctrine\ORM\ORMInvalidArgumentException;
 
 use LinkZone\Core\PublicBundle\Entity\User;
 use LinkZone\Core\PublicBundle\Entity\PlatformTopic;
+use LinkZone\Core\PublicBundle\Entity\Request;
 
 /**
  * Platform
@@ -62,6 +63,16 @@ class Platform implements Taggable
      */
     private $tags;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $requestsSent;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $requestsReceived;
+
     const STATUS_ACTIVE        = "ACTIVE";
     const STATUS_BLOCKED       = "BLOCKED";
     const STATUS_DELETED       = "DELETED";
@@ -77,6 +88,15 @@ class Platform implements Taggable
     ];
 
     const TAGGABLE_TYPE = "platform";
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->requestsSent     = new ArrayCollection();
+        $this->requestsReceived = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -273,6 +293,108 @@ class Platform implements Taggable
     public function getTaggableId()
     {
         return $this->getId();
+    }
+
+    /**
+     * Add sent request
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Request $request
+     * @return Platform
+     */
+    public function addRequestsSent(Request $request)
+    {
+        $this->requestsSent[] = $request;
+
+        return $this;
+    }
+
+    /**
+     * Remove sent request
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Request $request
+     */
+    public function removeRequestsSent(Request $request)
+    {
+        $this->requestsSent->removeElement($request);
+    }
+
+    /**
+     * Get sent requests
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRequestsSent()
+    {
+        return $this->requestsSent;
+    }
+
+    /**
+     * Get active sent requests
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActiveRequestsSent()
+    {
+        $activeRequests = new ArrayCollection();
+
+        foreach ($this->getRequestsSent() as $request) {
+            if ($request->isActive()) {
+                $activeRequests[] = $request;
+            }
+        }
+
+        return $activeRequests;
+    }
+
+    /**
+     * Add received request
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Request $request
+     * @return Platform
+     */
+    public function addRequestsReceived(Request $request)
+    {
+        $this->requestsReceived[] = $request;
+
+        return $this;
+    }
+
+    /**
+     * Remove received request
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Request $request
+     */
+    public function removeRequestsReceived(Request $request)
+    {
+        $this->requestsReceived->removeElement($request);
+    }
+
+    /**
+     * Get received requests
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRequestsReceived()
+    {
+        return $this->requestsReceived;
+    }
+
+    /**
+     * Get active received requests
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getActiveRequestsReceived()
+    {
+        $activeRequests = new ArrayCollection();
+
+        foreach ($this->getRequestsReceived() as $request) {
+            if ($request->isActive()) {
+                $activeRequests[] = $request;
+            }
+        }
+
+        return $activeRequests;
     }
 
     public function __toString()
