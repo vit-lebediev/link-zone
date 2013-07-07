@@ -21,6 +21,13 @@ class MessagesController extends BaseController
         $this->_dialogRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:Dialog");
     }
 
+    public function indexAction()
+    {
+        return $this->render("LinkZoneCorePublicBundle:Messages:index.html.twig", array(
+            'dialogues' => $this->_dialogRepository->findAllForUser($this->_user),
+        ));
+    }
+
     /**
      * Ajax handlers
      */
@@ -93,6 +100,8 @@ class MessagesController extends BaseController
                     ->setDialog($dialog)
                     ->setSenderPlatform($messageSenderPlatform)
                     ->setReceiverPlatform($messageReceiverPlatform);
+
+            $dialog->setUpdated(new \DateTime());
 
             $this->_doctrineManager->persist($message);
             $this->_doctrineManager->flush();

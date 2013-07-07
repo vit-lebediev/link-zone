@@ -82,7 +82,8 @@ table.center th
 }
 
 
-span.center {
+span.center,
+.center_text {
     text-align: center;
 }
 

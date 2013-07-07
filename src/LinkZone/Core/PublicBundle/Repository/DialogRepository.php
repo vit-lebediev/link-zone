@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use FOS\UserBundle\Model\UserInterface;
+
 /**
  * DialogRepository
  */
@@ -38,5 +40,21 @@ class DialogRepository extends EntityRepository
         $results = $qb->getQuery()->getResult();
 
         return array_shift($results);
+    }
+
+    public function findAllForUser(UserInterface $user)
+    {
+        $qb = $this->createQueryBuilder("d");
+
+        $qb->where($qb->expr()->orx(
+                $qb->expr()->eq("d.senderUser", ":user"),
+                $qb->expr()->eq("d.receiverUser", ":user")
+        ));
+
+        return $qb->setParameter(":user", $user)
+                  ->orderBy("d.updated")
+                  ->setMaxResults(25) // TODO: Fix this to achieve pagination
+                  ->getQuery()
+                  ->getResult();
     }
 }

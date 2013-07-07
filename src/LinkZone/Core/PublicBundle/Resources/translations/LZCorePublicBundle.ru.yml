@@ -11,6 +11,7 @@ common:
     send:         Отправить
     accept:       Принять
     message:      Сообщение
+    webmaster:    Вебмастер
 
 menu:
     home: Главная Панель
@@ -18,7 +19,8 @@ menu:
     platforms_search: Поиск площадок
     requests_exchange: Заявки на обмен
     requests_in_progress: Заявки в работе
-    requests_finished: Завершенные заявки
+    requests_finished:    Завершенные заявки
+    messages:             Сообщения
 
 platforms:
     add_platform: Добавить площадку
@@ -98,3 +100,10 @@ orders:
     received:             Получена
     sent:                 Отправлена
     finished:             Завершена
+
+messages:
+    from: От кого
+    from_you: От вас
+    to:       Кому
+    to_you:   Вам
+    last_received: Последнее сообщение в диалоге

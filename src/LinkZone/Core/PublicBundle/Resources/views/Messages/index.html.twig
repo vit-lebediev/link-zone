@@ -1,0 +1,40 @@
+{% extends '::public.base.html.twig' %}
+
+{% trans_default_domain "LZCorePublicBundle" %}
+
+{% block title %}{{ parent() }} - {{ "menu.messages"|trans }}{% endblock %}
+
+{% block body %}
+<h1 class="center">{{ "menu.messages"|trans }}</h1>
+<div id="dialogues_wrapper">
+{% for dialog in dialogues %}
+    <div class="dialog_box round_border">
+        <div>
+            <div>{{ "messages.last_received"|trans }}:</div>
+            <div class="message"></div>
+            {{ dialog.messages[0].message }}
+        </div>
+        <div>
+            <strong>{{ "messages.from"|trans }}: </strong>
+            {% if dialog.messages[0].senderPlatform.owner == app.user %}
+                {{ "messages.from_you"|trans }}
+            {% else %}
+                {{ "common.webmaster"|trans }} <a href="{{ dialog.messages[0].senderPlatform.url }}">{{ dialog.messages[0].senderPlatform.url }}</a>
+            {% endif %}
+        </div>
+        <div>
+            <strong>{{ "messages.to"|trans }}: </strong>
+            {% if dialog.messages[0].receiverPlatform.owner == app.user %}
+                {{ "messages.to_you"|trans }}
+            {% else %}
+                {{ "common.webmaster"|trans }} <a href="{{ dialog.messages[0].receiverPlatform.url }}">{{ dialog.messages[0].receiverPlatform.url }}</a>
+            {% endif %}
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset("bundles/linkzonecorepublic/js/pages/platforms/messages.js") }}"></script>
+{% endblock %}

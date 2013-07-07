@@ -25,6 +25,11 @@ class Dialog
     private $created;
 
     /**
+     * @var \DateTime
+     */
+    private $updated;
+
+    /**
      * @var \LinkZone\Core\PublicBundle\Entity\User
      */
     private $senderUser;
@@ -88,6 +93,29 @@ class Dialog
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     * @return Dialog
+     */
+    public function setUpdated(\DateTime $updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 
     /**

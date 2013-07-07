@@ -10,6 +10,8 @@ LinkZone\Core\PublicBundle\Entity\Dialog:
                 strategy: AUTO
         created:
             type: datetime
+        updated:
+            type: datetime
     manyToOne:
         senderUser:
             targetEntity: LinkZone\Core\PublicBundle\Entity\User

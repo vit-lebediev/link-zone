@@ -1,0 +1,13 @@
+#dialogues_wrapper {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.dialog_box {
+    margin: 5px;
+}
+
+.dialog_box .message {
+    margin: 2px 2px 5px 2px;
+    font-style: italic;
+}
