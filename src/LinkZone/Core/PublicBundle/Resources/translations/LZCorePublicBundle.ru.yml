@@ -12,6 +12,7 @@ common:
     accept:       Принять
     message:      Сообщение
     webmaster:    Вебмастер
+    you:          Вы
 
 menu:
     home: Главная Панель
@@ -107,3 +108,4 @@ messages:
     to:       Кому
     to_you:   Вам
     last_received: Последнее сообщение в диалоге
+    dialog_with_webmaster: Диалог с вебмастером

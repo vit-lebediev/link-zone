@@ -1,0 +1,36 @@
+{% extends '::public.base.html.twig' %}
+
+{% trans_default_domain "LZCorePublicBundle" %}
+
+{% block title %}{{ parent() }} - {{ "menu.messages"|trans }}{% endblock %}
+
+{% block body %}
+<h1 class="center">{{ "messages.dialog_with_webmaster"|trans }} <a href="{{ dialog.senderPlatform.owner == app.user ? dialog.receiverPlatform.url : dialog.senderPlatform.url }}">{{ dialog.senderPlatform.owner == app.user ? dialog.receiverPlatform.url : dialog.senderPlatform.url }}</a></h1>
+
+<div id="dialogues-wrapper">
+{% for message in dialog.messages %}
+    <div class="message-box message-box-{{ message.senderPlatform.owner == app.user ? "out" : "in" }} round-border">
+        <div class="sender"><span>
+            {% if message.senderPlatform.owner == app.user %}
+                {{ "common.you"|trans }}:
+            {% else %}
+                {{ "common.webmaster"|trans }} <a href="{{ message.senderPlatform.url }}">{{ message.senderPlatform.url }}</a>:
+            {% endif %}
+        </span></div>
+        <div class="message"><span class="message">{{ message.message }}</span></div>
+    </div>
+{% endfor %}
+<button id="write_message" 
+        data-sender-platform="{{ dialog.senderPlatform.owner == app.user ? dialog.senderPlatform.id : dialog.receiverPlatform.id }}"
+        data-receiver-platform="{{ dialog.senderPlatform.owner == app.user ? dialog.receiverPlatform.id : dialog.senderPlatform.id }}">{{ "common.send_message"|trans }}</button>
+</div>
+
+<div id="dialog-sendmessage" class="invisible" title="{{ "common.message"|trans }}"></div>
+
+<input type="hidden" id="string-send" value="{{ "common.send"|trans }}" />
+<input type="hidden" id="string-cancel" value="{{ "common.cancel"|trans }}" />
+
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset("bundles/linkzonecorepublic/js/pages/orders/messaging.js") }}"></script>
+{% endblock %}

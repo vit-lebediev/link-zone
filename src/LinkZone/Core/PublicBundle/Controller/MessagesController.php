@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class MessagesController extends BaseController
 {
@@ -25,6 +26,17 @@ class MessagesController extends BaseController
     {
         return $this->render("LinkZoneCorePublicBundle:Messages:index.html.twig", array(
             'dialogues' => $this->_dialogRepository->findAllForUser($this->_user),
+        ));
+    }
+
+    public function dialogAction($dialogId)
+    {
+        if (!$dialog = $this->_dialogRepository->findForUser($dialogId, $this->_user)) {
+            throw new NotFoundHttpException("There is no dialog with id " . $dialogId);
+        }
+
+        return $this->render("LinkZoneCorePublicBundle:Messages:dialog.html.twig", array(
+            'dialog' => $dialog,
         ));
     }
 

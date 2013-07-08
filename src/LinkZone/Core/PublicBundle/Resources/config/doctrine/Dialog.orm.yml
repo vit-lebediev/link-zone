@@ -40,5 +40,5 @@ LinkZone\Core\PublicBundle\Entity\Dialog:
             targetEntity: LinkZone\Core\PublicBundle\Entity\Message
             mappedBy: dialog
             orderBy:
-                sent: DESC
+                sent: ASC
     lifecycleCallbacks: {  }

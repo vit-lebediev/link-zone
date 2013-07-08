@@ -1,13 +1,38 @@
-#dialogues_wrapper {
+#dialogues-wrapper {
     width: 500px;
     margin: 0 auto;
 }
 
-.dialog_box {
+.dialog-box {
     margin: 5px;
 }
 
-.dialog_box .message {
+.dialog-box .message {
     margin: 2px 2px 5px 2px;
+    font-style: italic;
+}
+
+.message-box {
+    margin: 2px 2px 5px 2px;
+    padding: 5px;
+}
+
+.message-box-in {
+    text-align: right;
+}
+
+.message-box-out {
+    text-align: left;
+}
+
+.message-box .sender {
+    padding-bottom: 10px;
+}
+
+.message-box .sender span {
+    border-bottom: 1px solid black;
+}
+
+span.message {
     font-style: italic;
 }

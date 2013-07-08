@@ -24,7 +24,7 @@ jQuery(function()
         $(thisElement).dialog("close");
     }
 
-    $(".orders_write_to_user").click(function () {
+    $(".orders_write_to_user, #write_message").click(function () {
         var senderPlatformId = $(this).data("senderPlatform");
         var receiverPlatformId = $(this).data("receiverPlatform");
         $.get(LinkZone.app_env + "/ajax/dialog/send-message", {

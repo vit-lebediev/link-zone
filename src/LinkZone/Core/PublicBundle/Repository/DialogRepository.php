@@ -52,9 +52,30 @@ class DialogRepository extends EntityRepository
         ));
 
         return $qb->setParameter(":user", $user)
-                  ->orderBy("d.updated")
+                  ->orderBy("d.updated", "DESC")
                   ->setMaxResults(25) // TODO: Fix this to achieve pagination
                   ->getQuery()
                   ->getResult();
+    }
+
+    public function findForUser($dialogId, UserInterface $user)
+    {
+        $qb = $this->createQueryBuilder("d");
+
+        $qb->where($qb->expr()->andx(
+                $qb->expr()->orx(
+                        $qb->expr()->eq("d.senderUser", ":user"),
+                        $qb->expr()->eq("d.receiverUser", ":user")
+                ),
+                $qb->expr()->eq("d.id", ":dialogId")
+        ));
+
+        $results = $qb->setParameter(":user", $user)
+                      ->setParameter(":dialogId", $dialogId)
+                      ->setMaxResults(1)
+                      ->getQuery()
+                      ->getResult();
+
+        return array_shift($results);
     }
 }
