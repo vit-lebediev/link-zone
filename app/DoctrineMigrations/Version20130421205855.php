@@ -33,6 +33,7 @@ class Version20130421205855 extends AbstractMigration
         $this->addSql("CREATE SCHEMA users");
 
         $this->addSql("ALTER TABLE users SET SCHEMA users");
+        $this->addSql("ALTER SEQUENCE users_id_seq SET SCHEMA users");
 
         $this->addSql("ALTER TABLE log_status_changes SET SCHEMA users");
         $this->addSql("ALTER SEQUENCE log_status_changes_id_seq SET SCHEMA users");
@@ -47,6 +48,7 @@ class Version20130421205855 extends AbstractMigration
         $this->addSql("ALTER SEQUENCE users.log_status_changes_id_seq SET SCHEMA public");
 
         $this->addSql("ALTER TABLE users.users SET SCHEMA public");
+        $this->addSql("ALTER SEQUENCE users.users_id_seq SET SCHEMA public");
 
         $this->addSql("DROP SCHEMA users");
 
