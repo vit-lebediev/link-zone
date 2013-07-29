@@ -2,12 +2,9 @@
 
 namespace LinkZone\Core\PublicBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-class DefaultController extends Controller
+class DefaultController extends BaseController
 {
-    public function indexAction()
-    {
-        return $this->render('LinkZoneCorePublicBundle:Default:index.html.twig');
+    public function partialsAction($controller, $partial) {
+        return $this->render("LinkZoneCorePublicBundle:" . ucfirst(strtolower($controller)) . ":partials/" . strtolower($partial) . ".html.twig");
     }
 }

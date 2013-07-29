@@ -1,37 +1,41 @@
 {% trans_default_domain "LZCorePublicBundle" %}
 
-<div class="center">
-    <table>
-        <tbody>
-            <tr>
-                <td>{{ "platforms.address"|trans }}:</td>
-                <td>{{ form_widget(platformDialog.url) }}</td>
-            </tr>
-            <tr>
-                <td>{{ "platforms.topic"|trans }}:</td>
-                <td>{{ form_widget(platformDialog.topic) }}</td>
-            </tr>
-            <tr>
-                <td>{{ "platforms.description"|trans }}:</td>
-                <td>{{ form_widget(platformDialog.description) }}</td>
-            </tr>
-            <tr>
-                <td>{{ "platforms.hide"|trans }}:</td>
-                <td>{{ form_widget(platformDialog.hidden) }}</td>
-            </tr>
-            <tr>
-                <td>{{ "platforms.keywords"|trans }}:</td>
-                <td>
-                    <ul id="platform_tags">
-                    {% if (platformTags and platformTags.count > 0) %}
-                        {% for tag in platformTags %}
-                            <li>{{ tag }}</li>
-                        {% endfor %}
-                    {% endif %}
-                    </ul>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
+<div class="modal-header">
+    {{ "platforms.add_platform"|trans }}
+</div>
+<form ng-submit="addPlatform()">
+    <div class="modal-body">
+        <fieldset>
+            <div class="form-group">
+                <label for="platform_url">{{ "platforms.address"|trans }}:</label>
+                {{ form_widget(platformDialog.url) }}
+            </div>
+            <div class="form-group">
+                <label for="platform_topic">{{ "platforms.topic"|trans }}:</label>
+                {{ form_widget(platformDialog.topic) }}
+            </div>
+            <div class="form-group">
+                <label for="platform_description">{{ "platforms.description"|trans }}:</label>
+                {{ form_widget(platformDialog.description) }}
+            </div>
+            <div class="form-group">
+                <label for="platform_hidden">{{ "platforms.hide"|trans }}:</label>
+                {{ form_widget(platformDialog.hidden) }}
+            </div>
+            <div class="form-group">
+                <label for="platform_tags">{{ "platforms.keywords"|trans }}:</label>
+                <div>
+                    <tags-input ng-model="tags"></tags-input>
+                </div>
+            </div>
+            {{ form_widget(platformDialog._token) }}
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="button" ng-click="close()" class="btn btn-primary">{{ "common.cancel"|trans }}</button>
+        <button type="submit" class="btn btn-primary">{{ "common.add"|trans }}</button>
+    </div>
+</form>
+<div class="modal-footer">
+    Some footer
 </div>

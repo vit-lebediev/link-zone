@@ -88,6 +88,8 @@ class PlatformsController extends BaseController
 
     public function ajaxPlatformDialogAction(Request $request)
     {
+        $platformTags = array();
+
         $this->_verifyIsXmlHttpRequest();
 
         if ($platformId = $request->get("platform_id")) {
@@ -133,7 +135,9 @@ class PlatformsController extends BaseController
                      ->setCreated(new \DateTime())
                      ->setOwner($this->_user);
 
-            if ($rawTags = mb_strtolower($this->getRequest()->get("platform")['tags']))
+            $reqeustPlatform = $this->getRequest()->get("platform");
+
+            if (isset($reqeustPlatform['tags']) AND $rawTags = mb_strtolower($reqeustPlatform['tags']))
             {
                 $tags = $this->_tagManager->loadOrCreateTags($this->_tagManager->splitTagNames($rawTags));
                 $this->_tagManager->addTags($tags, $platform);
@@ -145,7 +149,12 @@ class PlatformsController extends BaseController
             // Note: ALWAYS save tags after the main entity was saved (persisted & flushed)
             $this->_tagManager->saveTagging($platform);
 
-            return new JsonResponse();
+            return new JsonResponse(array(
+                'platform' => array(
+                    'url' => $platform->getUrl(),
+                    'status' => $platform->getStatus(),
+                ),
+            ));
         } else {
             $this->_logger->err($platformDialog->getErrorsAsString());
             throw new BadRequestHttpException("Provided platform data is not valid");
@@ -198,5 +207,16 @@ class PlatformsController extends BaseController
         $tagRepo = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:Tag");
 
         return new JsonResponse($tagRepo->getTagsStartingWithPrefix(Platform::TAGGABLE_TYPE, mb_strtolower($this->getRequest()->get("term"))));
+    }
+
+    public function ajaxApiListPlatformsAction()
+    {
+        $platformArray = array();
+
+        foreach ($this->_user->getPlatforms() as $platform) {
+            $platformArray[] = $platform->toArray();
+        }
+
+        return new JsonResponse($platformArray);
     }
 }

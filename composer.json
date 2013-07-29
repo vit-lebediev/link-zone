@@ -1,6 +1,6 @@
 {
-    "name": "symfony/framework-standard-edition",
-    "description": "The \"Symfony Standard Edition\" distribution",
+    "name": "Link Zone",
+    "description": "Link Zone is a project for exchanging links",
     "autoload": {
         "psr-0": { "": "src/" }
     },
@@ -21,7 +21,8 @@
         "friendsofsymfony/user-bundle": "dev-master",
         "doctrine/doctrine-migrations-bundle": "dev-master",
         "knplabs/knp-menu-bundle": "dev-master",
-        "fpn/tag-bundle": "dev-master"
+        "fpn/tag-bundle": "dev-master",
+        "guzzle/guzzle": "~3.7"
     },
     "scripts": {
         "post-install-cmd": [

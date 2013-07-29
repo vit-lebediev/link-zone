@@ -12,10 +12,12 @@ use LinkZone\Core\PublicBundle\Entity\User;
 use LinkZone\Core\PublicBundle\Entity\PlatformTopic;
 use LinkZone\Core\PublicBundle\Entity\Request;
 
+use \JsonSerializable as JsonSerializable;
+
 /**
  * Platform
  */
-class Platform implements Taggable
+class Platform implements Taggable, JsonSerializable
 {
     /**
      * @var integer
@@ -400,5 +402,18 @@ class Platform implements Taggable
     public function __toString()
     {
         return $this->getUrl();
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->toArray();
+    }
+
+    public function toArray()
+    {
+        return array(
+            'url' => $this->getUrl(),
+            'status' => $this->getStatus()
+        );
     }
 }

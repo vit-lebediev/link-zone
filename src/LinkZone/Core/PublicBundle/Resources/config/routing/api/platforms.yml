@@ -1,0 +1,11 @@
+linkzone_core_public_api_platforms_all:
+    pattern: /all.json
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxApiListPlatforms }
+    requirements:
+        _method: GET
+
+linkzone_core_public_api_platforms_add_platform:
+    pattern: /add
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxAddPlatform }
+    requirements:
+        _method: POST

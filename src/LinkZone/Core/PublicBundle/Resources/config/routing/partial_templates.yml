@@ -1,0 +1,17 @@
+linkzone_core_public_partial_templates_login:
+    pattern: /default/login.html
+    defaults: { _controller: LinkZoneCorePublicBundle:Security:loginPartial }
+    requirements:
+        _method: GET
+
+linkzone_core_public_partial_templates_platform_dialog:
+    pattern: /platforms/platform_dialog.html
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxPlatformDialog }
+    requirements:
+        _method: GET
+
+linkzone_core_public_partial_templates_common:
+    pattern: /{controller}/{partial}.html
+    defaults: { _controller: LinkZoneCorePublicBundle:Default:partials }
+    requirements:
+        _method: GET
