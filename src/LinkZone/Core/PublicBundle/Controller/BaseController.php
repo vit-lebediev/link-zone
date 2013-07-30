@@ -12,6 +12,8 @@ class BaseController extends Controller
     protected $_doctrineManager;
     protected $_user;
     protected $_platformRepository;
+    protected $_translator;
+    protected $_validator;
 
     protected function _init()
     {
@@ -19,6 +21,8 @@ class BaseController extends Controller
         $this->_doctrineManager    = $this->getDoctrine()->getManager();
         $this->_user               = $this->get("security.context")->getToken()->getUser();
         $this->_platformRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:Platform");
+        $this->_translator         = $this->get("translator");
+        $this->_validator          = $this->get("validator");
     }
 
     protected function _verifyIsXmlHttpRequest()

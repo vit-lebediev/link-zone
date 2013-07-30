@@ -20,11 +20,11 @@
         <tr ng-repeat="platform in platforms">
             {% verbatim %}
             <td>{{ platform.url }}</td>
-            <td>{{ platform.status }}</td>
-            <td>{{ platform.status }}</td>
-            <td>{{ platform.status }}</td>
-            <td>{{ platform.status }}</td>
+            <td><span class="status platform_{{ platform.status_code }}">{{ platform.status_string }}</span></td>
+            <td>{{ platform.topic }}</td>
+            <td>{{ platform.status_code }}</td>
             {% endverbatim %}
+            <td><button class="btn" ng-click="openEditPlatformDialog(platform.id)">{{ "platforms.edit"|trans }}</button></td>
         </tr>
     </tbody>
 </table>

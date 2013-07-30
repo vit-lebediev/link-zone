@@ -5,7 +5,7 @@ linkzone_core_public_partial_templates_login:
         _method: GET
 
 linkzone_core_public_partial_templates_platform_dialog:
-    pattern: /platforms/platform_dialog.html
+    pattern: /platforms/{action}_dialog.html
     defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxPlatformDialog }
     requirements:
         _method: GET

@@ -17,7 +17,7 @@ use \JsonSerializable as JsonSerializable;
 /**
  * Platform
  */
-class Platform implements Taggable, JsonSerializable
+class Platform implements Taggable
 {
     /**
      * @var integer
@@ -402,18 +402,5 @@ class Platform implements Taggable, JsonSerializable
     public function __toString()
     {
         return $this->getUrl();
-    }
-
-    public function jsonSerialize()
-    {
-        return $this->toArray();
-    }
-
-    public function toArray()
-    {
-        return array(
-            'url' => $this->getUrl(),
-            'status' => $this->getStatus()
-        );
     }
 }

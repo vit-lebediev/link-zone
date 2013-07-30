@@ -9,17 +9,22 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 use LinkZone\Core\PublicBundle\Entity\Platform;
 use LinkZone\Core\PublicBundle\Form\Type\PlatformType;
+use LinkZone\Core\PublicBundle\Entity\PlatformTopic;
 use LinkZone\Core\PublicBundle\Form\Type\Platform\Search\PlatformType as PlatformSearchFilter;
 
 class PlatformsController extends BaseController
 {
     private $_tagManager;
+    private $_platformManager;
+    private $_platformTopicRepository;
 
     public function init()
     {
         parent::_init();
 
-        $this->_tagManager         = $this->get("fpn_tag.tag_manager");
+        $this->_tagManager      = $this->get("fpn_tag.tag_manager");
+        $this->_platformManager = $this->get("link_zone.core.public.maanger.platform");
+        $this->_platformTopicRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:PlatformTopic");
     }
 
     public function indexAction()
@@ -86,11 +91,14 @@ class PlatformsController extends BaseController
      * Ajax handlers
      */
 
-    public function ajaxPlatformDialogAction(Request $request)
+    public function ajaxPlatformDialogAction($action, Request $request)
     {
         $platformTags = array();
 
         $this->_verifyIsXmlHttpRequest();
+
+        if (!in_array($action, array('edit', 'add')))
+                throw new BadRequestHttpException("Requesting for non-existing template");
 
         if ($platformId = $request->get("platform_id")) {
             $platform = $this->_platformRepository->find($platformId);
@@ -104,7 +112,7 @@ class PlatformsController extends BaseController
             'container' => $this->container,
         ));
 
-        return $this->render("LinkZoneCorePublicBundle:Platforms:partials/platform_dialog.html.twig", array(
+        return $this->render("LinkZoneCorePublicBundle:Platforms:partials/" . $action . "_dialog.html.twig", array(
             'platformDialog' => $platformDialog->createView(),
             'platformTags'   => $platformTags,
         ));
@@ -150,10 +158,7 @@ class PlatformsController extends BaseController
             $this->_tagManager->saveTagging($platform);
 
             return new JsonResponse(array(
-                'platform' => array(
-                    'url' => $platform->getUrl(),
-                    'status' => $platform->getStatus(),
-                ),
+                'platform' => $this->_platformManager->toArray($platform),
             ));
         } else {
             $this->_logger->err($platformDialog->getErrorsAsString());
@@ -211,12 +216,80 @@ class PlatformsController extends BaseController
 
     public function ajaxApiListPlatformsAction()
     {
+        $this->_verifyIsXmlHttpRequest();
+
         $platformArray = array();
 
         foreach ($this->_user->getPlatforms() as $platform) {
-            $platformArray[] = $platform->toArray();
+            $platformArray[] = $this->_platformManager->toArray($platform);
         }
 
         return new JsonResponse($platformArray);
+    }
+
+    public function ajaxApiPlatformAction($platformId)
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        if ($platform = $this->_platformRepository->find($platformId)) {
+            // todo: check if user has access to this platform
+            return new JsonResponse($this->_platformManager->toArray($platform));
+        } else {
+            return new JsonResponse(array(
+                'message' => $this->_translator->trans("platforms.errors.no_platform", array(), "LZCorePublicBundle"),
+            ), 404);
+        }
+    }
+
+    public function ajaxApiEditPlatformAction($platformId, Request $request)
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        if ($platform = $this->_platformRepository->find($platformId)) {
+            // todo: check if user has access to this platform
+
+            $requestData = json_decode($request->getContent(), true);
+
+            if ($requestData['topic_id'] AND !$topic = $this->_platformTopicRepository->find($requestData['topic_id'])) {
+                throw new BadRequestHttpException("You are trying to add topic which doesn't exists");
+            }
+
+            if (isset($topic)) {
+                $platform->setTopic($topic);
+            } else {
+                $platform->setTopic(null);
+            }
+
+            $platform->setDescription($requestData['description']);
+            $platform->setHidden($requestData['hidden']);
+
+            // TODO: add tags
+
+            // validate
+            $errors = $this->_validator->validate($platform);
+
+            if (count($errors) > 0) {
+                // not valid
+                $returnErrors = array();
+                foreach ($errors as $error) {
+                    $returnErrors[] = array(
+                        'message' => $error->getMessage(),
+                        'propPath' => $error->getPropertyPath(),
+                        'invalidValue' => $error->getInvalidValue(),
+                        'code' => $error->getCode(),
+                    );
+                }
+                return new JsonResponse(array('errors' => $returnErrors), 400);
+            } else {
+                // valid
+                $this->_doctrineManager->persist($platform);
+                $this->_doctrineManager->flush();
+                return new JsonResponse($this->_platformManager->toArray($platform));
+            }
+        } else {
+            return new JsonResponse(array(
+                'message' => $this->_translator->trans("platforms.errors.no_platform", array(), "LZCorePublicBundle"),
+            ), 404);
+        }
     }
 }

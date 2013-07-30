@@ -13,6 +13,7 @@ common:
     message:      Сообщение
     webmaster:    Вебмастер
     you:          Вы
+    save:         Сохранить
 
 menu:
     home: Главная Панель
@@ -78,6 +79,8 @@ platforms:
         constructionrepair: Строительство и ремонт
         goodsservices:      Товары и услуги
         humor:              Юмор
+    errors:
+        no_platform: Площадка не найдена
 
 orders:
     send_order: Отослать заявку

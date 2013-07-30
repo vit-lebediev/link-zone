@@ -34,6 +34,11 @@ services:
         calls:
             - [ setContainer, ["@service_container"] ]
 
+    link_zone.core.public.maanger.platform:
+        class: LinkZone\Core\PublicBundle\Manager\Platform
+        calls:
+            - [ setContainer, ["@service_container"] ]
+
     link_zone.core.twig.extension:
         class: LinkZone\Core\PublicBundle\Twig\Extension\CoreExtension
         public: false

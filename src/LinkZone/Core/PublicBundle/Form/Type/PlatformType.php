@@ -22,7 +22,8 @@ class PlatformType extends AbstractType
         // http://symfony.com/doc/current/book/forms.html#field-type-guessing
         $builder->add("url", "url", array(
             'attr' => array(
-                'ng-model' => "platform_url",
+                'ng-model' => "platform.url",
+                'ng-disabled' => "editing"
             ),
         ));
 
@@ -31,21 +32,22 @@ class PlatformType extends AbstractType
             'empty_value' => $translator->trans("platforms.topics.empty", array(), "LZCorePublicBundle"),
             'required'    => false,
             'attr' => array(
-                'ng-model' => "platform_topic",
+                'ng-model' => "platform.topic_id",
             ),
         ));
 
         $builder->add("description", "textarea", array(
             'required' => false,
             'attr' => array(
-                'ng-model' => "platform_descr",
+                'ng-model' => "platform.description",
             ),
         ));
 
         $builder->add("hidden", "checkbox", array(
             'required' => false,
             'attr' => array(
-                'ng-model' => "platform_hidden",
+                'ng-model' => "platform.hidden",
+                'ng-checked' => "platform.hidden"
             ),
         ));
 
