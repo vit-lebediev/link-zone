@@ -1,0 +1,30 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<div id="filter_box" class="round_border clearfix">
+    <form ng-submit="search()" {{ form_enctype(platformSearchFilter) }}>
+        <div class="left half">TODO: Filters</div>
+        <div class="right half">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>{{ "platforms.topic"|trans }}</td>
+                        <td>{{ form_widget(platformSearchFilter.topic) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "platforms.search.last_login"|trans }}</td>
+                        <td>{{ form_widget(platformSearchFilter.owner.lastLogin) }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ "platforms.keywords"|trans }}</td>
+                        <td>
+                            <div>
+                                <tags-input ng-model="filter_tags"></tags-input>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <input type="submit" class="btn" value="{{ "platforms.search.search"|trans }}" />
+        </div>
+    </form>
+</div>

@@ -24,7 +24,11 @@ class Platform extends ContainerAware {
             'created' => $platform->getCreated()->format($this->container->getParameter("default_date_format")),
             'hidden' => $platform->getHidden() ? true : false,
             'topic_id' => ($platform->getTopic()) ? $platform->getTopic()->getId() : null,
-            'topic' => ($platform->getTopic()) ? $platform->getTopic()->getDescription() : null
+            'topic' => ($platform->getTopic()) ? $platform->getTopic()->getDescription() : null,
+            'owner' => array(
+                'username' => $platform->getOwner()->getUsername(),
+                'lastLogin' => $platform->getOwner()->getLastLogin()->format($this->container->getParameter("default_date_format")),
+            )
         );
     }
 }

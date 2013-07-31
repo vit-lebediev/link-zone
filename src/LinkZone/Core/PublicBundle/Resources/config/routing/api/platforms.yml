@@ -4,6 +4,12 @@ linkzone_core_public_api_platforms_all:
     requirements:
         _method: GET
 
+linkzone_core_public_api_platforms_search:
+    pattern: /search.json
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxApiSearchPlatforms }
+    requirements:
+        _method: GET
+
 linkzone_core_public_api_platforms:
     pattern: /{platformId}.json
     defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxApiPlatform }

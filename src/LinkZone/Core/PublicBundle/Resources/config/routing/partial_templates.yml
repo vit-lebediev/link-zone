@@ -10,6 +10,12 @@ linkzone_core_public_partial_templates_platform_dialog:
     requirements:
         _method: GET
 
+linkzone_core_public_partial_templates_platform_search_filter:
+    pattern: /platforms/search-filter.html
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxSearchFilterPartial }
+    requirements:
+        _method: GET
+
 linkzone_core_public_partial_templates_common:
     pattern: /{controller}/{partial}.html
     defaults: { _controller: LinkZoneCorePublicBundle:Default:partials }

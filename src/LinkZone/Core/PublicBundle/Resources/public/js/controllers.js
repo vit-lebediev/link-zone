@@ -1,5 +1,34 @@
 'use strict';
 
+function LoginController($scope, $http, $location) {
+    $scope.submit = function () {
+        var urlPrefix = '/app_dev.php';
+
+        $http.post(urlPrefix + '/login_check', {
+            _username: this.username,
+            _password: this.password,
+            _csrf_token: angular.element(document.getElementById('_csrf_token')).val(),
+            _remember_me: this.remember_me
+        }, {
+            // http://stackoverflow.com/questions/11442632/how-can-i-make-angular-js-post-data-as-form-data-instead-of-a-request-payload
+            transformRequest: function(obj) {
+                var str = [];
+                for(var p in obj)
+                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+                return str.join("&");
+            },
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).success(function(data, status) {
+            $location.path(urlPrefix + '/platforms')
+        }).
+        error(function(data, status) {
+            console.log(status + ": " + data);
+        });
+    }
+}
+
+LoginController.$inject = ['$scope', '$http', '$location'];
+
 function PlatformsController($scope, $dialog, Platform) {
     $scope.platforms = Platform.query();
     console.log("From platforms controller");
@@ -48,7 +77,7 @@ function PlatformsController($scope, $dialog, Platform) {
 
 PlatformsController.$inject = ['$scope', '$dialog', 'Platform'];
 
-function AddPlatformDialogController ($scope, $http, Platform, dialog) {
+function AddPlatformDialogController($scope, $http, Platform, dialog) {
     var urlPrefix = '/app_dev.php';
 
     $scope.platform = new Platform();
@@ -88,7 +117,7 @@ function AddPlatformDialogController ($scope, $http, Platform, dialog) {
 
 AddPlatformDialogController.$inject = ['$scope', '$http', 'Platform', 'dialog'];
 
-function EditPlatformDialogController ($scope, $http, Platform, dialog, platformId) {
+function EditPlatformDialogController($scope, $http, Platform, dialog, platformId) {
     $scope.editing = true;
 
     // fetch data for corresponding platform and fill in the form
@@ -112,31 +141,14 @@ function EditPlatformDialogController ($scope, $http, Platform, dialog, platform
 
 EditPlatformDialogController.$inject = ['$scope', '$http', 'Platform', 'dialog', 'platformId'];
 
-function LoginController($scope, $http, $location) {
-    $scope.submit = function () {
-        var urlPrefix = '/app_dev.php';
+function PlatformsSearchController($scope, Platform) {
+    $scope.platforms = Platform.search({test: "tset"}); // params work!
 
-        $http.post(urlPrefix + '/login_check', {
-            _username: this.username,
-            _password: this.password,
-            _csrf_token: angular.element(document.getElementById('_csrf_token')).val(),
-            _remember_me: this.remember_me
-        }, {
-            // http://stackoverflow.com/questions/11442632/how-can-i-make-angular-js-post-data-as-form-data-instead-of-a-request-payload
-            transformRequest: function(obj) {
-                var str = [];
-                for(var p in obj)
-                str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                return str.join("&");
-            },
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function(data, status) {
-            $location.path(urlPrefix + '/platforms')
-        }).
-        error(function(data, status) {
-            console.log(status + ": " + data);
+    $scope.search = function() {
+        $scope.platforms = Platform.search({
+            topicId: this.filter_topic
         });
     }
 }
 
-LoginController.$inject = ['$scope', '$http', '$location'];
+PlatformsSearchController.$inject = ['$scope', 'Platform'];

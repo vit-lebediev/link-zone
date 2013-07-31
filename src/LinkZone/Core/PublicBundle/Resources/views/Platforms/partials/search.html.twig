@@ -1,0 +1,48 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<h1>{{ "menu.platforms_search"|trans }}</h1>
+
+<div id="filter_box" class="round_border clearfix">
+    <ng-include src="'/app_dev.php/partials/platforms/search-filter.html'"></ng-include>
+</div>
+
+<div id="platform_list" class="round_border">
+        <table class="table table-stripped table-bordered">
+            <thead>
+                <tr>
+                    <th>{{ "common.site"|trans }}</th>
+                    <th>{{ "platforms.tyc"|trans }}</th>
+                    <th>{{ "platforms.pr"|trans }}</th>
+                    <th>{{ "platforms.yandex_index"|trans }}</th>
+                    <th>{{ "platforms.google_index"|trans }}</th>
+                    <th>{{ "platforms.rating"|trans }}</th>
+                    <th>{{ "platforms.articles_index"|trans }}</th>
+                    <th>{{ "common.actions"|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr ng-repeat="platform in platforms">
+                        {% verbatim %}
+                        <td><a href="{{ platform.url }}">{{ platform.url }}</a></td>
+                        <td>{{ platform.id }}</td>
+                        <td>{{ platform.topic }}</td>
+                        <td>{{ platform.owner.lastLogin }}</td>
+                        <td>{{ platform.owner.username }}</td>
+                        <td>{{ platform.url }}</td>
+                        <td>{{ platform.url }}</td>
+                        {% endverbatim %}
+                        <td>
+                            <button class="btn" ng-click="openSendOrderDialog(platform.id)">{{ "platforms.search.send_request"|trans }}</button>
+                            <button class="btn" ng-click="openSendMessageDialog(platform.id)">{{ "platforms.search.send_message"|trans }}</button>
+                        </td>
+                        
+                    </tr>
+            </tbody>
+        </table>
+        <span class="message_info">{{ "platforms.search.no_results"|trans }}</span>
+</div>
+
+<div id="dialog-add-platform" class="invisible" title="{{ "orders.send_order"|trans }}"></div>
+
+<input type="hidden" id="string-send-order" value="{{ "orders.send_order"|trans }}" />
+<input type="hidden" id="string-cancel" value="{{ "common.cancel"|trans }}" />

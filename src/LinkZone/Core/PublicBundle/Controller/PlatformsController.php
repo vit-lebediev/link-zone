@@ -39,15 +39,17 @@ class PlatformsController extends BaseController
         ));
     }
 
-    public function searchAction(Request $request)
+    public function ajaxApiSearchPlatformsAction(Request $request)
     {
+        $this->_verifyIsXmlHttpRequest();
+
         $thereIsFilter      = false;
         $lastLogin          = null;
         $filter             = array();
         $platformSearchTags = array();
 
         $platform = new Platform();
-        if ($topicId = $request->get("platform_search")['topic'] AND is_numeric($topicId))
+        if ($topicId = $request->get("topicId") AND is_numeric($topicId))
         {
             $platform->setTopic($this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:PlatformTopic")->find($topicId));
             $thereIsFilter = true;
@@ -79,6 +81,14 @@ class PlatformsController extends BaseController
         } else {
             $platforms = $this->_platformRepository->findAllNotHiddenExceptForUser($this->_user);
         }
+
+        $platformArray = array();
+
+        foreach ($platforms as $platform) {
+            $platformArray[] = $this->_platformManager->toArray($platform);
+        }
+
+        return new JsonResponse($platformArray);
 
         return $this->render("LinkZoneCorePublicBundle:Platforms:search.html.twig", array(
             'platforms' => $platforms,
@@ -291,5 +301,19 @@ class PlatformsController extends BaseController
                 'message' => $this->_translator->trans("platforms.errors.no_platform", array(), "LZCorePublicBundle"),
             ), 404);
         }
+    }
+
+    public function ajaxSearchFilterPartialAction()
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        $platformSearchFilter = $this->createForm(new PlatformSearchFilter(), new Platform(), array(
+            'container' => $this->container,
+            'lastLogin' => null,
+        ));
+
+        return $this->render("LinkZoneCorePublicBundle:Platforms:partials/search-filter.html.twig", array(
+            'platformSearchFilter' => $platformSearchFilter->createView(),
+        ));
     }
 }

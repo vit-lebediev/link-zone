@@ -31,8 +31,9 @@ LinkZone.config(['$routeProvider', '$locationProvider', '$httpProvider', functio
 
         $locationProvider.html5Mode(true);
         $routeProvider
-            .when("/app_dev.php/login", {templateUrl: "partials/default/login.html", controller: LoginController})
-            .when(urlPrefix + "/platforms", {templateUrl: "partials/platforms/list.html", controller: PlatformsController})
+            .when("/app_dev.php/login", {templateUrl: urlPrefix + "/partials/default/login.html", controller: LoginController})
+            .when(urlPrefix + "/platforms", {templateUrl: urlPrefix + "/partials/platforms/list.html", controller: PlatformsController})
+            .when(urlPrefix + "/platforms/search", {templateUrl: urlPrefix + "/partials/platforms/search.html", controller: PlatformsSearchController})
             .otherwise({redirectTo: "/app_dev.php/login"})
     }]);
 
