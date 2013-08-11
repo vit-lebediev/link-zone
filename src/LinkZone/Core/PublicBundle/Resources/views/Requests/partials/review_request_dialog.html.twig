@@ -1,23 +1,27 @@
 {% trans_default_domain "LZCorePublicBundle" %}
 
-<div class="center">
-    <table>
-        <tbody>
-            <tr>
-                <td>{{ "orders.code_for_exchange"|trans }}:</td>
-                <td>{{ form_widget(reviewRequestDialog.senderLinkHTML) }}</td>
-            </tr>
-            <tr>
-                <td>{{ "orders.your_link"|trans }}:</td>
-                <td>{{ form_widget(reviewRequestDialog.receiverLink) }}</td>
-            </tr>
-            <tr>
-                <td>{{ "orders.anchor"|trans }}:</td>
-                <td>{{ form_widget(reviewRequestDialog.receiverLinkText) }}</td>
-            </tr>
-        </tbody>
-    </table>
-    {{ form_widget(reviewRequestDialog.id) }}
-    {{ form_widget(reviewRequestDialog._token) }}
-
+<div class="modal-header">
+    {{ "orders.review_order"|trans }}
 </div>
+<form>
+    <div class="modal-body">
+        <fieldset>
+            <div class="form-group">
+                <label for="order_url">{{ "orders.code_for_exchange"|trans }}:</label>
+                <textarea ng-model="order.senderLinkHTML" id="order_senderLinkHTML" name="order_senderLinkHTML" required="required"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="order_receiverLink">{{ "orders.your_link"|trans }}:</label>
+                <input type="url" maxlength="255" ng-model="order.receiverLink" id="order_receiverLink" name="order_receiverLink" required="required" />
+            </div>
+            <div class="form-group">
+                <label for="order_receiverLinkText">{{ "orders.anchor"|trans }}:</label>
+                <input type="text" maxlength="255" ng-model="order.receiverLinkText" id="order_receiverLinkText" name="order_receiverLinkText" required="required" />
+            </div>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="button" ng-click="denyOrder()" class="btn btn-primary">{{ "orders.deny"|trans }}</button>
+        <button type="submit" ng-click="approveOrder()" class="btn btn-primary">{{ "orders.approve"|trans }}</button>
+    </div>
+</form>

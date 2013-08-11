@@ -104,6 +104,8 @@ orders:
     received:             Получена
     sent:                 Отправлена
     finished:             Завершена
+    errors:
+        no_order: Заявка не найдена
 
 messages:
     from: От кого

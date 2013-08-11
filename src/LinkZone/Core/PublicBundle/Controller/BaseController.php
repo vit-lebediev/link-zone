@@ -31,4 +31,18 @@ class BaseController extends Controller
             throw new BadRequestHttpException("This method should only be called as xmlHttp");
         }
     }
+
+    protected function _parseValidationErrors($errors) {
+        $returnErrors = array();
+        foreach ($errors as $error) {
+            $returnErrors[] = array(
+                'message' => $error->getMessage(),
+                'propPath' => $error->getPropertyPath(),
+                'invalidValue' => $error->getInvalidValue(),
+                'code' => $error->getCode(),
+            );
+        }
+
+        return $returnErrors;
+    }
 }

@@ -256,12 +256,12 @@ class PlatformsController extends BaseController
         $this->_verifyIsXmlHttpRequest();
 
         if ($platform = $this->_platformRepository->find($platformId)) {
-            // todo: check if user has access to this platform
+            // TODO: check if user has access to this platform
 
             $requestData = json_decode($request->getContent(), true);
 
             if ($requestData['topic_id'] AND !$topic = $this->_platformTopicRepository->find($requestData['topic_id'])) {
-                throw new BadRequestHttpException("You are trying to add topic which doesn't exists");
+                throw new BadRequestHttpException("You are trying to edit topic which doesn't exists");
             }
 
             if (isset($topic)) {
@@ -279,23 +279,11 @@ class PlatformsController extends BaseController
             $errors = $this->_validator->validate($platform);
 
             if (count($errors) > 0) {
-                // not valid
-                $returnErrors = array();
-                foreach ($errors as $error) {
-                    $returnErrors[] = array(
-                        'message' => $error->getMessage(),
-                        'propPath' => $error->getPropertyPath(),
-                        'invalidValue' => $error->getInvalidValue(),
-                        'code' => $error->getCode(),
-                    );
-                }
-                return new JsonResponse(array('errors' => $returnErrors), 400);
-            } else {
-                // valid
-                $this->_doctrineManager->persist($platform);
-                $this->_doctrineManager->flush();
-                return new JsonResponse($this->_platformManager->toArray($platform));
+                return new JsonResponse(array('errors' => $this->_parseValidationErrors($errors)), 400);
             }
+            $this->_doctrineManager->persist($platform);
+            $this->_doctrineManager->flush();
+            return new JsonResponse($this->_platformManager->toArray($platform));
         } else {
             return new JsonResponse(array(
                 'message' => $this->_translator->trans("platforms.errors.no_platform", array(), "LZCorePublicBundle"),

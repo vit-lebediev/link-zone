@@ -1,0 +1,11 @@
+linkzone_core_public_api_orders_all:
+    pattern: /all
+    defaults: { _controller: LinkZoneCorePublicBundle:Requests:apiList }
+    methods: [GET]
+
+linkzone_core_public_api_orders:
+    pattern: /{orderId}
+    defaults: { _controller: LinkZoneCorePublicBundle:Requests:apiOrder }
+    methods: [POST, GET]
+    requirements:
+        orderId: \d+

@@ -6,7 +6,8 @@ use LinkZone\Core\PublicBundle\Entity\Platform as PlatformEntity;
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 
-class Platform extends ContainerAware {
+class Platform extends ContainerAware
+{
     /**
      *
      * @param \LinkZone\Core\PublicBundle\Entity\Platform $platform

@@ -1,0 +1,88 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<h1>{{ "menu.requests_exchange"|trans }}</h1>
+
+<h2>{{ "orders.orders_sent_to_you"|trans }}</h2>
+<div id="requests_received" class="round_border clearfix">
+    <table class="common">
+        <thead>
+            <tr>
+                <th>{{ "common.site"|trans }}</th>
+                <th>{{ "orders.your_site_for_exch"|trans }}</th>
+                <th>{{ "platforms.tyc"|trans }}</th>
+                <th>{{ "platforms.pr"|trans }}</th>
+                <th>{{ "platforms.yandex_index"|trans }}</th>
+                <th>{{ "platforms.google_index"|trans }}</th>
+                <th>{{ "platforms.rating"|trans }}</th>
+                <th>{{ "platforms.articles_index"|trans }}</th>
+                <th>{{ "common.actions"|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="order in receivedOrders">
+                {% verbatim %}
+                <td><a href="{{ order.senderPlatform.url }}">{{ order.senderPlatform.url }}</a></td>
+                <td><a href="{{ order.receiverPlatform.url }}">{{ order.receiverPlatform.url }}</a></td>
+                <td>{{ order.senderPlatform.owner.username }}</td>
+                <td>{{ order.senderPlatform.id }}</td>
+                <td>{{ order.senderPlatform.description }}</td>
+                <td>{{ order.receiverPlatform.id }}</td>
+                <td>{{ order.receiverPlatform.description }}</td>
+                <td>{{ order.id }}</td>
+                {% endverbatim %}
+                <td>
+                    <button class="btn" ng-click="openReviewOrderDialog(order.id)">{{ "orders.review_order"|trans }}</button>
+                    <button class="btn" ng-click="sendMessage(order.receiverPlatform.id, order.senderPlatform.id)">{{ "common.send_message"|trans }}</button>
+                </td>
+                
+            </tr>
+        </tbody>
+    </table>
+    <span class="message_info">{{ "orders.no_received_orders"|trans }}</span>
+</div>
+
+<h2>{{ "orders.orders_sent_by_you"|trans }}</h2>
+<div id="requests_sent" class="round_border clearfix">
+    <table class="common">
+        <thead>
+            <tr>
+                <th>{{ "common.site"|trans }}</th>
+                <th>{{ "orders.your_site_for_exch"|trans }}</th>
+                <th>{{ "platforms.tyc"|trans }}</th>
+                <th>{{ "platforms.pr"|trans }}</th>
+                <th>{{ "platforms.yandex_index"|trans }}</th>
+                <th>{{ "platforms.google_index"|trans }}</th>
+                <th>{{ "platforms.rating"|trans }}</th>
+                <th>{{ "platforms.articles_index"|trans }}</th>
+                <th>{{ "common.actions"|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="order in sentOrders">
+                {% verbatim %}
+                <td><a href="{{ order.senderPlatform.url }}">{{ order.senderPlatform.url }}</a></td>
+                <td><a href="{{ order.receiverPlatform.url }}">{{ order.receiverPlatform.url }}</a></td>
+                <td>{{ order.senderPlatform.owner.username }}</td>
+                <td>{{ order.senderPlatform.id }}</td>
+                <td>{{ order.senderPlatform.description }}</td>
+                <td>{{ order.receiverPlatform.id }}</td>
+                <td>{{ order.receiverPlatform.description }}</td>
+                <td>{{ order.id }}</td>
+                {% endverbatim %}
+                <td>
+                    <button class="btn" ng-click="deleteOrder(order.id)">{{ "common.delete"|trans }}</button>
+                    <button class="btn" ng-click="sendMessage(order.senderPlatform.id, order.receiverPlatform.id)">{{ "common.send_message"|trans }}</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <span class="message_info">{{ "orders.no_sent_orders"|trans }}</span>
+</div>
+
+<div id="dialog-review-order" class="invisible" title="{{ "orders.review_order"|trans }}"></div>
+<div id="dialog-sendmessage" class="invisible" title="{{ "common.message"|trans }}"></div>
+
+<input type="hidden" id="string-approve-order" value="{{ "orders.approve"|trans }}" />
+<input type="hidden" id="string-deny-order" value="{{ "orders.deny"|trans }}" />
+<input type="hidden" id="string-send" value="{{ "common.send"|trans }}" />
+<input type="hidden" id="string-cancel" value="{{ "common.cancel"|trans }}" />

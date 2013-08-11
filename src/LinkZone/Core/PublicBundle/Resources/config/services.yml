@@ -10,6 +10,7 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
+
     link_zone_core_public.menu_builder:
         class: LinkZone\Core\PublicBundle\Menu\Builder
         arguments: ["@knp_menu.factory"]
@@ -23,14 +24,16 @@ services:
         tags:
             - { name: knp_menu.menu, alias: public_main } # The alias is what is used to retrieve the menu
 
+
     link_zone.validator.unique.site_exists:
         class: LinkZone\Core\PublicBundle\Validator\Constraints\SiteExistsValidator
         arguments: ["@service_container"]
         tags:
             - { name: validator.constraint_validator ,alias: site_exists }
 
+
     link_zone.core.public.manager.request:
-        class: LinkZone\Core\PublicBundle\Manager\RequestManager
+        class: LinkZone\Core\PublicBundle\Manager\Request
         calls:
             - [ setContainer, ["@service_container"] ]
 
@@ -38,6 +41,7 @@ services:
         class: LinkZone\Core\PublicBundle\Manager\Platform
         calls:
             - [ setContainer, ["@service_container"] ]
+
 
     link_zone.core.twig.extension:
         class: LinkZone\Core\PublicBundle\Twig\Extension\CoreExtension

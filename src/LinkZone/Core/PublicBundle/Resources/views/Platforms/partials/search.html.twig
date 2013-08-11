@@ -21,22 +21,21 @@
                 </tr>
             </thead>
             <tbody>
-                    <tr ng-repeat="platform in platforms">
-                        {% verbatim %}
-                        <td><a href="{{ platform.url }}">{{ platform.url }}</a></td>
-                        <td>{{ platform.id }}</td>
-                        <td>{{ platform.topic }}</td>
-                        <td>{{ platform.owner.lastLogin }}</td>
-                        <td>{{ platform.owner.username }}</td>
-                        <td>{{ platform.url }}</td>
-                        <td>{{ platform.url }}</td>
-                        {% endverbatim %}
-                        <td>
-                            <button class="btn" ng-click="openSendOrderDialog(platform.id)">{{ "platforms.search.send_request"|trans }}</button>
-                            <button class="btn" ng-click="openSendMessageDialog(platform.id)">{{ "platforms.search.send_message"|trans }}</button>
-                        </td>
-                        
-                    </tr>
+                <tr ng-repeat="platform in platforms">
+                    {% verbatim %}
+                    <td><a href="{{ platform.url }}">{{ platform.url }}</a></td>
+                    <td>{{ platform.id }}</td>
+                    <td>{{ platform.topic }}</td>
+                    <td>{{ platform.owner.lastLogin }}</td>
+                    <td>{{ platform.owner.username }}</td>
+                    <td>{{ platform.url }}</td>
+                    <td>{{ platform.url }}</td>
+                    {% endverbatim %}
+                    <td>
+                        <button class="btn" ng-click="openSendOrderDialog(platform.id)">{{ "platforms.search.send_request"|trans }}</button>
+                        <button class="btn" ng-click="openSendMessageDialog(platform.id)">{{ "platforms.search.send_message"|trans }}</button>
+                    </td>
+                </tr>
             </tbody>
         </table>
         <span class="message_info">{{ "platforms.search.no_results"|trans }}</span>
