@@ -104,6 +104,8 @@ orders:
     received:             Получена
     sent:                 Отправлена
     finished:             Завершена
+    delete:               Удалить заявку
+    confirm_to_delete:    Вы уверены, что хотите отменить заявку на обмен с %platformUrl%
     errors:
         no_order: Заявка не найдена
 

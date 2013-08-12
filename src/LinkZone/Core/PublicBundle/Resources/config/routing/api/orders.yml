@@ -14,3 +14,10 @@ linkzone_core_public_api_orders:
     methods: [POST, GET]
     requirements:
         orderId: \d+
+
+linkzone_core_public_api_orders:
+    pattern: /{orderId}
+    defaults: { _controller: LinkZoneCorePublicBundle:Requests:apiDeleteOrder }
+    methods: [DELETE]
+    requirements:
+        orderId: \d+

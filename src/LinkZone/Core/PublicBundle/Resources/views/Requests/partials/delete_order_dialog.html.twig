@@ -1,0 +1,14 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<div class="modal-header">
+    {{ "orders.delete"|trans }}
+</div>
+<form ng-submit="deleteOrder()">
+    <div>
+        {{ "orders.confirm_to_delete"|trans({"%platformUrl%": "{{ receiverPlatformUrl }}"}) }}
+    </div>
+    <div class="modal-footer">
+        <button type="button" ng-click="close()" class="btn btn-primary">{{ "common.cancel"|trans }}</button>
+        <button type="submit" class="btn btn-danger btn-primary">{{ "common.delete"|trans }}</button>
+    </div>
+</form>

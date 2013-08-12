@@ -104,7 +104,7 @@ function EditPlatformDialogController($scope, Platform, dialog, platformId) {
         }, function(errors) {
             // handle errors
             alert("Error ! Details in the console log");
-             console.log(errors)
+            console.log(errors)
         });
     }
 }

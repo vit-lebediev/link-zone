@@ -290,11 +290,12 @@ class RequestsController extends BaseController
         $this->_verifyIsXmlHttpRequest();
 
         if (!$order = $this->_requestRepository->find($orderId)) {
-            // TODO: check if user has access to this order
             return new JsonResponse(array(
                 'message' => $this->_translator->trans("requests.errors.no_order", array(), "LZCorePublicBundle"),
             ), 404);
         }
+
+        // TODO: check if user has access to this order
 
         if ($request->getMethod() == "POST") {
             switch ($request->get('action')) {
@@ -326,5 +327,28 @@ class RequestsController extends BaseController
         } else {
             return new JsonResponse($this->_requestManager->toArray($order));
         }
+    }
+
+    public function apiDeleteOrderAction($orderId, Request $request)
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        if (!$order = $this->_requestRepository->find($orderId)) {
+            return new JsonResponse(array(
+                'message' => $this->_translator->trans("requests.errors.no_order", array(), "LZCorePublicBundle"),
+            ), 404);
+        }
+
+        if ($this->_user !== $order->getSenderPlatform()->getOwner()) {
+            $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $order->getId());
+            return new JsonResponse(array(
+                'message' => $this->_translator->trans("requests.errors.no_order", array(), "LZCorePublicBundle"),
+            ), 404);
+        }
+
+        $this->_doctrineManager->remove($order);
+        $this->_doctrineManager->flush();
+
+        return new JsonResponse();
     }
 }

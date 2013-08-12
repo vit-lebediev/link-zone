@@ -34,8 +34,30 @@ function OrdersForExchangeController($scope, $dialog, Order) {
 
     }
 
-    $scope.deleteOrder = function(orderId) {
+    $scope.openDeleteOrderDialog = function(order) {
+        var dialog = $dialog.dialog({
+            backdrop: true,
+            keyboard: true,
+            backdropClick: true,
+            dialogFade: true,
+            backdropFade: true,
+            templateUrl: urlPrefix + "/partials/requests/delete_order_dialog.html",
+            controller: 'DeleteOrderDialogController',
+            resolve: {
+                orderId: function() {
+                    return angular.copy(order.id);
+                },
+                receiverPlatformUrl: function() {
+                    return angular.copy(order.receiverPlatform.url)
+                }
+            }
+        });
 
+        dialog.open().then(function(result) {
+            if (result) {
+                // TODO: remove order from order list
+            }
+        });
     }
 }
 
@@ -66,4 +88,27 @@ function ReviewOrderDialogController($scope, Order, dialog, orderId) {
     }
 }
 
-ReviewOrderDialogController.$inject = ['$scope', 'Order', 'dialog', 'orderId']
+ReviewOrderDialogController.$inject = ['$scope', 'Order', 'dialog', 'orderId'];
+
+function DeleteOrderDialogController($scope, Order, dialog, orderId, receiverPlatformUrl) {
+    var urlPrefix = '/app_dev.php';
+
+    $scope.receiverPlatformUrl = receiverPlatformUrl;
+
+    $scope.deleteOrder = function() {
+        new Order().$delete({orderId: orderId}, function(order, headers) {
+            // success
+            dialog.close();
+        }, function(errors) {
+            // handle errors
+            alert("Error ! Details in the console log");
+            console.log(errors)
+        });
+    }
+
+    $scope.close = function(result) {
+        dialog.close(result);
+    }
+}
+
+DeleteOrderDialogController.$inject = ['$scope', 'Order', 'dialog', 'orderId', 'receiverPlatformUrl'];

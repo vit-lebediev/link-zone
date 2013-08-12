@@ -70,7 +70,7 @@
                 <td>{{ order.id }}</td>
                 {% endverbatim %}
                 <td>
-                    <button class="btn" ng-click="deleteOrder(order.id)">{{ "common.delete"|trans }}</button>
+                    <button class="btn" ng-click="openDeleteOrderDialog(order)">{{ "common.delete"|trans }}</button>
                     <button class="btn" ng-click="sendMessage(order.senderPlatform.id, order.receiverPlatform.id)">{{ "common.send_message"|trans }}</button>
                 </td>
             </tr>
@@ -78,11 +78,3 @@
     </table>
     <span class="message_info">{{ "orders.no_sent_orders"|trans }}</span>
 </div>
-
-<div id="dialog-review-order" class="invisible" title="{{ "orders.review_order"|trans }}"></div>
-<div id="dialog-sendmessage" class="invisible" title="{{ "common.message"|trans }}"></div>
-
-<input type="hidden" id="string-approve-order" value="{{ "orders.approve"|trans }}" />
-<input type="hidden" id="string-deny-order" value="{{ "orders.deny"|trans }}" />
-<input type="hidden" id="string-send" value="{{ "common.send"|trans }}" />
-<input type="hidden" id="string-cancel" value="{{ "common.cancel"|trans }}" />
