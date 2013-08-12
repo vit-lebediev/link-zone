@@ -11,6 +11,7 @@ angular.module('publicServices', ['ngResource']).
         return $resource('/app_dev.php/api/orders/:orderId', {}, {
             forExchangeSent: {method: 'GET', params: {orderId: 'all', status: 'exchange-sent'}, isArray: true},
             forExchangeReceived: {method: 'GET', params: {orderId: 'all', status: 'exchange-received'}, isArray: true},
-            approve: {method: 'POST', params: {action: 'approve'}}
+            approve: {method: 'POST', params: {action: 'approve'}},
+            send: {method: 'POST', params: {orderId: 'send'}}
         })
     });

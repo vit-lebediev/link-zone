@@ -1,23 +1,27 @@
 {% trans_default_domain "LZCorePublicBundle" %}
 
-<div class="center">
-    <table>
-        <tbody>
-            <tr>
-                <td>{{ "orders.platform_for_order"|trans }}:</td>
-                <td>{{ form_widget(sendRequestDialog.senderPlatform) }}</td>
-            </tr>
-            <tr>
-                <td>{{ "orders.your_link"|trans }}:</td>
-                <td>{{ form_widget(sendRequestDialog.senderLink) }}</td>
-            </tr>
-            <tr>
-                <td>{{ "orders.anchor"|trans }}:</td>
-                <td>{{ form_widget(sendRequestDialog.senderLinkText) }}</td>
-            </tr>
-        </tbody>
-    </table>
-    {{ form_widget(sendRequestDialog.receiverPlatformId) }}
-    {{ form_widget(sendRequestDialog._token) }}
-
+<div class="modal-header">
+    {{ "orders.send_order"|trans }}
 </div>
+<form>
+    <div class="modal-body">
+        <fieldset>
+            <div class="form-group">
+                <label for="platform_id">{{ "orders.platform_for_order"|trans }}:</label>
+                <select ng-model="platform" ng-options="p.url for p in platforms" required="required" name="platform_id" id="platform_id"></select>
+            </div>
+            <div class="form-group">
+                <label for="order_url">{{ "orders.your_link"|trans }}:</label>
+                <input type="url" ng-model="order.senderLink" required="required" name="order_sernder_link" id="order_sernder_link" />
+            </div>
+            <div class="form-group">
+                <label for="order_url">{{ "orders.anchor"|trans }}:</label>
+                <input type="text" ng-model="order.senderLinkText" required="required" name="order_sernder_link_text" id="order_sernder_link_text" />
+            </div>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="button" ng-click="close()" class="btn btn-primary">{{ "common.cancel"|trans }}</button>
+        <button type="submit" ng-click="sendOrder()" class="btn btn-primary">{{ "orders.send_order"|trans }}</button>
+    </div>
+</form>

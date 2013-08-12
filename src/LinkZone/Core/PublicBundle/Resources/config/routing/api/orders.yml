@@ -3,6 +3,11 @@ linkzone_core_public_api_orders_all:
     defaults: { _controller: LinkZoneCorePublicBundle:Requests:apiList }
     methods: [GET]
 
+linkzone_core_public_api_orders_send:
+    pattern: /send
+    defaults: { _controller: LinkZoneCorePublicBundle:Requests:apiSendOrder }
+    methods: [POST]
+
 linkzone_core_public_api_orders:
     pattern: /{orderId}
     defaults: { _controller: LinkZoneCorePublicBundle:Requests:apiOrder }

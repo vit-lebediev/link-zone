@@ -76,36 +76,49 @@ class RequestsController extends BaseController
         ));
     }
 
-    public function ajaxSendOrderAction(Request $request)
+    public function apiSendOrderAction(Request $request)
     {
         $this->_verifyIsXmlHttpRequest();
 
-        $platformRequest = new PlatformRequest();
+        $requestData = json_decode($request->getContent(), true);
 
-        $sendRequestDialog = $this->createForm(new SendRequestType(), $platformRequest, array(
-            'container' => $this->container,
-            'user'      => $this->_user,
-        ));
-
-        $sendRequestDialog->bind($request);
-
-        if ($sendRequestDialog->isValid())
-        {
-            $platformRequest->setSenderUser($this->_user);
-
-            $platformRequest->setReceiverUser($this->_platformRepository->find($request->get('send_request')['receiverPlatformId'])->getOwner());
-            $platformRequest->setReceiverPlatform($this->_platformRepository->find($request->get('send_request')['receiverPlatformId']));
-            $platformRequest->setStatus(PlatformRequest::STATUS_EXCHANGE);
-            $platformRequest->setCreated(new \DateTime());
-
-            $this->_doctrineManager->persist($platformRequest);
-            $this->_doctrineManager->flush();
-
-            return new JsonResponse();
-        } else {
-            $this->_logger->err($sendRequestDialog->getErrorsAsString());
-            throw new BadRequestHttpException("Provided platform data is not valid");
+        if (!isset($requestData['senderPlatformId'],
+                   $requestData['senderLink'],
+                   $requestData['senderLinkText'],
+                   $requestData['receiverPlatformId'])) {
+            throw new BadRequestHttpException("Provided data is not sufficient");
         }
+
+        if (!$senderPlatform = $this->_platformRepository->find($requestData['senderPlatformId']) 
+                OR $this->_user !== $senderPlatform->getOwner()
+                OR !$receiverPlatform = $this->_platformRepository->find($requestData['receiverPlatformId'])) {
+            throw new BadRequestHttpException("There is no platform with id " + $requestData['senderPlatformId']);
+        }
+
+        // TODO: check that receiver platform is visible in search results, otherwice used doesn't want to get exchange orders
+
+        $order = new PlatformRequest();
+
+        $order->setSenderPlatform($senderPlatform);
+        $order->setSenderUser($this->_user);
+        $order->setSenderLink($requestData['senderLink']);
+        $order->setSenderLinkText($requestData['senderLinkText']);
+
+        $order->setReceiverPlatform($receiverPlatform);
+        $order->setReceiverUser($receiverPlatform->getOwner());
+        $order->setStatus(PlatformRequest::STATUS_EXCHANGE);
+        $order->setCreated(new \DateTime());
+
+        $errors = $this->_validator->validate($order);
+
+        if (count($errors) > 0) {
+            return new JsonResponse(array('errors' => $this->_parseValidationErrors($errors)), 400);
+        }
+
+        $this->_doctrineManager->persist($order);
+        $this->_doctrineManager->flush();
+
+        return new JsonResponse($this->_requestManager->toArray($order));
     }
 
     public function ajaxDialogReviewOrderAction(Request $request)

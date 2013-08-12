@@ -1,9 +1,7 @@
 'use strict';
 
-
 function PlatformsController($scope, $dialog, Platform) {
     $scope.platforms = Platform.query();
-    console.log("From platforms controller");
 
     var urlPrefix = '/app_dev.php';
 
@@ -112,15 +110,3 @@ function EditPlatformDialogController($scope, Platform, dialog, platformId) {
 }
 
 EditPlatformDialogController.$inject = ['$scope', 'Platform', 'dialog', 'platformId'];
-
-function PlatformsSearchController($scope, Platform) {
-    $scope.platforms = Platform.search({test: "tset"}); // params work!
-
-    $scope.search = function() {
-        $scope.platforms = Platform.search({
-            topicId: this.filter_topic
-        });
-    }
-}
-
-PlatformsSearchController.$inject = ['$scope', 'Platform'];
