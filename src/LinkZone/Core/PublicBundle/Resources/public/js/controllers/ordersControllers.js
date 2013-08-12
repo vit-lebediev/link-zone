@@ -74,7 +74,13 @@ function ReviewOrderDialogController($scope, Order, dialog, orderId) {
     }
 
     $scope.denyOrder = function() {
-
+        $scope.order.$deny({orderId: $scope.order.id}, function(order, headers) {
+            dialog.close(order);
+        }, function(errors) {
+            // handle errors
+            alert("Error ! Details in the console log");
+            console.log(errors);
+        });
     }
 
     $scope.approveOrder = function() {

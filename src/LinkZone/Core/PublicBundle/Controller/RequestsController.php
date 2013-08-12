@@ -295,14 +295,14 @@ class RequestsController extends BaseController
             ), 404);
         }
 
-        // TODO: check if user has access to this order
-
         if ($request->getMethod() == "POST") {
             switch ($request->get('action')) {
                 case "approve":
                     if ($this->_user != $order->getReceiverUser()) {
                         $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
-                        throw new BadRequestHttpException("You do not have rights to access this");
+                        return new JsonResponse(array(
+                            'message' => $this->_translator->trans("requests.errors.no_order", array(), "LZCorePublicBundle"),
+                        ), 404);
                     }
 
                     $requestData = json_decode($request->getContent(), true);
@@ -321,6 +321,22 @@ class RequestsController extends BaseController
                     $this->_doctrineManager->flush();
 
                     return new JsonResponse($this->_requestManager->toArray($order));
+                case "deny":
+                    if ($this->_user != $order->getReceiverUser()) {
+                        $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
+                        return new JsonResponse(array(
+                            'message' => $this->_translator->trans("requests.errors.no_order", array(), "LZCorePublicBundle"),
+                        ), 404);
+                    }
+
+                    $order->setStatus(PlatformRequest::STATUS_DENIED);
+
+                    $this->_doctrineManager->persist($order);
+                    $this->_doctrineManager->flush();
+
+                    // TODO: Send a notification/message to the sender user about the rejection of the order
+
+                    return new JsonResponse();
                 default:
                     throw new BadRequestHttpException("Provided action is not supported");
             }

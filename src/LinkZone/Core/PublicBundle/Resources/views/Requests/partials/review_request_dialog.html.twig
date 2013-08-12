@@ -3,7 +3,7 @@
 <div class="modal-header">
     {{ "orders.review_order"|trans }}
 </div>
-<form>
+<form ng-submit="approveOrder()">
     <div class="modal-body">
         <fieldset>
             <div class="form-group">
@@ -21,7 +21,7 @@
         </fieldset>
     </div>
     <div class="modal-footer">
-        <button type="button" ng-click="denyOrder()" class="btn btn-primary">{{ "orders.deny"|trans }}</button>
-        <button type="submit" ng-click="approveOrder()" class="btn btn-primary">{{ "orders.approve"|trans }}</button>
+        <button type="button" ng-click="denyOrder()" class="btn btn-primary btn-danger">{{ "orders.deny"|trans }}</button>
+        <button type="submit" class="btn btn-primary btn-success">{{ "orders.approve"|trans }}</button>
     </div>
 </form>

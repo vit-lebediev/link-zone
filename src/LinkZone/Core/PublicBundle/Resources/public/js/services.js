@@ -12,6 +12,7 @@ angular.module('publicServices', ['ngResource']).
             forExchangeSent: {method: 'GET', params: {orderId: 'all', status: 'exchange-sent'}, isArray: true},
             forExchangeReceived: {method: 'GET', params: {orderId: 'all', status: 'exchange-received'}, isArray: true},
             approve: {method: 'POST', params: {action: 'approve'}},
+            deny: {method: 'POST', params: {action: 'deny'}},
             send: {method: 'POST', params: {orderId: 'send'}}
         })
     });
