@@ -19,7 +19,8 @@ function LoginController($scope, $http, $location) {
             },
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(data, status) {
-            $location.path(urlPrefix + '/platforms')
+            window.location.href = urlPrefix + '/platforms';
+//            $location.path(urlPrefix + '/platforms');
         }).
         error(function(data, status) {
             console.log(status + ": " + data);
@@ -28,3 +29,8 @@ function LoginController($scope, $http, $location) {
 }
 
 LoginController.$inject = ['$scope', '$http', '$location'];
+
+function LogoutController() {
+    var urlPrefix = '/app_dev.php';
+    window.location.href = urlPrefix + '/logout';
+}

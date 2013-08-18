@@ -32,6 +32,7 @@ LinkZone.config(['$routeProvider', '$locationProvider', '$httpProvider', functio
         $locationProvider.html5Mode(true);
         $routeProvider
             .when(urlPrefix + "/login", {templateUrl: urlPrefix + "/partials/default/login.html", controller: LoginController})
+            .when(urlPrefix + "/logout", {templateUrl: urlPrefix + "/partials/default/login.html", controller: LogoutController})
             .when(urlPrefix + "/platforms", {templateUrl: urlPrefix + "/partials/platforms/list.html", controller: PlatformsController})
             .when(urlPrefix + "/platforms/search", {templateUrl: urlPrefix + "/partials/platforms/search.html", controller: PlatformsSearchController})
             .when(urlPrefix + "/orders/for-exchange", {templateUrl: urlPrefix+ "/partials/requests/for_exchange.html", controller: OrdersForExchangeController})
