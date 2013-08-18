@@ -36,6 +36,7 @@ LinkZone.config(['$routeProvider', '$locationProvider', '$httpProvider', functio
             .when(urlPrefix + "/platforms/search", {templateUrl: urlPrefix + "/partials/platforms/search.html", controller: PlatformsSearchController})
             .when(urlPrefix + "/orders/for-exchange", {templateUrl: urlPrefix+ "/partials/requests/for_exchange.html", controller: OrdersForExchangeController})
             .when(urlPrefix + "/orders/in-progress", {templateUrl: urlPrefix+ "/partials/requests/in_progress.html", controller: OrdersInProgressController})
+            .when(urlPrefix + "/orders/finished", {templateUrl: urlPrefix+ "/partials/requests/finished.html", controller: OrdersFinishedController})
             .otherwise({redirectTo: "/app_dev.php/login"})
     }]);
 

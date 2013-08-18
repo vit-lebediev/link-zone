@@ -16,6 +16,7 @@ angular.module('publicServices', ['ngResource']).
             send: {method: 'POST', params: {orderId: 'send'}},
             inProgress: {method: 'GET', params: {orderId: 'all', status: 'in-progress'}, isArray: true},
             saveLinkLocation: {method: 'POST', params: {action: 'saveLinkLocation'}},
-            acceptOrCancel: {method: 'POST', params: {action: 'acceptOrCancel'}}
+            acceptOrCancel: {method: 'POST', params: {action: 'acceptOrCancel'}},
+            fetchFinished: {method: 'GET', params: {orderId: 'all', status: 'finished'}, isArray: true}
         })
     });

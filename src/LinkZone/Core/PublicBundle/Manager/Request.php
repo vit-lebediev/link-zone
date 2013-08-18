@@ -43,6 +43,8 @@ class Request extends ContainerAware
             'receiverLinkHTML'     => $this->getReceiverLinkHTML($request),
             'receiverAccepted'     => $request->getReceiverAccepted(),
             'isIncoming'           => ($request->getReceiverPlatform()->getOwner() === $user) ? true : false,
+            'created'              => $request->getCreated()->format($this->container->getParameter("default_date_format")),
+            'finished'             => $request->getFinished() ? $request->getFinished()->format($this->container->getParameter("default_date_format")) : null,
             'senderPlatform'       => array(
                 'id' => $request->getSenderPlatform()->getId(),
                 'url' => $request->getSenderPlatform()->getUrl(),

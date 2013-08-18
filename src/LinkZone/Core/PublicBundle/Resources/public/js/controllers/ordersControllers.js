@@ -163,3 +163,9 @@ function OrdersInProgressController($scope, Order) {
 }
 
 OrdersInProgressController.$inject = ['$scope', 'Order'];
+
+function OrdersFinishedController($scope, Order) {
+    $scope.orders = Order.fetchFinished();
+}
+
+OrdersFinishedController.$inject = ['$scope', 'Order'];

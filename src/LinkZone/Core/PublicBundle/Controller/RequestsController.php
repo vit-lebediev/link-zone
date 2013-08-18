@@ -150,6 +150,9 @@ class RequestsController extends BaseController
             case "in-progress":
                 $orders = $this->_requestRepository->findAllInProgressForUser($this->_user);
                 break;
+            case "finished":
+                $orders = $this->_requestRepository->findAllFinishedForUser($this->_user);
+                break;
             default:
                 throw new BadRequestHttpException("This status is not supported");
         }

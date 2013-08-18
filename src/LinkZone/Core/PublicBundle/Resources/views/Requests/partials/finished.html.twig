@@ -1,0 +1,27 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<h1>{{ "menu.requests_finished"|trans }}</h1>
+
+<div class="round_border clearfix">
+    <table class="common">
+        <thead>
+            <tr>
+                <th>{{ "orders.received"|trans }}</th>
+                <th>{{ "common.site"|trans }}</th>
+                <th>{{ "orders.your_site_for_exch"|trans }}</th>
+                <th>{{ "orders.finished"|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="order in orders">
+                {% verbatim %}
+                <td>{{ order.created }}</td>
+                <td><a href="{{ {true: order.senderPlatform.url, false: order.receiverPlatform.url}[order.isIncoming] }}">{{ {true: order.senderPlatform.url, false: order.receiverPlatform.url}[order.isIncoming] }}</a></td>
+                <td><a href="{{ {true: order.receiverPlatform.url, false: order.senderPlatform.url}[order.isIncoming] }}">{{ {true: order.receiverPlatform.url, false: order.senderPlatform.url}[order.isIncoming] }}</a></td>
+                <td>{{ order.finished }}</td>
+                {% endverbatim %}
+            </tr>
+        </tbody>
+    </table>
+    <span class="message_info">{{ "orders.no_finished_orders"|trans }}</span>
+</div>
