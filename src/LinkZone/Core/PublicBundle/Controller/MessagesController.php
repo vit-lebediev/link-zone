@@ -83,10 +83,9 @@ class MessagesController extends BaseController
 
         receiverPlatformValid:
         // find dialog, corresponding to these two platforms
-            // if there is one, add message to it
-            // if there is no one, create new
         $dialog = $this->_dialogRepository->findForPlatforms($messageSenderPlatform, $messageReceiverPlatform);
 
+        // if there is no one, create new
         if (!$dialog) {
             $dialog = new Dialog();
             $dialog->setSenderPlatform($messageSenderPlatform);

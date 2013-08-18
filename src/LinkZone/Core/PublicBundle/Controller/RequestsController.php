@@ -10,6 +10,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use LinkZone\Core\PublicBundle\Entity\Request as PlatformRequest;
 use LinkZone\Core\PublicBundle\Form\Type\Request\SendRequestType;
 use LinkZone\Core\PublicBundle\Form\Type\Request\ReviewRequestType;
+use LinkZone\Core\PublicBundle\Entity\Dialog;
+use LinkZone\Core\PublicBundle\Entity\Message;
 
 class RequestsController extends BaseController
 {
@@ -97,6 +99,8 @@ class RequestsController extends BaseController
 
         // TODO: check that receiver platform is visible in search results, otherwice used doesn't want to get exchange orders
 
+        // check if this platforms already have an order from sending platform
+
         $order = new PlatformRequest();
 
         $order->setSenderPlatform($senderPlatform);
@@ -116,6 +120,31 @@ class RequestsController extends BaseController
         }
 
         $this->_doctrineManager->persist($order);
+
+        // if there is a startDialogWith message, create new dialog for the two platforms
+        if ($requestData['startDialogWith']) {
+            $dialog = new Dialog();
+            $dialog->setSenderPlatform($senderPlatform)
+                   ->setReceiverPlatform($receiverPlatform)
+                   ->setSenderUser($senderPlatform->getOwner())
+                   ->setReceiverUser($receiverPlatform->getOwner())
+                   ->setCreated(new \DateTime())
+                   ->setUpdated(new \DateTime());
+
+            $message = new Message();
+
+            $message->setMessage($requestData['startDialogWith'])
+                    ->setSent(new \DateTime())
+                    ->setDialog($dialog)
+                    ->setSenderPlatform($senderPlatform)
+                    ->setReceiverPlatform($receiverPlatform);
+
+            // TODO: check for validity
+
+            $this->_doctrineManager->persist($message);
+        }
+
+
         $this->_doctrineManager->flush();
 
         return new JsonResponse($this->_requestManager->toArray($order));

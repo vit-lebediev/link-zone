@@ -3,7 +3,7 @@
 function PlatformsSearchController($scope, $dialog, Platform) {
     var urlPrefix = '/app_dev.php';
 
-    $scope.platforms = Platform.search({test: "tset"}); // params work!
+    $scope.platforms = Platform.search();
 
     $scope.search = function() {
         $scope.platforms = Platform.search({
@@ -42,7 +42,7 @@ function SendOrderDialogController($scope, Order, Platform, dialog, receiverPlat
 
     $scope.order = new Order();
 
-    $scope.platforms = Platform.query()
+    $scope.platforms = Platform.query();
 
     $scope.close = function(result) {
         dialog.close(result);
