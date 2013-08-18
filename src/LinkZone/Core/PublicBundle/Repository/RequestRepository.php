@@ -40,28 +40,6 @@ class RequestRepository extends EntityRepository
         ));
     }
 
-    public function findAllReceivedInProgressForUser(UserInterface $user)
-    {
-        return new ArrayCollection($this->findBy(
-                array(
-                    'receiverUser' => $user,
-                    'status'       => Request::STATUS_IN_PROGRESS,
-                ),
-                array('created' => "DESC")
-        ));
-    }
-
-    public function findAllSentInProgressForUser(UserInterface $user)
-    {
-        return new ArrayCollection($this->findBy(
-                array(
-                    'senderUser' => $user,
-                    'status'     => Request::STATUS_IN_PROGRESS,
-                ),
-                array('created' => "DESC")
-        ));
-    }
-
     public function findAllReceivedFinishedForUser(UserInterface $user)
     {
         return new ArrayCollection($this->findBy(
@@ -82,5 +60,24 @@ class RequestRepository extends EntityRepository
                 ),
                 array('created' => "DESC")
         ));
+    }
+
+    public function findAllInProgressForUser(UserInterface $user)
+    {
+        $qb = $this->createQueryBuilder("request");
+        $qb->where($qb->expr()->andx(
+                $qb->expr()->orx(
+                        $qb->expr()->eq("request.receiverUser", ":user"),
+                        $qb->expr()->eq("request.senderUser", ":user")
+                ),
+                $qb->expr()->eq("request.status", ":status")
+        ));
+
+        $qb->setParameter(":status", Request::STATUS_IN_PROGRESS);
+        $qb->setParameter(":user", $user);
+
+        $qb->orderBy("request.created", "DESC");
+
+        return new ArrayCollection($qb->getQuery()->getResult());
     }
 }

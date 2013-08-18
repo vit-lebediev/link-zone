@@ -13,6 +13,9 @@ angular.module('publicServices', ['ngResource']).
             forExchangeReceived: {method: 'GET', params: {orderId: 'all', status: 'exchange-received'}, isArray: true},
             approve: {method: 'POST', params: {action: 'approve'}},
             deny: {method: 'POST', params: {action: 'deny'}},
-            send: {method: 'POST', params: {orderId: 'send'}}
+            send: {method: 'POST', params: {orderId: 'send'}},
+            inProgress: {method: 'GET', params: {orderId: 'all', status: 'in-progress'}, isArray: true},
+            saveLinkLocation: {method: 'POST', params: {action: 'saveLinkLocation'}},
+            acceptOrCancel: {method: 'POST', params: {action: 'acceptOrCancel'}}
         })
     });

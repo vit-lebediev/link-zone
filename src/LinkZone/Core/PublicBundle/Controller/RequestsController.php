@@ -132,131 +132,6 @@ class RequestsController extends BaseController
         ));
     }
 
-    public function ajaxApproveOrderAction($orderId, Request $request)
-    {
-        $this->_verifyIsXmlHttpRequest();
-
-        $platformRequest = $this->_requestRepository->find($orderId);
-
-        if ($this->_user != $platformRequest->getReceiverUser()) {
-            $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
-            throw new BadRequestHttpException("You do not have rights to access");
-        }
-
-        $reviewRequestDialog = $this->createForm(new ReviewRequestType(), $platformRequest, array(
-            'container' => $this->container,
-            'senderLinkHTML' => $this->_requestManager->getSenderLinkHTML($platformRequest),
-        ));
-
-        $reviewRequestDialog->bind($request);
-
-        if ($reviewRequestDialog->isValid())
-        {
-            $platformRequest->setStatus(PlatformRequest::STATUS_IN_PROGRESS);
-
-            $this->_doctrineManager->persist($platformRequest);
-            $this->_doctrineManager->flush();
-
-            return new JsonResponse();
-        } else {
-            $this->_logger->err($reviewRequestDialog->getErrorsAsString());
-            throw new BadRequestHttpException("Something went wrong");
-        }
-    }
-
-    public function ajaxDenyOrderAction($orderId)
-    {
-        $this->_verifyIsXmlHttpRequest();
-
-        $platformRequest = $this->_requestRepository->find($orderId);
-
-        if ($this->_user != $platformRequest->getReceiverUser()) {
-            $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
-            throw new BadRequestHttpException("You do not have rights to access");
-        }
-
-        $platformRequest->setStatus(PlatformRequest::STATUS_DENIED);
-
-        $this->_doctrineManager->persist($platformRequest);
-        $this->_doctrineManager->flush();
-
-        return new JsonResponse();
-    }
-
-    public function ajaxReceiverLinkLocationAction($orderId, Request $request)
-    {
-        $this->_verifyIsXmlHttpRequest();
-
-        $platformRequest = $this->_requestRepository->find($orderId);
-
-        if ($this->_user != $platformRequest->getReceiverUser()) {
-            $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
-            throw new BadRequestHttpException("You do not have rights to access");
-        }
-
-        $platformRequest->setReceiverLinkLocation($request->get("linkLocation"));
-
-        $this->_doctrineManager->persist($platformRequest);
-        $this->_doctrineManager->flush();
-
-        return new JsonResponse();
-    }
-
-    public function ajaxSenderLinkLocationAction($orderId, Request $request)
-    {
-        $this->_verifyIsXmlHttpRequest();
-
-        $platformRequest = $this->_requestRepository->find($orderId);
-
-        if ($this->_user != $platformRequest->getSenderUser()) {
-            $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
-            throw new BadRequestHttpException("You do not have rights to access");
-        }
-
-        $platformRequest->setSenderLinkLocation($request->get("linkLocation"));
-
-        $this->_doctrineManager->persist($platformRequest);
-        $this->_doctrineManager->flush();
-
-        return new JsonResponse();
-    }
-
-    public function ajaxAcceptOrderAction($orderId, Request $request)
-    {
-        $this->_verifyIsXmlHttpRequest();
-
-        $platformRequest = $this->_requestRepository->find($orderId);
-
-        if (!$platformRequest) {
-            throw new BadRequestHttpException("There is no order with id " . $orderId);
-        }
-
-        if ($this->_user != $platformRequest->getReceiverUser() AND $this->_user != $platformRequest->getSenderUser()) {
-            $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
-            throw new BadRequestHttpException("You do not have rights to access");
-        }
-
-        $accept = ("false" == $request->get("accept")) ? false : true;
-
-        if ($this->_user == $platformRequest->getReceiverUser()) {
-            $platformRequest->setReceiverAccepted($accept);
-        } else {
-            $platformRequest->setSenderAccepted($accept);
-        }
-
-        if ($platformRequest->getSenderAccepted() && $platformRequest->getReceiverAccepted()) {
-            $platformRequest->setStatus(PlatformRequest::STATUS_FINISHED);
-            $platformRequest->setFinished(new \DateTime());
-
-            // TODO: Charge users
-        }
-
-        $this->_doctrineManager->persist($platformRequest);
-        $this->_doctrineManager->flush();
-
-        return new JsonResponse();
-    }
-
     public function apiListAction(Request $request)
     {
         $this->_verifyIsXmlHttpRequest();
@@ -271,6 +146,9 @@ class RequestsController extends BaseController
                 break;
             case "exchange-received":
                 $orders = $this->_requestRepository->findAllReceivedForExchangeForUser($this->_user);
+                break;
+            case "in-progress":
+                $orders = $this->_requestRepository->findAllInProgressForUser($this->_user);
                 break;
             default:
                 throw new BadRequestHttpException("This status is not supported");
@@ -337,6 +215,63 @@ class RequestsController extends BaseController
                     // TODO: Send a notification/message to the sender user about the rejection of the order
 
                     return new JsonResponse();
+                case "saveLinkLocation":
+                    if (!in_array($this->_user, array($order->getReceiverUser(), $order->getSenderUser()))) {
+                        $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
+                        return new JsonResponse(array(
+                            'message' => $this->_translator->trans("requests.errors.no_order", array(), "LZCorePublicBundle"),
+                        ), 404);
+                    }
+
+                    // TODO: check that this user changes the right values (i.e., now user can change senderLinkLocation, even if he's a sender himself)
+
+                    $requestData = json_decode($request->getContent(), true);
+
+                    $order->setSenderLinkLocation($requestData['senderLinkLocation']);
+                    $order->setReceiverLinkLocation($requestData['receiverLinkLocation']);
+
+                    $errors = $this->_validator->validate($order);
+
+                    if (count($errors) > 0) {
+                        return new JsonResponse(array('errors' => $this->_parseValidationErrors($errors)), 400);
+                    }
+
+                    $this->_doctrineManager->persist($order);
+                    $this->_doctrineManager->flush();
+
+                    return new JsonResponse($this->_requestManager->toArray($order));
+                case "acceptOrCancel":
+                    if (!in_array($this->_user, array($order->getReceiverUser(), $order->getSenderUser()))) {
+                        $this->_logger->warn("User with id " . $this->_user->getId() . " made an attempt to access part of the data of order with id " . $platformRequest->getId());
+                        return new JsonResponse(array(
+                            'message' => $this->_translator->trans("requests.errors.no_order", array(), "LZCorePublicBundle"),
+                        ), 404);
+                    }
+
+                    // TODO: check that this user changes the right values (i.e., now user can change the accepted state of receiver, if he is actually sender)
+
+                    $requestData = json_decode($request->getContent(), true);
+
+                    $order->setSenderAccepted($requestData['senderAccepted']);
+                    $order->setReceiverAccepted($requestData['receiverAccepted']);
+
+                    if ($order->getSenderAccepted() && $order->getReceiverAccepted()) {
+                        $order->setStatus(PlatformRequest::STATUS_FINISHED);
+                        $order->setFinished(new \DateTime());
+
+                        // TODO: Charge users
+                    }
+
+                    $errors = $this->_validator->validate($order);
+
+                    if (count($errors) > 0) {
+                        return new JsonResponse(array('errors' => $this->_parseValidationErrors($errors)), 400);
+                    }
+
+                    $this->_doctrineManager->persist($order);
+                    $this->_doctrineManager->flush();
+
+                    return new JsonResponse($this->_requestManager->toArray($order));
                 default:
                     throw new BadRequestHttpException("Provided action is not supported");
             }

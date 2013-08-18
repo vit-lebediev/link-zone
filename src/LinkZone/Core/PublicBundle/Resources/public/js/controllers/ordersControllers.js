@@ -118,3 +118,48 @@ function DeleteOrderDialogController($scope, Order, dialog, orderId, receiverPla
 }
 
 DeleteOrderDialogController.$inject = ['$scope', 'Order', 'dialog', 'orderId', 'receiverPlatformUrl'];
+
+function OrdersInProgressController($scope, Order) {
+    $scope.orders = Order.inProgress(function() {
+        for (var i = 0; i < $scope.orders.length; i++) {
+            // TODO: Implement better way to bind to these values from view
+            var order = $scope.orders[i];
+            order.hisLinkLocation  = order.isIncoming ? order.senderLinkLocation : order.receiverLinkLocation;
+            order.myLinkLocation = order.isIncoming ? order.receiverLinkLocation : order.senderLinkLocation;
+        }
+    });
+
+    $scope.saveReceiverLinkLocation = function (order) {
+        if (order.isIncoming) order.senderLinkLocation = order.hisLinkLocation;
+        else                  order.receiverLinkLocation = order.hisLinkLocation;
+
+        order.$saveLinkLocation({orderId: order.id}, function() {
+            order.hisLinkLocation  = order.isIncoming ? order.senderLinkLocation : order.receiverLinkLocation;
+            order.myLinkLocation   = !order.isIncoming ? order.senderLinkLocation : order.receiverLinkLocation;
+        });
+    }
+
+    $scope.acceptOrder = function(order) {
+        if (order.isIncoming) order.receiverAccepted = true;
+        else                  order.senderAccepted   = true;
+
+        order.$acceptOrCancel({orderId: order.id}, function() {
+            order.hisLinkLocation  = order.isIncoming ? order.senderLinkLocation : order.receiverLinkLocation;
+            order.myLinkLocation   = !order.isIncoming ? order.senderLinkLocation : order.receiverLinkLocation;
+        });
+    }
+
+    $scope.cancelAcceptedOrder = function(order) {
+        if (order.isIncoming) order.receiverAccepted = false;
+        else                  order.senderAccepted   = false;
+
+        order.$acceptOrCancel({orderId: order.id}, function() {
+            order.hisLinkLocation  = order.isIncoming ? order.senderLinkLocation : order.receiverLinkLocation;
+            order.myLinkLocation   = !order.isIncoming ? order.senderLinkLocation : order.receiverLinkLocation;
+
+            // TODO: check if another side has accepted, and remove from the list if yes.
+        });
+    }
+}
+
+OrdersInProgressController.$inject = ['$scope', 'Order'];

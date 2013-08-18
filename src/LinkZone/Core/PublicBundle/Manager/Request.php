@@ -17,8 +17,18 @@ class Request extends ContainerAware
         return sprintf($this->container->getParameter("default_link_html"), $request->getSenderLink(), $request->getSenderLinkText());
     }
 
+    /**
+     * Return formatted HTML for receiver link
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Request $request
+     */
+    public function getReceiverLinkHTML(RequestEntity $request) {
+        return sprintf($this->container->getParameter("default_link_html"), $request->getReceiverLink(), $request->getReceiverLinkText());
+    }
+
     public function toArray(RequestEntity $request) {
         $translator = $this->container->get("translator");
+        $user = $this->container->get("security.context")->getToken()->getUser();
 
         return array(
             'id' => $request->getId(),
@@ -26,10 +36,14 @@ class Request extends ContainerAware
             'senderLinkText' => $request->getSenderLinkText(),
             'senderLinkLocation' => $request->getSenderLinkLocation(),
             'senderLinkHTML'     => $this->getSenderLinkHTML($request),
+            'senderAccepted'     => $request->getSenderAccepted(),
             'receiverLink'       => $request->getReceiverLink(),
             'receiverLinkText'   => $request->getReceiverLinkText(),
             'receiverLinkLocation' => $request->getReceiverLinkLocation(),
-            'senderPlatform' => array(
+            'receiverLinkHTML'     => $this->getReceiverLinkHTML($request),
+            'receiverAccepted'     => $request->getReceiverAccepted(),
+            'isIncoming'           => ($request->getReceiverPlatform()->getOwner() === $user) ? true : false,
+            'senderPlatform'       => array(
                 'id' => $request->getSenderPlatform()->getId(),
                 'url' => $request->getSenderPlatform()->getUrl(),
                 'description' => $request->getSenderPlatform()->getDescription(),
@@ -37,7 +51,7 @@ class Request extends ContainerAware
                     'username' => $request->getSenderPlatform()->getOwner()->getUsername(),
                 ),
             ),
-            'receiverPlatform' => array(
+            'receiverPlatform'     => array(
                 'id' => $request->getReceiverPlatform()->getId(),
                 'url' => $request->getReceiverPlatform()->getUrl(),
                 'description' => $request->getReceiverPlatform()->getDescription(),

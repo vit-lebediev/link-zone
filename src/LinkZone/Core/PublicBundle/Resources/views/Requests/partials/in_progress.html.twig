@@ -1,0 +1,44 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<h1>{{ "menu.requests_in_progress"|trans }}</h1>
+
+<div class="round_border clearfix">
+        <table class="common">
+            <thead>
+                <tr>
+                    <th>{{ "common.site"|trans }}</th>
+                    <th>{{ "orders.your_site_for_exch"|trans }}</th>
+                    <th>{{ "orders.code_to_insert"|trans }}</th>
+                    <th>{{ "orders.sender_code_is_here"|trans }}</th>
+                    <th>{{ "orders.our_code_is_here"|trans }}</th>
+                    <th>{{ "common.actions"|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="order in orders">
+                    {% verbatim %}
+                    <td><a href="{{ {true: order.senderPlatform.url, false: order.receiverPlatform.url}[order.isIncoming] }}">{{ {true: order.senderPlatform.url, false: order.receiverPlatform.url}[order.isIncoming] }}</a></td>
+                    <td><a href="{{ {true: order.receiverPlatform.url, false: order.senderPlatform.url}[order.isIncoming] }}">{{ {true: order.receiverPlatform.url, false: order.senderPlatform.url}[order.isIncoming] }}</a></td>
+                    <td>{{ {true: order.senderLinkHTML, false: order.receiverLinkHTML}[order.isIncoming] }}</td>
+                    {% endverbatim %}
+                    <td>
+                        <input type="url" ng-model="order.hisLinkLocation" />
+                        <button class="btn" ng-click="saveReceiverLinkLocation(order)">{{ "common.send"|trans }}</button>
+                    </td>
+                    <td><input type="url" ng-model="order.myLinkLocation" readonly="readonly" /></td>
+                    <td>
+                        <div>
+                            <button class="btn" ng-click="openSendMessageDialog(order.receiverPlatform.id, order.senderPlatform.id)">{{ "common.send_message"|trans }}</button>
+                        </div>
+                        <div ng-hide="{true: order.receiverAccepted, false: order.senderAccepted}[order.isIncoming]">
+                            <button class="btn btn-success" ng-click="acceptOrder(order)">{{ "common.accept"|trans }}</button>
+                        </div>
+                        <div ng-show="{true: order.receiverAccepted, false: order.senderAccepted}[order.isIncoming]">
+                            <button class="btn btn-danger" ng-click="cancelAcceptedOrder(order)">{{ "common.cancel"|trans }}</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- span class="message_info">{{ "orders.no_received_orders"|trans }}</span //-->
+</div>
