@@ -173,3 +173,7 @@ linkzone_core_public_api_platforms:
 linkzone_core_public_api_orders:
     resource: "@LinkZoneCorePublicBundle/Resources/config/routing/api/orders.yml"
     prefix: /api/orders
+
+linkzone_core_public_api_messages:
+    resource: "@LinkZoneCorePublicBundle/Resources/config/routing/api/messages.yml"
+    prefix: /api/messages

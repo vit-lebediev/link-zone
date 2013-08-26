@@ -1,6 +1,7 @@
 'use strict';
 
-function LoginController($scope, $http, $location) {
+function LoginController($scope, $http, $location)
+{
     $scope.submit = function () {
         var urlPrefix = '/app_dev.php';
 
@@ -30,7 +31,8 @@ function LoginController($scope, $http, $location) {
 
 LoginController.$inject = ['$scope', '$http', '$location'];
 
-function LogoutController() {
+function LogoutController()
+{
     var urlPrefix = '/app_dev.php';
     window.location.href = urlPrefix + '/logout';
 }

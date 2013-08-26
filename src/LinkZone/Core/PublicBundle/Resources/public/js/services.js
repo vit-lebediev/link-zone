@@ -19,4 +19,9 @@ angular.module('publicServices', ['ngResource']).
             acceptOrCancel: {method: 'POST', params: {action: 'acceptOrCancel'}},
             fetchFinished: {method: 'GET', params: {orderId: 'all', status: 'finished'}, isArray: true}
         })
+    })
+    .factory('Dialog', function($resource){
+        return $resource('/app_dev.php/api/messages/dialogues/:dialogId', {}, {
+            getAll: {method: 'GET', params: {dialogId: 'all'}, isArray: true}
+        })
     });

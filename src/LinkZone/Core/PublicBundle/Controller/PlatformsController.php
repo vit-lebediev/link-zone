@@ -23,7 +23,7 @@ class PlatformsController extends BaseController
         parent::_init();
 
         $this->_tagManager      = $this->get("fpn_tag.tag_manager");
-        $this->_platformManager = $this->get("link_zone.core.public.maanger.platform");
+        $this->_platformManager = $this->get("link_zone.core.public.manager.platform");
         $this->_platformTopicRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:PlatformTopic");
     }
 

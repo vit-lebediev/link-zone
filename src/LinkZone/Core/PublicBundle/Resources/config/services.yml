@@ -37,11 +37,16 @@ services:
         calls:
             - [ setContainer, ["@service_container"] ]
 
-    link_zone.core.public.maanger.platform:
+    link_zone.core.public.manager.platform:
         class: LinkZone\Core\PublicBundle\Manager\Platform
         calls:
             - [ setContainer, ["@service_container"] ]
 
+    link_zone.core.public.manager.dialog:
+        class: LinkZone\Core\PublicBundle\Manager\Dialog
+        calls:
+            - [ setContainer, ["@service_container"] ]
+            - [ init ]
 
     link_zone.core.twig.extension:
         class: LinkZone\Core\PublicBundle\Twig\Extension\CoreExtension

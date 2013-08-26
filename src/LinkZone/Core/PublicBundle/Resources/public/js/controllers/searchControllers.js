@@ -1,6 +1,7 @@
 'use strict';
 
-function PlatformsSearchController($scope, $dialog, Platform) {
+function PlatformsSearchController($scope, $dialog, Platform)
+{
     var urlPrefix = '/app_dev.php';
 
     $scope.platforms = Platform.search();
@@ -37,7 +38,8 @@ function PlatformsSearchController($scope, $dialog, Platform) {
 
 PlatformsSearchController.$inject = ['$scope', '$dialog', 'Platform'];
 
-function SendOrderDialogController($scope, Order, Platform, dialog, receiverPlatformId) {
+function SendOrderDialogController($scope, Order, Platform, dialog, receiverPlatformId)
+{
     var urlPrefix = '/app_dev.php';
 
     $scope.order = new Order();

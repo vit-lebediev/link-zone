@@ -26,34 +26,6 @@ class RequestsController extends BaseController
         $this->_requestManager     = $this->get("link_zone.core.public.manager.request");
     }
 
-    public function exchangeAction()
-    {
-        $ordersForExchangeReceived = $this->_requestRepository->findAllReceivedForExchangeForUser($this->_user);
-
-        $ordersForExchangeSent = $this->_requestRepository->findAllSentForExchangeForUser($this->_user);
-
-        return $this->render("LinkZoneCorePublicBundle:Requests:exchange.html.twig", array(
-            'ordersReceived' => $ordersForExchangeReceived,
-            'ordersSent'     => $ordersForExchangeSent,
-        ));
-    }
-
-    public function inProgressAction()
-    {
-        return $this->render("LinkZoneCorePublicBundle:Requests:inProgress.html.twig", array(
-            'ordersReceived' => $this->_requestRepository->findAllReceivedInProgressForUser($this->_user),
-            'ordersSent'     => $this->_requestRepository->findAllSentInProgressForUser($this->_user),
-        ));
-    }
-
-    public function finishedAction()
-    {
-        return $this->render("LinkZoneCorePublicBundle:Requests:finished.html.twig", array(
-            'ordersReceived' => $this->_requestRepository->findAllReceivedFinishedForUser($this->_user),
-            'ordersSent' => $this->_requestRepository->findAllSentFinishedForUser($this->_user),
-        ));
-    }
-
     /**
      * Ajax handlers
      */
@@ -139,11 +111,10 @@ class RequestsController extends BaseController
                     ->setSenderPlatform($senderPlatform)
                     ->setReceiverPlatform($receiverPlatform);
 
-            // TODO: check for validity
+            // TODO: check for validity with validator
 
             $this->_doctrineManager->persist($message);
         }
-
 
         $this->_doctrineManager->flush();
 

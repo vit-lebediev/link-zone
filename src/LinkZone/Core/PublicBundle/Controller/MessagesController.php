@@ -19,25 +19,9 @@ class MessagesController extends BaseController
     public function init()
     {
         parent::_init();
+
         $this->_dialogRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:Dialog");
-    }
-
-    public function indexAction()
-    {
-        return $this->render("LinkZoneCorePublicBundle:Messages:index.html.twig", array(
-            'dialogues' => $this->_dialogRepository->findAllForUser($this->_user),
-        ));
-    }
-
-    public function dialogAction($dialogId)
-    {
-        if (!$dialog = $this->_dialogRepository->findForUser($dialogId, $this->_user)) {
-            throw new NotFoundHttpException("There is no dialog with id " . $dialogId);
-        }
-
-        return $this->render("LinkZoneCorePublicBundle:Messages:dialog.html.twig", array(
-            'dialog' => $dialog,
-        ));
+        $this->_dialogManager = $this->get("link_zone.core.public.manager.dialog");
     }
 
     /**
@@ -151,5 +135,19 @@ class MessagesController extends BaseController
         return $this->render("LinkZoneCorePublicBundle:Messages:partials/send_message_dialog.html.twig", array(
             'sendMessageDialog' => $sendMessageDialog->createView(),
         ));
+    }
+
+    public function apiDialogListAction()
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        return new JsonResponse($this->_dialogManager->getDialogs());
+    }
+
+    public function apiDialogAction($dialogId)
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        return new JsonResponse($this->_dialogManager->getDialog($dialogId));
     }
 }

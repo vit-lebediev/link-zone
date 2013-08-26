@@ -1,0 +1,13 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<h1 class="center">{{ "messages.dialog_with_webmaster"|trans }} {% verbatim %}<a href="{{ dialog.companionPlatfrom.url }}">{{ dialog.companionPlatfrom.url }}</a>{% endverbatim %}</h1>
+
+<div id="dialogues-wrapper">
+    <div ng-repeat="message in dialog.messages" class="message-box round-border">
+        <div class="sender"><span>
+            <span ng-show="message.isIncoming">{{ "common.webmaster"|trans }} {% verbatim %}<a href="{{ dialog.companionPlatfrom.url }}">{{ dialog.companionPlatfrom.url }}</a>{% endverbatim %}:</span>
+            <span ng-show="message.isNotIncoming">{{ "common.you"|trans }}:</span>
+        </span></div>
+        <div class="message"><span class="message">{% verbatim %}{{ message.message }}{% endverbatim %}</span></div>
+    </div>
+</div>

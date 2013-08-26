@@ -1,6 +1,7 @@
 'use strict';
 
-function PlatformsController($scope, $dialog, Platform) {
+function PlatformsController($scope, $dialog, Platform)
+{
     $scope.platforms = Platform.query();
 
     var urlPrefix = '/app_dev.php';
@@ -47,7 +48,8 @@ function PlatformsController($scope, $dialog, Platform) {
 
 PlatformsController.$inject = ['$scope', '$dialog', 'Platform'];
 
-function AddPlatformDialogController($scope, $http, Platform, dialog) {
+function AddPlatformDialogController($scope, $http, Platform, dialog)
+{
     var urlPrefix = '/app_dev.php';
 
     $scope.platform = new Platform();
@@ -87,7 +89,8 @@ function AddPlatformDialogController($scope, $http, Platform, dialog) {
 
 AddPlatformDialogController.$inject = ['$scope', '$http', 'Platform', 'dialog'];
 
-function EditPlatformDialogController($scope, Platform, dialog, platformId) {
+function EditPlatformDialogController($scope, Platform, dialog, platformId)
+{
     $scope.editing = true;
 
     // fetch data for corresponding platform and fill in the form

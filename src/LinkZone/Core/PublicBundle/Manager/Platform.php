@@ -2,7 +2,7 @@
 
 namespace LinkZone\Core\PublicBundle\Manager;
 
-use LinkZone\Core\PublicBundle\Entity\Platform as PlatformEntity;
+use LinkZone\Core\PublicBundle\Entity\Platform as PlatformEntity; // Platfrom interferes with Manager class name (Platform, too)
 
 use Symfony\Component\DependencyInjection\ContainerAware;
 

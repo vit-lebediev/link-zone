@@ -1,7 +1,7 @@
 'use strict';
 
-function OrdersForExchangeController($scope, $dialog, Order) {
-
+function OrdersForExchangeController($scope, $dialog, Order)
+{
     var urlPrefix = '/app_dev.php';
 
     $scope.sentOrders = Order.forExchangeSent();
@@ -63,7 +63,8 @@ function OrdersForExchangeController($scope, $dialog, Order) {
 
 OrdersForExchangeController.$inject = ['$scope', '$dialog', 'Order'];
 
-function ReviewOrderDialogController($scope, Order, dialog, orderId) {
+function ReviewOrderDialogController($scope, Order, dialog, orderId)
+{
     var urlPrefix = '/app_dev.php';
 
     // fetch data for corresponding order and fill in the form
@@ -96,7 +97,8 @@ function ReviewOrderDialogController($scope, Order, dialog, orderId) {
 
 ReviewOrderDialogController.$inject = ['$scope', 'Order', 'dialog', 'orderId'];
 
-function DeleteOrderDialogController($scope, Order, dialog, orderId, receiverPlatformUrl) {
+function DeleteOrderDialogController($scope, Order, dialog, orderId, receiverPlatformUrl)
+{
     var urlPrefix = '/app_dev.php';
 
     $scope.receiverPlatformUrl = receiverPlatformUrl;
@@ -119,7 +121,8 @@ function DeleteOrderDialogController($scope, Order, dialog, orderId, receiverPla
 
 DeleteOrderDialogController.$inject = ['$scope', 'Order', 'dialog', 'orderId', 'receiverPlatformUrl'];
 
-function OrdersInProgressController($scope, Order) {
+function OrdersInProgressController($scope, Order)
+{
     $scope.orders = Order.inProgress(function() {
         for (var i = 0; i < $scope.orders.length; i++) {
             // TODO: Implement better way to bind to these values from view
@@ -164,7 +167,8 @@ function OrdersInProgressController($scope, Order) {
 
 OrdersInProgressController.$inject = ['$scope', 'Order'];
 
-function OrdersFinishedController($scope, Order) {
+function OrdersFinishedController($scope, Order)
+{
     $scope.orders = Order.fetchFinished();
 }
 

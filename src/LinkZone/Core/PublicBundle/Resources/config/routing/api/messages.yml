@@ -1,0 +1,9 @@
+linkzone_core_public_api_messages_all_dialogs:
+    pattern: /dialogues/all
+    defaults: { _controller: LinkZoneCorePublicBundle:Messages:apiDialogList }
+    methods: [GET]
+
+linkzone_core_public_api_messages_dialog:
+    pattern: /dialogues/{dialogId}
+    defaults: { _controller: LinkZoneCorePublicBundle:Messages:apiDialog }
+    methods: [GET]
