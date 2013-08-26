@@ -24,6 +24,13 @@ class MessagesController extends BaseController
         $this->_dialogManager = $this->get("link_zone.core.public.manager.dialog");
     }
 
+    public function indexAction()
+    {
+        return $this->render("LinkZoneCorePublicBundle:Messages:index.html.twig", array(
+            'dialogues' => $this->_dialogRepository->findAllForUser($this->_user),
+        ));
+    }
+
     /**
      * Ajax handlers
      */
