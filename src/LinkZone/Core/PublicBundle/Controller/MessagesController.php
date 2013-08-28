@@ -19,7 +19,9 @@ class MessagesController extends BaseController
     public function init()
     {
         parent::_init();
+
         $this->_dialogRepository = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:Dialog");
+        $this->_dialogManager = $this->get("link_zone.core.public.manager.dialog");
     }
 
     public function indexAction()
@@ -29,28 +31,19 @@ class MessagesController extends BaseController
         ));
     }
 
-    public function dialogAction($dialogId)
-    {
-        if (!$dialog = $this->_dialogRepository->findForUser($dialogId, $this->_user)) {
-            throw new NotFoundHttpException("There is no dialog with id " . $dialogId);
-        }
-
-        return $this->render("LinkZoneCorePublicBundle:Messages:dialog.html.twig", array(
-            'dialog' => $dialog,
-        ));
-    }
-
     /**
      * Ajax handlers
      */
 
-    public function ajaxSendMessageAction(Request $request)
+    public function apiSendMessageAction(Request $request)
     {
         $this->_verifyIsXmlHttpRequest();
 
+        $requestData = json_decode($request->getContent(), true);
+
         // check that senderPlatformId and receiverPlatformId are correct
-        if ((!$senderPlatformId = $request->get("message")['senderPlatformId']) OR
-                (!$receiverPlatformId = $request->get("message")['receiverPlatformId']))
+        if ((!$senderPlatformId = $requestData['senderPlatformId']) OR
+                (!$receiverPlatformId = $requestData['receiverPlatformId']))
         {
             // TODO: log this error
             throw new BadRequestHttpException("senderPlatformId AND receiverPlatformId must be specified");
@@ -83,10 +76,9 @@ class MessagesController extends BaseController
 
         receiverPlatformValid:
         // find dialog, corresponding to these two platforms
-            // if there is one, add message to it
-            // if there is no one, create new
         $dialog = $this->_dialogRepository->findForPlatforms($messageSenderPlatform, $messageReceiverPlatform);
 
+        // if there is no one, create new
         if (!$dialog) {
             $dialog = new Dialog();
             $dialog->setSenderPlatform($messageSenderPlatform);
@@ -98,31 +90,27 @@ class MessagesController extends BaseController
 
         $message = new Message();
 
-        $sendMessageDialog = $this->createForm(new MessageType(), $message, array(
-            'senderPlatformId' => $messageSenderPlatform->getId(),
-            'receiverPlatformId' => $messageReceiverPlatform->getId(),
-        ));
+        $message->setMessage($requestData['message']);
 
-        $sendMessageDialog->bind($request);
+        $errors = $this->_validator->validate($message);
 
-        if ($sendMessageDialog->isValid())
-        {
-            // save message
-            $message->setSent(new \DateTime())
-                    ->setDialog($dialog)
-                    ->setSenderPlatform($messageSenderPlatform)
-                    ->setReceiverPlatform($messageReceiverPlatform);
-
-            $dialog->setUpdated(new \DateTime());
-
-            $this->_doctrineManager->persist($message);
-            $this->_doctrineManager->flush();
-
-            return new JsonResponse();
-        } else {
+        if (count($errors) > 0) {
             $this->_logger->err($sendMessageDialog->getErrorsAsString());
-            throw new BadRequestHttpException("Provided message data is not valid. Are you trying to CSRF us ?");
+            return new JsonResponse(array('errors' => $this->_parseValidationErrors($errors)), 400);
         }
+
+        // save message
+        $message->setSent(new \DateTime())
+                ->setDialog($dialog)
+                ->setSenderPlatform($messageSenderPlatform)
+                ->setReceiverPlatform($messageReceiverPlatform);
+
+        $dialog->setUpdated(new \DateTime());
+
+        $this->_doctrineManager->persist($message);
+        $this->_doctrineManager->flush();
+
+        return new JsonResponse();
     }
 
     /**
@@ -152,5 +140,19 @@ class MessagesController extends BaseController
         return $this->render("LinkZoneCorePublicBundle:Messages:partials/send_message_dialog.html.twig", array(
             'sendMessageDialog' => $sendMessageDialog->createView(),
         ));
+    }
+
+    public function apiDialogListAction()
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        return new JsonResponse($this->_dialogManager->getDialogs());
+    }
+
+    public function apiDialogAction($dialogId)
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        return new JsonResponse($this->_dialogManager->getDialog($dialogId));
     }
 }

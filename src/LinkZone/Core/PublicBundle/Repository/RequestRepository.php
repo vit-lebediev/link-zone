@@ -40,47 +40,41 @@ class RequestRepository extends EntityRepository
         ));
     }
 
-    public function findAllReceivedInProgressForUser(UserInterface $user)
+    public function findAllInProgressForUser(UserInterface $user)
     {
-        return new ArrayCollection($this->findBy(
-                array(
-                    'receiverUser' => $user,
-                    'status'       => Request::STATUS_IN_PROGRESS,
+        $qb = $this->createQueryBuilder("request");
+        $qb->where($qb->expr()->andx(
+                $qb->expr()->orx(
+                        $qb->expr()->eq("request.receiverUser", ":user"),
+                        $qb->expr()->eq("request.senderUser", ":user")
                 ),
-                array('created' => "DESC")
+                $qb->expr()->eq("request.status", ":status")
         ));
+
+        $qb->setParameter(":status", Request::STATUS_IN_PROGRESS);
+        $qb->setParameter(":user", $user);
+
+        $qb->orderBy("request.created", "DESC");
+
+        return new ArrayCollection($qb->getQuery()->getResult());
     }
 
-    public function findAllSentInProgressForUser(UserInterface $user)
+    public function findAllFinishedForUser(UserInterface $user)
     {
-        return new ArrayCollection($this->findBy(
-                array(
-                    'senderUser' => $user,
-                    'status'     => Request::STATUS_IN_PROGRESS,
+        $qb = $this->createQueryBuilder("request");
+        $qb->where($qb->expr()->andx(
+                $qb->expr()->orx(
+                        $qb->expr()->eq("request.receiverUser", ":user"),
+                        $qb->expr()->eq("request.senderUser", ":user")
                 ),
-                array('created' => "DESC")
+                $qb->expr()->eq("request.status", ":status")
         ));
-    }
 
-    public function findAllReceivedFinishedForUser(UserInterface $user)
-    {
-        return new ArrayCollection($this->findBy(
-                array(
-                    'receiverUser' => $user,
-                    'status'     => Request::STATUS_FINISHED,
-                ),
-                array('created' => "DESC")
-        ));
-    }
+        $qb->setParameter(":status", Request::STATUS_FINISHED);
+        $qb->setParameter(":user", $user);
 
-    public function findAllSentFinishedForUser(UserInterface $user)
-    {
-        return new ArrayCollection($this->findBy(
-                array(
-                    'senderUser' => $user,
-                    'status'     => Request::STATUS_FINISHED,
-                ),
-                array('created' => "DESC")
-        ));
+        $qb->orderBy("request.created", "DESC");
+
+        return new ArrayCollection($qb->getQuery()->getResult());
     }
 }

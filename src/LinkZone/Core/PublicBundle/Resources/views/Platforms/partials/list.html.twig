@@ -1,0 +1,30 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<h1>{{ "menu.platforms"|trans }}</h1>
+
+<div id="platforms_buttons">
+    <button class="btn btn-primary" ng-click="openAddPlatformDialog()">{{ "common.add"|trans }}</button>
+</div>
+
+<table class="table table-stripped table-bordered">
+    <thead>
+        <tr>
+            <th>{{ "platforms.address"|trans }}</th>
+            <th>{{ "platforms.status"|trans }}</th>
+            <th>{{ "platforms.rating"|trans }}</th>
+            <th>{{ "platforms.overall_exchanges"|trans }}</th>
+            <th>{{ "platforms.management"|trans }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="platform in platforms">
+            {% verbatim %}
+            <td>{{ platform.url }}</td>
+            <td><span class="status platform_{{ platform.status_code }}">{{ platform.status_string }}</span></td>
+            <td>{{ platform.topic }}</td>
+            <td>{{ platform.status_code }}</td>
+            {% endverbatim %}
+            <td><button class="btn" ng-click="openEditPlatformDialog(platform.id)">{{ "platforms.edit"|trans }}</button></td>
+        </tr>
+    </tbody>
+</table>

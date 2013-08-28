@@ -24,6 +24,9 @@ class PlatformType extends AbstractType
             'class'       => "LinkZoneCorePublicBundle:PlatformTopic",
             'empty_value' => $translator->trans("platforms.topics.empty", array(), "LZCorePublicBundle"),
             'required'    => false,
+            'attr' => array(
+                'ng-model' => "filter_topic"
+            ),
         ));
 
         $builder->add("owner", new UserType());

@@ -1,0 +1,14 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<div class="modal-header">
+    {{ "platforms.edit"|trans }}
+</div>
+<form ng-submit="editPlatform()">
+    <div class="modal-body">
+        {% include "LinkZoneCorePublicBundle:Platforms:partials/dialog_form.html.twig" %}
+    </div>
+    <div class="modal-footer">
+        <button type="button" ng-click="close()" class="btn btn-primary">{{ "common.cancel"|trans }}</button>
+        <button type="submit" class="btn btn-primary">{{ "common.save"|trans }}</button>
+    </div>
+</form>
