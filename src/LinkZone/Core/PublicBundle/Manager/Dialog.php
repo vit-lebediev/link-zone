@@ -90,7 +90,12 @@ class Dialog extends ContainerAware
         return array(
             'id' => $dialog->getId(),
             'messages' => $messages,
-            'companionPlatfrom' => array(
+            'myPlatform' => array(
+                'id'  => ($dialog->getSenderUser() === $this->_user) ? $dialog->getSenderPlatform()->getId() : $dialog->getReceiverPlatform()->getId(),
+                'url' => ($dialog->getSenderUser() === $this->_user) ? $dialog->getSenderPlatform()->getUrl() : $dialog->getReceiverPlatform()->getUrl(),
+            ),
+            'companionPlatform' => array(
+                'id'  => ($dialog->getSenderUser() === $this->_user) ? $dialog->getReceiverPlatform()->getId() : $dialog->getSenderPlatform()->getId(),
                 'url' => ($dialog->getSenderUser() === $this->_user) ? $dialog->getReceiverPlatform()->getUrl() : $dialog->getSenderPlatform()->getUrl(),
             ),
         );
