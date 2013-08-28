@@ -12,6 +12,8 @@ use LinkZone\Core\PublicBundle\Entity\User;
 use LinkZone\Core\PublicBundle\Entity\PlatformTopic;
 use LinkZone\Core\PublicBundle\Entity\Request;
 
+use \JsonSerializable as JsonSerializable;
+
 /**
  * Platform
  */

@@ -10,7 +10,11 @@ class UserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add("lastLogin");
+        $builder->add("lastLogin", "date", array(
+            'attr' => array(
+                'ng-model' => "filter_lastLogin"
+            ),
+        ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {

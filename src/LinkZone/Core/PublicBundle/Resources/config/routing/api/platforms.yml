@@ -1,0 +1,31 @@
+linkzone_core_public_api_platforms_all:
+    pattern: /all.json
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxApiListPlatforms }
+    requirements:
+        _method: GET
+
+linkzone_core_public_api_platforms_search:
+    pattern: /search.json
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxApiSearchPlatforms }
+    requirements:
+        _method: GET
+
+linkzone_core_public_api_platforms:
+    pattern: /{platformId}.json
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxApiPlatform }
+    requirements:
+        _method: GET
+        platformId: \d+
+
+linkzone_core_public_api_platforms_edit:
+    pattern: /{platformId}.json
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxApiEditPlatform }
+    requirements:
+        _method: POST
+        platformId: \d+
+
+linkzone_core_public_api_platforms_add_platform:
+    pattern: /add
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxAddPlatform }
+    requirements:
+        _method: POST

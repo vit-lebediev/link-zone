@@ -467,6 +467,6 @@ class Request
 
     public function isActive()
     {
-        return (in_array($this->getStatus(), array(self::STATUS_EXCHANGE, self::STATUS_IN_PROGRESS))) ? true : false;
+        return (in_array($this->getStatus(), array(self::STATUS_EXCHANGE, self::STATUS_IN_PROGRESS, self::STATUS_FINISHED))) ? true : false;
     }
 }

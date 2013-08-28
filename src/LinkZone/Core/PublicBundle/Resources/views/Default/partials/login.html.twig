@@ -1,0 +1,28 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+<div id="login_form_placeholder">
+    <form ng-submit="submit()">
+        <input type="hidden" ng-model="csrf_token" id="_csrf_token" value="{{ csrf_token }}" />
+
+        <div>
+            <label for="username">{{ 'security.login.username'|trans }}</label>
+            <input type="text" ng-model="username" required="required" />
+        </div>
+
+        <div>
+            <label for="password">{{ 'security.login.password'|trans }}</label>
+            <input type="password"  ng-model="password" required="required" />
+        </div>
+
+        <div id="remember_me_placeholder">
+            <input type="checkbox"  ng-model="remember_me" value="on" />
+            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+        </div>
+
+        <div>
+            <input type="submit" value="{{ 'security.login.submit'|trans }}" />
+        </div>
+    </form>
+</div>
+{% endblock fos_user_content %}

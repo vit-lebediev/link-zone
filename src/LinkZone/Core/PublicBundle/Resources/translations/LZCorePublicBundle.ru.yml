@@ -13,6 +13,8 @@ common:
     message:      Сообщение
     webmaster:    Вебмастер
     you:          Вы
+    save:         Сохранить
+    comment:      Комментарий
 
 menu:
     home: Главная Панель
@@ -78,6 +80,8 @@ platforms:
         constructionrepair: Строительство и ремонт
         goodsservices:      Товары и услуги
         humor:              Юмор
+    errors:
+        no_platform: Площадка не найдена
 
 orders:
     send_order: Отослать заявку
@@ -101,6 +105,10 @@ orders:
     received:             Получена
     sent:                 Отправлена
     finished:             Завершена
+    delete:               Удалить заявку
+    confirm_to_delete:    Вы уверены, что хотите отменить заявку на обмен с %platformUrl%
+    errors:
+        no_order: Заявка не найдена
 
 messages:
     from: От кого

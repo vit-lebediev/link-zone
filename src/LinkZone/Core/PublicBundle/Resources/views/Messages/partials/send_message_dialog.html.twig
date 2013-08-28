@@ -1,15 +1,19 @@
 {% trans_default_domain "LZCorePublicBundle" %}
 
-<div class="center">
-    <table>
-        <tbody>
-            <tr>
-                <td>{{ "common.message"|trans }}:</td>
-                <td>{{ form_widget(sendMessageDialog.message) }}</td>
-            </tr>
-        </tbody>
-    </table>
-    {{ form_widget(sendMessageDialog.senderPlatformId) }}
-    {{ form_widget(sendMessageDialog.receiverPlatformId) }}
-    {{ form_widget(sendMessageDialog._token) }}
+<div class="modal-header">
+    {{ "common.message"|trans }}
 </div>
+<form ng-submit="sendMessage()">
+    <div class="modal-body">
+        <fieldset>
+            <div class="form-group">
+                <label>{{ "common.message"|trans }}:</label>
+                <textarea ng-model="message"></textarea>
+            </div>
+        </fieldset>
+    </div>
+    <div class="modal-footer">
+        <button type="button" ng-click="close()" class="btn btn-primary btn-danger">{{ "common.cancel"|trans }}</button>
+        <button type="submit" class="btn btn-primary">{{ "common.send"|trans }}</button>
+    </div>
+</form>

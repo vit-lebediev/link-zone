@@ -159,3 +159,21 @@ linkzone_core_public_orders_ajax_send_message:
     defaults: { _controller: LinkZoneCorePublicBundle:Messages:ajaxSendMessage }
     requirements:
         _method: POST
+
+# partial templates
+linkzone_core_public_partial_templates:
+    resource: "@LinkZoneCorePublicBundle/Resources/config/routing/partial_templates.yml"
+    prefix: /partials
+
+# APi
+linkzone_core_public_api_platforms:
+    resource: "@LinkZoneCorePublicBundle/Resources/config/routing/api/platforms.yml"
+    prefix: /api/platforms
+
+linkzone_core_public_api_orders:
+    resource: "@LinkZoneCorePublicBundle/Resources/config/routing/api/orders.yml"
+    prefix: /api/orders
+
+linkzone_core_public_api_messages:
+    resource: "@LinkZoneCorePublicBundle/Resources/config/routing/api/messages.yml"
+    prefix: /api/messages

@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="LinkZone">
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}{{ "common.welcome"|trans({}, "LZCorePublicBundle") }}{% endblock %}</title>
         {% block stylesheets %}
         <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/smoothness/jquery-ui.css" />
-        <link rel="stylesheet" href="{{ asset("bundles/linkzonecoreadmin/css/common.css") }}"></script>
+        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css" />
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+        <link rel="stylesheet" href="{{ asset("bundles/linkzonecoreadmin/css/common.css") }}" />
         {% stylesheets
             'bundles/linkzonecorepublic/css/*'
             'bundles/linkzonecorepublic/css/pages/*'
             filter='cssrewrite' %}
             <link rel="stylesheet" href="{{ asset_url }}" />
         {% endstylesheets %}
-        <link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/flick/jquery-ui.css">
+
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
@@ -35,10 +38,26 @@
                 {% endif %}
             </div>
         </div>
-        <div id="body">{% block body %}{% endblock %}</div>
+
+        <div id="body" ng-view></div>
         <div id="footer">{% block footer %}Footer{% endblock %}</div>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/lib/angular/ui-bootstrap-tpls.min.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/lib/angular/ui-bootstrap.min.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/lib/angular/ng-tags-input.min.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/application.js") }}"></script>
+
+        <script src="{{ asset("bundles/linkzonecorepublic/js/controllers/loginControllers.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/controllers/platformsControllers.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/controllers/searchControllers.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/controllers/ordersControllers.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/controllers/messagesControllers.js") }}"></script>
+
+        <script src="{{ asset("bundles/linkzonecorepublic/js/services.js") }}"></script>
         <script src="{{ asset("bundles/linkzonecoreadmin/js/base.js") }}"></script>
         <script src="{{ asset("bundles/linkzonecoreadmin/js/jQueryPlugins.js") }}"></script>
         <script src="{{ asset("bundles/linkzonecorepublic/js/tag-it.min.js") }}"></script>

@@ -1,0 +1,25 @@
+{% trans_default_domain "LZCorePublicBundle" %}
+
+<h1>{{ "menu.messages"|trans }}</h1>
+
+<div id="dialogues-wrapper">
+    <div ng-repeat="dialog in dialogues" class="dialog-box round-border">
+        <div>
+            <div>{{ "messages.last_received"|trans }}:</div>
+            <div class="message"></div>
+            {% verbatim %}
+            <a ng-href="{{ urlPrefix }}/messages/dialog/{{ dialog.id }}">{{ dialog.lastMessage }}</a>
+            {% endverbatim %}
+        </div>
+        <div>
+            <strong>{{ "messages.from"|trans }}: </strong>
+            <span ng-if="dialog.isLastMessageSentByMe">{{ "messages.from_you"|trans }}</span>
+            <span ng-if="dialog.isLastMessageSentNotByMe">{{ "common.webmaster"|trans }} {% verbatim %} <a href="{{ dialog.lastMessageSenderPlatformUrl }}">{{ dialog.lastMessageSenderPlatformUrl }} {% endverbatim %} </a></span>
+        </div>
+        <div>
+            <strong>{{ "messages.to"|trans }}: </strong>
+            <span ng-if="dialog.isLastMessageSentByMe">{{ "messages.to_you"|trans }}</span>
+            <span ng-if="dialog.isLastMessageSentNotByMe">{{ "common.webmaster"|trans }} {% verbatim %} <a href="{{ dialog.lastMessageReceiverPlatformUrl }}">{{ dialog.lastMessageReceiverPlatformUrl }} {% endverbatim %} </a></span>
+        </div>
+    </div>
+</div>
