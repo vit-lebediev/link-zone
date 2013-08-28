@@ -10,6 +10,7 @@
                 <th>{{ "common.site"|trans }}</th>
                 <th>{{ "orders.your_site_for_exch"|trans }}</th>
                 <th>{{ "orders.finished"|trans }}</th>
+                <th>{{ "common.actions"|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -20,6 +21,11 @@
                 <td><a href="{{ {true: order.receiverPlatform.url, false: order.senderPlatform.url}[order.isIncoming] }}">{{ {true: order.receiverPlatform.url, false: order.senderPlatform.url}[order.isIncoming] }}</a></td>
                 <td>{{ order.finished }}</td>
                 {% endverbatim %}
+                <td>
+                    <div>
+                        <button class="btn" ng-click="openSendMessageDialog(order)">{{ "common.send_message"|trans }}</button>
+                    </div>
+                </td>
             </tr>
         </tbody>
     </table>

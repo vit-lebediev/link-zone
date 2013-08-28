@@ -1,5 +1,33 @@
 'use strict';
 
+var outerOpenSendMessageDialog = function ($dialog)
+{
+    var urlPrefix = '/app_dev.php';
+
+    return function (order) {
+        var dialog = $dialog.dialog({
+            backdrop: true,
+            keyboard: true,
+            backdropClick: true,
+            dialogFade: true,
+            backdropFade: true,
+            templateUrl: urlPrefix + "/partials/messages/send_message_dialog.html",
+            controller: 'SendMessageDialogController',
+            resolve: {
+                order: function() {
+                    return angular.copy(order);
+                }
+            }
+        });
+
+        dialog.open().then(function(result) {
+            if (result) {
+                // do nothing
+            }
+        });
+    }
+}
+
 function OrdersForExchangeController($scope, $dialog, Order)
 {
     var urlPrefix = '/app_dev.php';
@@ -30,9 +58,7 @@ function OrdersForExchangeController($scope, $dialog, Order)
         });
     }
 
-    $scope.sendMessage = function(senderPlatformId, receiverPlatformId) {
-
-    }
+    $scope.openSendMessageDialog = outerOpenSendMessageDialog($dialog);
 
     $scope.openDeleteOrderDialog = function(order) {
         var dialog = $dialog.dialog({
@@ -121,7 +147,7 @@ function DeleteOrderDialogController($scope, Order, dialog, orderId, receiverPla
 
 DeleteOrderDialogController.$inject = ['$scope', 'Order', 'dialog', 'orderId', 'receiverPlatformUrl'];
 
-function OrdersInProgressController($scope, Order)
+function OrdersInProgressController($scope, $dialog, Order)
 {
     $scope.orders = Order.inProgress(function() {
         for (var i = 0; i < $scope.orders.length; i++) {
@@ -163,13 +189,45 @@ function OrdersInProgressController($scope, Order)
             // TODO: check if another side has accepted, and remove from the list if yes.
         });
     }
+
+    $scope.openSendMessageDialog = outerOpenSendMessageDialog($dialog);
 }
 
-OrdersInProgressController.$inject = ['$scope', 'Order'];
+OrdersInProgressController.$inject = ['$scope', '$dialog', 'Order'];
 
-function OrdersFinishedController($scope, Order)
+function OrdersFinishedController($scope, $dialog, Order)
 {
     $scope.orders = Order.fetchFinished();
+
+    $scope.openSendMessageDialog = outerOpenSendMessageDialog($dialog);
 }
 
-OrdersFinishedController.$inject = ['$scope', 'Order'];
+OrdersFinishedController.$inject = ['$scope', '$dialog', 'Order'];
+
+function SendMessageDialogController($scope, $http, dialog, order)
+{
+    var urlPrefix = '/app_dev.php';
+
+    $scope.close = function(result)
+    {
+        dialog.close(result);
+    }
+
+    $scope.sendMessage = function()
+    {
+        $http.post(urlPrefix + '/api/messages/send', {
+            senderPlatformId: (order.isIncoming ? order.receiverPlatform.id : order.senderPlatform.id),
+            receiverPlatformId: (!order.isIncoming ? order.receiverPlatform.id : order.senderPlatform.id),
+            message: $scope.message
+        })
+        .success(function (data, status) {
+            dialog.close(data.message);
+        })
+        .error(function (data, status){
+            console.log("Error: " + status);
+            dialog.close();
+        });
+    }
+}
+
+SendMessageDialogController.$inject = ['$scope', '$http', 'dialog', 'order']

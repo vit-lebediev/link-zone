@@ -35,13 +35,15 @@ class MessagesController extends BaseController
      * Ajax handlers
      */
 
-    public function ajaxSendMessageAction(Request $request)
+    public function apiSendMessageAction(Request $request)
     {
         $this->_verifyIsXmlHttpRequest();
 
+        $requestData = json_decode($request->getContent(), true);
+
         // check that senderPlatformId and receiverPlatformId are correct
-        if ((!$senderPlatformId = $request->get("message")['senderPlatformId']) OR
-                (!$receiverPlatformId = $request->get("message")['receiverPlatformId']))
+        if ((!$senderPlatformId = $requestData['senderPlatformId']) OR
+                (!$receiverPlatformId = $requestData['receiverPlatformId']))
         {
             // TODO: log this error
             throw new BadRequestHttpException("senderPlatformId AND receiverPlatformId must be specified");
@@ -88,31 +90,27 @@ class MessagesController extends BaseController
 
         $message = new Message();
 
-        $sendMessageDialog = $this->createForm(new MessageType(), $message, array(
-            'senderPlatformId' => $messageSenderPlatform->getId(),
-            'receiverPlatformId' => $messageReceiverPlatform->getId(),
-        ));
+        $message->setMessage($requestData['message']);
 
-        $sendMessageDialog->bind($request);
+        $errors = $this->_validator->validate($message);
 
-        if ($sendMessageDialog->isValid())
-        {
-            // save message
-            $message->setSent(new \DateTime())
-                    ->setDialog($dialog)
-                    ->setSenderPlatform($messageSenderPlatform)
-                    ->setReceiverPlatform($messageReceiverPlatform);
-
-            $dialog->setUpdated(new \DateTime());
-
-            $this->_doctrineManager->persist($message);
-            $this->_doctrineManager->flush();
-
-            return new JsonResponse();
-        } else {
+        if (count($errors) > 0) {
             $this->_logger->err($sendMessageDialog->getErrorsAsString());
-            throw new BadRequestHttpException("Provided message data is not valid. Are you trying to CSRF us ?");
+            return new JsonResponse(array('errors' => $this->_parseValidationErrors($errors)), 400);
         }
+
+        // save message
+        $message->setSent(new \DateTime())
+                ->setDialog($dialog)
+                ->setSenderPlatform($messageSenderPlatform)
+                ->setReceiverPlatform($messageReceiverPlatform);
+
+        $dialog->setUpdated(new \DateTime());
+
+        $this->_doctrineManager->persist($message);
+        $this->_doctrineManager->flush();
+
+        return new JsonResponse();
     }
 
     /**

@@ -28,7 +28,7 @@
                 <td><input type="url" ng-model="order.myLinkLocation" readonly="readonly" /></td>
                 <td>
                     <div>
-                        <button class="btn" ng-click="openSendMessageDialog(order.receiverPlatform.id, order.senderPlatform.id)">{{ "common.send_message"|trans }}</button>
+                        <button class="btn" ng-click="openSendMessageDialog(order)">{{ "common.send_message"|trans }}</button>
                     </div>
                     <div ng-hide="{true: order.receiverAccepted, false: order.senderAccepted}[order.isIncoming]">
                         <button class="btn btn-success" ng-click="acceptOrder(order)">{{ "common.accept"|trans }}</button>

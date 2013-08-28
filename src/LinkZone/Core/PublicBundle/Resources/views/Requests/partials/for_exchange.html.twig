@@ -32,7 +32,7 @@
                 {% endverbatim %}
                 <td>
                     <button class="btn" ng-click="openReviewOrderDialog(order.id)">{{ "orders.review_order"|trans }}</button>
-                    <button class="btn" ng-click="sendMessage(order.receiverPlatform.id, order.senderPlatform.id)">{{ "common.send_message"|trans }}</button>
+                    <button class="btn" ng-click="openSendMessageDialog(order)">{{ "common.send_message"|trans }}</button>
                 </td>
                 
             </tr>
@@ -60,8 +60,8 @@
         <tbody>
             <tr ng-repeat="order in sentOrders">
                 {% verbatim %}
-                <td><a href="{{ order.senderPlatform.url }}">{{ order.senderPlatform.url }}</a></td>
                 <td><a href="{{ order.receiverPlatform.url }}">{{ order.receiverPlatform.url }}</a></td>
+                <td><a href="{{ order.senderPlatform.url }}">{{ order.senderPlatform.url }}</a></td>
                 <td>{{ order.senderPlatform.owner.username }}</td>
                 <td>{{ order.senderPlatform.id }}</td>
                 <td>{{ order.senderPlatform.description }}</td>
@@ -71,7 +71,7 @@
                 {% endverbatim %}
                 <td>
                     <button class="btn" ng-click="openDeleteOrderDialog(order)">{{ "common.delete"|trans }}</button>
-                    <button class="btn" ng-click="sendMessage(order.senderPlatform.id, order.receiverPlatform.id)">{{ "common.send_message"|trans }}</button>
+                    <button class="btn" ng-click="openSendMessageDialog(order)">{{ "common.send_message"|trans }}</button>
                 </td>
             </tr>
         </tbody>
