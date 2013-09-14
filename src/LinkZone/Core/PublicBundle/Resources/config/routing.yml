@@ -177,3 +177,9 @@ linkzone_core_public_api_orders:
 linkzone_core_public_api_messages:
     resource: "@LinkZoneCorePublicBundle/Resources/config/routing/api/messages.yml"
     prefix: /api/messages
+
+linkzone_core_public_default_route:
+    pattern: /{url}
+    defaults: { _controller: LinkZoneCorePublicBundle:Default:index }
+    requirements:
+        url: ".+"

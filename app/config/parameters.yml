@@ -18,3 +18,5 @@ parameters:
     default_date_format: "d.m.Y, H:i"
 
     default_link_html: "<a href='%%s'>%%s</a>"
+
+    default_message_num_in_dialog: 10

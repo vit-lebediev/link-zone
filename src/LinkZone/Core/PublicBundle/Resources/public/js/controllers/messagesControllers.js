@@ -17,6 +17,7 @@ function DialogsController($scope, $routeParams, $http, Dialog)
 
     $scope.sendMessage = function()
     {
+        // We use $http.post here instead of service because we did not create message service (we don't need it, I guess...)
         $http.post(urlPrefix + '/api/messages/send', {
             senderPlatformId: $scope.dialog.myPlatform.id,
             receiverPlatformId: $scope.dialog.companionPlatform.id,

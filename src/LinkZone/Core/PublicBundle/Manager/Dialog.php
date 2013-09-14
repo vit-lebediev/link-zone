@@ -48,7 +48,7 @@ class Dialog extends ContainerAware
 
         // TODO: check that user has access to this dialog
 
-        return $this->toArrayFull($dialog);
+        return $this->prepareDialogArray($dialog);
     }
 
     /**
@@ -75,15 +75,18 @@ class Dialog extends ContainerAware
     }
 
     /**
-     * Convert dialog to array with all messages and all required information for displaying in dialog window
+     * Convert dialog to array with messages and all required information for displaying in dialog window
      *
      * @param \LinkZone\Core\PublicBundle\Entity\Dialog $dialog
+     * @return array                                             An array representation of a dialog
      */
-    public function toArrayFull(DialogEntity $dialog) {
-
+    public function prepareDialogArray(DialogEntity $dialog) {
         $messages = [];
 
-        foreach ($dialog->getMessages() as $message) {
+        $sliceOffset = $dialog->getMessages()->count() - $this->container->getParameter("default_message_num_in_dialog");
+        $dialogMessages = array_slice($dialog->getMessages()->toArray(), $sliceOffset, $this->container->getParameter("default_message_num_in_dialog"));
+
+        foreach ($dialogMessages as $message) {
             $messages[] = array(
                 'message' => $message->getMessage(),
                 'isIncoming' => ($message->getSenderPlatform()->getOwner() === $this->_user) ? false : true,
