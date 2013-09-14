@@ -19,7 +19,7 @@ class Dialog extends ContainerAware
     }
 
     /**
-     * Return dialogs as array of values, which could be exposed to front-end application\
+     * Return dialogs as array of values, which could be exposed to front-end application
      * @return array An array of dialogs
      */
     public function getDialogs()
@@ -60,9 +60,13 @@ class Dialog extends ContainerAware
     public function toArray(DialogEntity $dialog) {
         $lastMessageInDialog = $dialog->getMessages()->last();
 
+        $lastMessageText = $lastMessageInDialog->getMessage();
+
+        $preparedLastMessage = mb_strlen($lastMessageText) > 100 ? mb_substr($lastMessageText, 0, 100) . "..." : $lastMessageText;
+
         return array(
             'id' => $dialog->getId(),
-            'lastMessage' => $lastMessageInDialog->getMessage(),
+            'lastMessage' => $preparedLastMessage,
             'isLastMessageSentByMe' => ($lastMessageInDialog->getSenderPlatform()->getOwner() === $this->_user) ? true : false,
             'isLastMessageSentNotByMe' => ($lastMessageInDialog->getSenderPlatform()->getOwner() === $this->_user) ? false : true,
             'lastMessageSenderPlatformUrl' => $lastMessageInDialog->getSenderPlatform()->getUrl(),
