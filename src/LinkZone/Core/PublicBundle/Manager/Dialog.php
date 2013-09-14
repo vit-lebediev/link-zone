@@ -12,6 +12,8 @@ class Dialog extends ContainerAware
     private $_dialogRepo;
     private $_user;
 
+    const DEFAULT_NUMBER_OF_MESSAGES_TO_DISPLAY = 10;
+
     public function init()
     {
         $this->_dialogRepo = $this->container->get('doctrine')->getRepository("LinkZoneCorePublicBundle:Dialog");
@@ -49,6 +51,28 @@ class Dialog extends ContainerAware
         // TODO: check that user has access to this dialog
 
         return $this->prepareDialogArray($dialog);
+    }
+
+    public function getMessages($dialogId, $offset = 0, $number = self::DEFAULT_NUMBER_OF_MESSAGES_TO_DISPLAY)
+    {
+        if (!$dialog = $this->_dialogRepo->find($dialogId)) {
+            throw new NotFoundHttpException("There is no dialog with id " . $dialogId);
+        }
+
+        $reversedMessagesArray = array_reverse($dialog->getMessages()->toArray());
+        $dialogMessages = array_slice($reversedMessagesArray, $offset, $number);
+        $dialogMessages = array_reverse($dialogMessages);
+
+        $messages = [];
+        foreach ($dialogMessages as $message) {
+            $messages[] = array(
+                'message' => $message->getMessage(),
+                'isIncoming' => ($message->getSenderPlatform()->getOwner() === $this->_user) ? false : true,
+                'isNotIncoming' => ($message->getSenderPlatform()->getOwner() === $this->_user) ? true : false,
+            );
+        }
+
+        return $messages;
     }
 
     /**

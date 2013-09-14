@@ -9,11 +9,17 @@ function MessagesController($scope, Dialog)
 
 MessagesController.$inject = ['$scope', 'Dialog'];
 
-function DialogsController($scope, $routeParams, $http, Dialog)
+function DialogsController($scope, $routeParams, $http, Dialog, Message)
 {
     var urlPrefix = '/app_dev.php';
 
     $scope.dialog = Dialog.get({dialogId: $routeParams.dialogId});
+
+    $scope.sendMessageOnEnterPress = function ($event)
+    {
+        $event.preventDefault();
+        $scope.sendMessage();
+    }
 
     $scope.sendMessage = function()
     {
@@ -35,6 +41,13 @@ function DialogsController($scope, $routeParams, $http, Dialog)
             console.log ("Some error occured while sending message")
         });
     }
+
+    $scope.loadMessages = function()
+    {
+        Message.loadMoreForDialog({dialogId: $scope.dialog.id, offset: $scope.dialog.messages.length}, function(messages, headers) {
+            $scope.dialog.messages = messages.concat($scope.dialog.messages);
+        });
+    }
 }
 
-DialogsController.$inject = ['$scope', '$routeParams', '$http', 'Dialog'];
+DialogsController.$inject = ['$scope', '$routeParams', '$http', 'Dialog', 'Message'];

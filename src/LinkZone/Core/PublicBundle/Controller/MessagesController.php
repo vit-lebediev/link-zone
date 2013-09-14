@@ -155,4 +155,17 @@ class MessagesController extends BaseController
 
         return new JsonResponse($this->_dialogManager->getDialog($dialogId));
     }
+
+    public function apiListDialogMessagesAction($dialogId, Request $request)
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        // TODO: check that the dialog exists
+
+        $offset = $request->get("offset");
+        $offset = (!$offset OR $offset < 0) ? 0 : $offset;
+        $number = $this->_getParameter("messages_to_load");
+
+        return new JsonResponse($this->_dialogManager->getMessages($dialogId, $offset, $number));
+    }
 }

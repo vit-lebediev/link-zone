@@ -45,4 +45,9 @@ class BaseController extends Controller
 
         return $returnErrors;
     }
+
+    protected function _getParameter($paramName)
+    {
+        return $this->container->getParameter($paramName);
+    }
 }

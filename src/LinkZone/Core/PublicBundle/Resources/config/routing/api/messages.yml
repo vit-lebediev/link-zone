@@ -12,3 +12,9 @@ linkzone_core_public_api_messages_send:
     pattern: /send
     defaults: { _controller: LinkZoneCorePublicBundle:Messages:apiSendMessage }
     methods: [POST]
+
+linkzone_core_public_api_messages_all:
+    pattern: /dialogues/{dialogId}/messages/all
+    defaults:
+      _controller: LinkZoneCorePublicBundle:Messages:apiListDialogMessages
+    methods: [GET]

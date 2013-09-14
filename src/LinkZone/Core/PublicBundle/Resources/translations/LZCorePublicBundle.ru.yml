@@ -117,3 +117,6 @@ messages:
     to_you:   Вам
     last_received: Последнее сообщение в диалоге
     dialog_with_webmaster: Диалог с вебмастером
+    load_more_messages: Загрузить ещё %messageNum% сообщений
+    labels:
+        send_message_help: "Быстрая отправка сообщения: Ctrl + Enter"

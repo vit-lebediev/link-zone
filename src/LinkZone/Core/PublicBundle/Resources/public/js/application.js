@@ -1,6 +1,6 @@
 'use strict';
 
-var LinkZone = angular.module("LinkZone", ['publicServices', 'ui.bootstrap', 'tags-input']);
+var LinkZone = angular.module("LinkZone", ['publicServices', 'ui.bootstrap', 'ui.utils', 'tags-input']);
 LinkZone.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
         console.log("From config");
         var urlPrefix = "/app_dev.php";

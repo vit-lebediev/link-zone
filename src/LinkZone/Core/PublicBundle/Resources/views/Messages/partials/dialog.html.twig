@@ -8,9 +8,10 @@
             <div class="center">
                 <fieldset>
                     <div class="form-group">
-                        <textarea ng-model="message"></textarea>
+                        <textarea ng-model="message" ui-keypress="{'ctrl-enter':'sendMessageOnEnterPress($event)'}"></textarea>
                     </div>
                 </fieldset>
+                <div><small>{{ "messages.labels.send_message_help"|trans }}</small></div>
                 <button type="submit" class="btn btn-primary">{{ "common.send"|trans }}</button>
             </div>
         </form>
@@ -21,5 +22,8 @@
             <span ng-show="message.isNotIncoming">{{ "common.you"|trans }}:</span>
         </span></div>
         <div class="message"><span class="message">{% verbatim %}{{ message.message }}{% endverbatim %}</span></div>
+    </div>
+    <div class="center">
+        <button type="submit" ng-click="loadMessages()" class="btn btn-primary">{{ "messages.load_more_messages"|trans({"%messageNum%": messages_to_load}) }}</button>
     </div>
 </div>

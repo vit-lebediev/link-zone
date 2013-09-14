@@ -20,3 +20,4 @@ parameters:
     default_link_html: "<a href='%%s'>%%s</a>"
 
     default_message_num_in_dialog: 10
+    messages_to_load: 10
