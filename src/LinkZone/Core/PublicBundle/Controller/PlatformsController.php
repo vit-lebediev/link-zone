@@ -149,7 +149,7 @@ class PlatformsController extends BaseController
 
         if ($platformDialog->isValid())
         {
-            $platform->setStatus(Platform::STATUS_ON_MODERATION)
+            $platform->setStatus(Platform::STATUS_NOT_CONFIRMED)
                      ->setCreated(new \DateTime())
                      ->setOwner($this->_user);
 

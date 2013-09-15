@@ -75,6 +75,7 @@ class Platform implements Taggable
      */
     private $requestsReceived;
 
+    const STATUS_NOT_CONFIRMED = "NOT_CONFIRMED";
     const STATUS_ACTIVE        = "ACTIVE";
     const STATUS_BLOCKED       = "BLOCKED";
     const STATUS_DELETED       = "DELETED";
@@ -82,6 +83,7 @@ class Platform implements Taggable
     const STATUS_DENIED        = "DENIED";
 
     public static $availableStatuses = [
+        self::STATUS_NOT_CONFIRMED,
         self::STATUS_ACTIVE,
         self::STATUS_BLOCKED,
         self::STATUS_DELETED,

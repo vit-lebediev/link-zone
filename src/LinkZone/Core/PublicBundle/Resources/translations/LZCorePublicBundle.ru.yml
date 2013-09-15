@@ -52,9 +52,10 @@ platforms:
         last_login:   Последний визит не раньше
         search:       Поиск
     statuses:
-        ACTIVE:  Активная
-        BLOCKED: Блокирована
-        DELETED: Удалена
+        NOT_CONFIRMED: Не подтверждена
+        ACTIVE:        Активная
+        BLOCKED:       Блокирована
+        DELETED:       Удалена
         ON_MODERATION: На модерации
         DENIED:        Отклонена
     topics:
