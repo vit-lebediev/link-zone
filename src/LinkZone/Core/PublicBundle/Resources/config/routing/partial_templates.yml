@@ -4,6 +4,13 @@ linkzone_core_public_partial_templates_login:
     requirements:
         _method: GET
 
+# We need this separate route to not interfere with 'linkzone_core_public_partial_templates_platform_dialog' route on 'confirm' action
+linkzone_core_public_partial_templates_confirm_platform_dialog:
+    pattern: /platforms/confirm_dialog.html
+    defaults: { _controller: LinkZoneCorePublicBundle:Default:partials, controller: 'platforms', partial: 'confirm_dialog' }
+    requirements:
+        _method: GET
+
 linkzone_core_public_partial_templates_platform_dialog:
     pattern: /platforms/{action}_dialog.html
     defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxPlatformDialog }

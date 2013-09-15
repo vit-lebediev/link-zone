@@ -24,7 +24,11 @@
             <td>{{ platform.topic }}</td>
             <td>{{ platform.status_code }}</td>
             {% endverbatim %}
-            <td><button class="btn" ng-click="openEditPlatformDialog(platform.id)">{{ "platforms.edit"|trans }}</button></td>
+            <td>
+                <button class="btn" ng-click="openEditPlatformDialog(platform.id)">{{ "platforms.edit"|trans }}</button>
+                <button ng-show="isPlatformStatus(platform, 'NOT_CONFIRMED')" class="btn" ng-click="openConfirmPlatformDialog(platform)">{{ "platforms.confirm"|trans }}</button>
+                <span ng-hide="isPlatformStatus(platform, 'NOT_CONFIRMED')" class="text-success"><em>{{ "platforms.confirmed"|trans }}</em></span>
+            </td>
         </tr>
     </tbody>
 </table>

@@ -45,6 +45,29 @@ platforms:
     yandex_index:      Индексация Я
     google_index:      Индексация G
     articles_index:    Индексация статей
+    confirm:           Подтвердить
+    confirmed:         Подтверждена
+    activate_platform: Активация площадки
+    activation_method_t: Способ активации
+    activation_method:
+        html_tag: HTML тег
+        meta_tag: Мета тег
+        txt_file: TXT-файл
+    activation_instruction:
+        html_tag:
+            first_item: Создайте html-файл с именем linkzone.ru_{{ activation_random_string }}.html и со следующим содержимым
+            second_item: Загрузите его в корневой каталог вашего сайта
+            third_item: Убедитесь, что загруженный файл открывается по адресу http://sitename.ru/linkzone.ru_{{ activation_random_string }}.html
+            fourth_item: Нажмите на кнопку «Подтвердить»
+        meta_tag:
+            first_item: Добавьте в код главной страницы вашего сайта (в раздел head) мета-тэг
+            second_item: Зайдите на главную страницу сайта и убедитесь, что мета-тэг появился в html-коде страницы. В большинстве браузеров это можно сделать выбрав пункт "Исходный код страницы" в контекстном меню.
+            third_item: Нажмите на кнопку «Подтвердить»
+        txt_file:
+            first_item: Создайте txt-файл с именем linkzone.ru_{{ activation_random_string }}.txt с произвольным содержимым (можно пустой)
+            second_item: Загрузите его в корневой каталог вашего сайта
+            third_item: Убедитесь, что загруженный файл открывается по адресу http://sitename.ru/linkzone.ru_{{ activation_random_string }}.txt
+            fourth_item: Нажмите на кнопку «Подтвердить»
     search:
         send_request: Отправить заявку
         send_message: Написать

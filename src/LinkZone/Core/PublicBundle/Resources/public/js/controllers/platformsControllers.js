@@ -6,7 +6,8 @@ function PlatformsController($scope, $dialog, Platform)
 
     var urlPrefix = '/app_dev.php';
 
-    $scope.openAddPlatformDialog = function () {
+    $scope.openAddPlatformDialog = function ()
+    {
         var dialog = $dialog.dialog({
             backdrop: true,
             keyboard: true,
@@ -24,7 +25,8 @@ function PlatformsController($scope, $dialog, Platform)
         });
     }
 
-    $scope.openEditPlatformDialog = function (platformId) {
+    $scope.openEditPlatformDialog = function (platformId)
+    {
         var dialog = $dialog.dialog({
             backdrop: true,
             keyboard: true,
@@ -44,6 +46,32 @@ function PlatformsController($scope, $dialog, Platform)
             // TODO: edit corresponding platform in the list of platforms
         });
     }
+
+    $scope.openConfirmPlatformDialog = function(platform)
+    {
+        var dialog = $dialog.dialog({
+            backdrop: true,
+            keyboard: true,
+            backdropClick: true,
+            dialogFade: true,
+            backdropFade: true,
+            templateUrl: "partials/platforms/confirm_dialog.html",
+            controller: 'ConfirmPlatformDialogController',
+            resolve: {
+                platform: function() {
+                    return angular.copy(platform);
+                }
+            }
+        });
+
+        dialog.open().then(function(platform) {
+            // do nothing...
+        });
+    }
+
+    $scope.isPlatformStatus = function(platform, platformStatus) {
+        return platform.status_code === platformStatus;
+    }
 }
 
 PlatformsController.$inject = ['$scope', '$dialog', 'Platform'];
@@ -58,7 +86,8 @@ function AddPlatformDialogController($scope, $http, Platform, dialog)
         dialog.close(result);
     }
 
-    $scope.addPlatform = function() {
+    $scope.addPlatform = function()
+    {
         var platform = {
             url: this.platform.url,
             topic: this.platform.topic_id,
@@ -100,7 +129,8 @@ function EditPlatformDialogController($scope, Platform, dialog, platformId)
         dialog.close(result);
     }
 
-    $scope.editPlatform = function () {
+    $scope.editPlatform = function ()
+    {
         // save platform to DB
         $scope.platform.$save({platformId: $scope.platform.id}, function(platform, headers) {
             dialog.close(platform);
@@ -113,3 +143,19 @@ function EditPlatformDialogController($scope, Platform, dialog, platformId)
 }
 
 EditPlatformDialogController.$inject = ['$scope', 'Platform', 'dialog', 'platformId'];
+
+function ConfirmPlatformDialogController($scope, dialog, platform)
+{
+    $scope.activationMethod = 'html_tag';
+    $scope.activation_random_string = 'test';
+
+    $scope.close = function(result) {
+        dialog.close(result);
+    }
+
+    $scope.isActivationMethod = function(method) {
+        return $scope.activationMethod === method;
+    }
+}
+
+ConfirmPlatformDialogController.$inject = ['$scope', 'dialog', 'platform'];
