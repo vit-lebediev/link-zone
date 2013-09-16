@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use LinkZone\Core\PublicBundle\Entity\User;
+use LinkZone\Core\PublicBundle\DependencyInjection\Helper\Utils;
 
 /**
  * Listener responsible to fill required fields for newly created user
@@ -45,9 +46,10 @@ class RegistrationListener extends ContainerAware implements EventSubscriberInte
         $user->setStatus(User::STATUS_ACTIVE);
         $user->setRegistrationDate(new \DateTime());
 
-        $radnomValue = substr(md5(rand()),0,10);
+        $randomValue = Utils::getRandomString();
+        // ensure uniqueness of referral value
         while ($userRepository->findOneBy(array('referralValue' => $radnomValue))) {
-            $radnomValue = substr(md5(rand()),0,10);
+            $radnomValue = Utils::getRandomString();
         }
         $user->setReferralValue($radnomValue);
 

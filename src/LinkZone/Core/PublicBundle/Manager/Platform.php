@@ -15,8 +15,9 @@ class Platform extends ContainerAware
      */
     public function toArray(PlatformEntity $platform) {
         $translator = $this->container->get("translator");
+        $currentUser = $this->container->get("security.context")->getToken()->getUser();
 
-        return array(
+        $platformArray = [
             'id' => $platform->getId(),
             'url' => $platform->getUrl(),
             'description' => $platform->getDescription(),
@@ -30,6 +31,12 @@ class Platform extends ContainerAware
                 'username' => $platform->getOwner()->getUsername(),
                 'lastLogin' => $platform->getOwner()->getLastLogin()->format($this->container->getParameter("default_date_format")),
             )
-        );
+        ];
+
+        if ($platform->getOwner() === $currentUser) {
+            $platformArray['activation_code'] = $platform->getActivationCode();
+        }
+
+        return $platformArray;
     }
 }

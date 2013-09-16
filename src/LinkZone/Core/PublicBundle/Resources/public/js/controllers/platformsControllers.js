@@ -146,8 +146,14 @@ EditPlatformDialogController.$inject = ['$scope', 'Platform', 'dialog', 'platfor
 
 function ConfirmPlatformDialogController($scope, dialog, platform)
 {
+    if (!platform.activation_code) {
+        // TODO: implement proper error handling
+        alert("No activation code on the platform !");
+        return;
+    }
+
     $scope.activationMethod = 'html_tag';
-    $scope.activation_random_string = 'test';
+    $scope.platform = platform;
 
     $scope.close = function(result) {
         dialog.close(result);

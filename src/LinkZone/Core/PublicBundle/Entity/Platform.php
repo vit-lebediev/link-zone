@@ -50,6 +50,11 @@ class Platform implements Taggable
     private $hidden;
 
     /**
+     * @var string
+     */
+    private $activationCode;
+
+    /**
      * @var \LinkZone\Core\PublicBundle\Entity\User
      */
     private $owner;
@@ -229,6 +234,29 @@ class Platform implements Taggable
     public function getHidden()
     {
         return $this->hidden;
+    }
+
+    /**
+     * Set activationCode
+     *
+     * @param string $activationCode
+     * @return Platform
+     */
+    public function setActivationCode($activationCode)
+    {
+        $this->activationCode = $activationCode;
+
+        return $this;
+    }
+
+    /**
+     * Get activationCode
+     *
+     * @return string
+     */
+    public function getActivationCode()
+    {
+        return $this->activationCode;
     }
 
     /**

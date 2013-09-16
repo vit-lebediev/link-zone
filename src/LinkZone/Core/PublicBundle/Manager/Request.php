@@ -28,9 +28,9 @@ class Request extends ContainerAware
 
     public function toArray(RequestEntity $request) {
         $translator = $this->container->get("translator");
-        $user = $this->container->get("security.context")->getToken()->getUser();
+        $currentUser = $this->container->get("security.context")->getToken()->getUser();
 
-        return array(
+        return [
             'id' => $request->getId(),
             'senderLink' => $request->getSenderLink(),
             'senderLinkText' => $request->getSenderLinkText(),
@@ -42,7 +42,7 @@ class Request extends ContainerAware
             'receiverLinkLocation' => $request->getReceiverLinkLocation(),
             'receiverLinkHTML'     => $this->getReceiverLinkHTML($request),
             'receiverAccepted'     => $request->getReceiverAccepted(),
-            'isIncoming'           => ($request->getReceiverPlatform()->getOwner() === $user) ? true : false,
+            'isIncoming'           => ($request->getReceiverPlatform()->getOwner() === $currentUser) ? true : false,
             'created'              => $request->getCreated()->format($this->container->getParameter("default_date_format")),
             'finished'             => $request->getFinished() ? $request->getFinished()->format($this->container->getParameter("default_date_format")) : null,
             'senderPlatform'       => array(
@@ -61,6 +61,6 @@ class Request extends ContainerAware
                     'username' => $request->getReceiverPlatform()->getOwner()->getUsername(),
                 ),
             ),
-        );
+        ];
     }
 }

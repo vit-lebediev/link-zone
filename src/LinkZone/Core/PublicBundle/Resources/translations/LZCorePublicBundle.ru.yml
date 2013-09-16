@@ -55,19 +55,23 @@ platforms:
         txt_file: TXT-файл
     activation_instruction:
         html_tag:
-            first_item: Создайте html-файл с именем linkzone.ru_{{ activation_random_string }}.html и со следующим содержимым
-            second_item: Загрузите его в корневой каталог вашего сайта
-            third_item: Убедитесь, что загруженный файл открывается по адресу http://sitename.ru/linkzone.ru_{{ activation_random_string }}.html
-            fourth_item: Нажмите на кнопку «Подтвердить»
+            first_item:
+                part_one: Создайте html-файл с именем
+                part_two: и со следующим содержимым
+            second_item: Загрузите его в корневой каталог вашего сайта.
+            third_item: Убедитесь, что загруженный файл открывается по адресу
+            fourth_item: Нажмите на кнопку «Подтвердить».
         meta_tag:
             first_item: Добавьте в код главной страницы вашего сайта (в раздел head) мета-тэг
             second_item: Зайдите на главную страницу сайта и убедитесь, что мета-тэг появился в html-коде страницы. В большинстве браузеров это можно сделать выбрав пункт "Исходный код страницы" в контекстном меню.
-            third_item: Нажмите на кнопку «Подтвердить»
+            third_item: Нажмите на кнопку «Подтвердить».
         txt_file:
-            first_item: Создайте txt-файл с именем linkzone.ru_{{ activation_random_string }}.txt с произвольным содержимым (можно пустой)
-            second_item: Загрузите его в корневой каталог вашего сайта
-            third_item: Убедитесь, что загруженный файл открывается по адресу http://sitename.ru/linkzone.ru_{{ activation_random_string }}.txt
-            fourth_item: Нажмите на кнопку «Подтвердить»
+            first_item:
+                part_one: Создайте txt-файл с именем
+                part_two: с произвольным содержимым (можно пустой).
+            second_item: Загрузите его в корневой каталог вашего сайта.
+            third_item: Убедитесь, что загруженный файл открывается по адресу
+            fourth_item: Нажмите на кнопку «Подтвердить».
     search:
         send_request: Отправить заявку
         send_message: Написать

@@ -11,6 +11,7 @@ use LinkZone\Core\PublicBundle\Entity\Platform;
 use LinkZone\Core\PublicBundle\Form\Type\PlatformType;
 use LinkZone\Core\PublicBundle\Entity\PlatformTopic;
 use LinkZone\Core\PublicBundle\Form\Type\Platform\Search\PlatformType as PlatformSearchFilter;
+use LinkZone\Core\PublicBundle\DependencyInjection\Helper\Utils;
 
 class PlatformsController extends BaseController
 {
@@ -151,7 +152,8 @@ class PlatformsController extends BaseController
         {
             $platform->setStatus(Platform::STATUS_NOT_CONFIRMED)
                      ->setCreated(new \DateTime())
-                     ->setOwner($this->_user);
+                     ->setOwner($this->_user)
+                     ->setActivationCode(Utils::getRandomString(24));
 
             $reqeustPlatform = $this->getRequest()->get("platform");
 
