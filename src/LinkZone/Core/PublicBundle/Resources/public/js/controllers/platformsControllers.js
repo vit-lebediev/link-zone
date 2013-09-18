@@ -4,8 +4,6 @@ function PlatformsController($scope, $dialog, Platform)
 {
     $scope.platforms = Platform.query();
 
-    var urlPrefix = '/app_dev.php';
-
     $scope.openAddPlatformDialog = function ()
     {
         var dialog = $dialog.dialog({
@@ -78,8 +76,6 @@ PlatformsController.$inject = ['$scope', '$dialog', 'Platform'];
 
 function AddPlatformDialogController($scope, $http, Platform, dialog)
 {
-    var urlPrefix = '/app_dev.php';
-
     $scope.platform = new Platform();
 
     $scope.close = function(result) {
@@ -96,10 +92,10 @@ function AddPlatformDialogController($scope, $http, Platform, dialog)
             _token: angular.element(document.getElementById('platform__token')).val()
         }
 
-        $http.post(urlPrefix + '/api/platforms/add', {
+        $http.post($scope.routePrefix + '/api/platforms/add', {
             platform: platform
         }, {
-//             http://stackoverflow.com/questions/11442632/how-can-i-make-angular-js-post-data-as-form-data-instead-of-a-request-payload
+            // http://stackoverflow.com/questions/11442632/how-can-i-make-angular-js-post-data-as-form-data-instead-of-a-request-payload
             transformRequest: function(obj) {
                 return $.param(obj);
             },
@@ -144,15 +140,16 @@ function EditPlatformDialogController($scope, Platform, dialog, platformId)
 
 EditPlatformDialogController.$inject = ['$scope', 'Platform', 'dialog', 'platformId'];
 
-function ConfirmPlatformDialogController($scope, dialog, platform)
+function ConfirmPlatformDialogController($scope, $http, dialog, platform)
 {
     if (!platform.activation_code) {
         // TODO: implement proper error handling
         alert("No activation code on the platform !");
+        dialog.close();
         return;
     }
 
-    $scope.activationMethod = 'html_tag';
+    $scope.activationMethod = 'HTML_TAG';
     $scope.platform = platform;
 
     $scope.close = function(result) {
@@ -162,6 +159,18 @@ function ConfirmPlatformDialogController($scope, dialog, platform)
     $scope.isActivationMethod = function(method) {
         return $scope.activationMethod === method;
     }
+
+    $scope.confirmPlatform = function() {
+        $http.post($scope.routePrefix + '/api/platforms/' + platform.id + '/activate', {
+            activationMethod: $scope.activationMethod
+        })
+        .success(function (data, status) {
+            dialog.close(data);
+        })
+        .error(function (data, status) {
+            console.log ("Some error occured while sending message");
+        });
+    }
 }
 
-ConfirmPlatformDialogController.$inject = ['$scope', 'dialog', 'platform'];
+ConfirmPlatformDialogController.$inject = ['$scope', '$http', 'dialog', 'platform'];

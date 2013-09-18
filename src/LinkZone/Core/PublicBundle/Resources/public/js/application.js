@@ -2,8 +2,8 @@
 
 var LinkZone = angular.module("LinkZone", ['publicServices', 'ui.bootstrap', 'ui.utils', 'tags-input']);
 LinkZone.config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider, $httpProvider) {
-        console.log("From config");
-        var urlPrefix = "/app_dev.php";
+
+        var routePrefix = "/app_dev.php"; // TODO: this is to change on production
 
         var authInterceptor = ['$rootScope', '$q', function(scope, $q) {
             var success = function (response) {
@@ -15,7 +15,7 @@ LinkZone.config(['$routeProvider', '$locationProvider', '$httpProvider', functio
 
                 if (status == 401) {
                     alert('redirect to: login');
-                    window.location.href = urlPrefix + "/login";
+                    window.location.href = routePrefix + "/login";
                     return;
                 }
                 // otherwise
@@ -30,14 +30,18 @@ LinkZone.config(['$routeProvider', '$locationProvider', '$httpProvider', functio
 
         $locationProvider.html5Mode(true);
         $routeProvider
-            .when(urlPrefix + "/login", {templateUrl: urlPrefix + "/partials/default/login.html", controller: LoginController})
-            .when(urlPrefix + "/logout", {templateUrl: urlPrefix + "/partials/default/login.html", controller: LogoutController})
-            .when(urlPrefix + "/platforms", {templateUrl: urlPrefix + "/partials/platforms/list.html", controller: PlatformsController})
-            .when(urlPrefix + "/platforms/search", {templateUrl: urlPrefix + "/partials/platforms/search.html", controller: PlatformsSearchController})
-            .when(urlPrefix + "/orders/for-exchange", {templateUrl: urlPrefix + "/partials/requests/for_exchange.html", controller: OrdersForExchangeController})
-            .when(urlPrefix + "/orders/in-progress", {templateUrl: urlPrefix + "/partials/requests/in_progress.html", controller: OrdersInProgressController})
-            .when(urlPrefix + "/orders/finished", {templateUrl: urlPrefix + "/partials/requests/finished.html", controller: OrdersFinishedController})
-            .when(urlPrefix + "/messages", {templateUrl: urlPrefix + "/partials/messages/list.html", controller: MessagesController})
-            .when(urlPrefix + "/messages/dialog/:dialogId", {templateUrl: urlPrefix + "/partials/messages/dialog.html", controller: DialogsController})
-            .otherwise({redirectTo: "/app_dev.php/login"})
+            .when(routePrefix + "/login", {templateUrl: routePrefix + "/partials/default/login.html", controller: LoginController})
+            .when(routePrefix + "/logout", {templateUrl: routePrefix + "/partials/default/login.html", controller: LogoutController})
+            .when(routePrefix + "/platforms", {templateUrl: routePrefix + "/partials/platforms/list.html", controller: PlatformsController})
+            .when(routePrefix + "/platforms/search", {templateUrl: routePrefix + "/partials/platforms/search.html", controller: PlatformsSearchController})
+            .when(routePrefix + "/orders/for-exchange", {templateUrl: routePrefix + "/partials/requests/for_exchange.html", controller: OrdersForExchangeController})
+            .when(routePrefix + "/orders/in-progress", {templateUrl: routePrefix + "/partials/requests/in_progress.html", controller: OrdersInProgressController})
+            .when(routePrefix + "/orders/finished", {templateUrl: routePrefix + "/partials/requests/finished.html", controller: OrdersFinishedController})
+            .when(routePrefix + "/messages", {templateUrl: routePrefix + "/partials/messages/list.html", controller: MessagesController})
+            .when(routePrefix + "/messages/dialog/:dialogId", {templateUrl: routePrefix + "/partials/messages/dialog.html", controller: DialogsController})
+            .otherwise({redirectTo: routePrefix + "/login"})
     }]);
+
+LinkZone.run(function($rootScope) {
+    $rootScope.routePrefix = "/app_dev.php"; // TODO: this is to change on production
+});

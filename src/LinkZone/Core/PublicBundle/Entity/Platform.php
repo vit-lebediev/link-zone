@@ -98,6 +98,10 @@ class Platform implements Taggable
 
     const TAGGABLE_TYPE = "platform";
 
+    const ACTIVATION_METHOD_HTML_TAG = "HTML_TAG";
+    const ACTIVATION_METHOD_META_TAG = "META_TAG";
+    const ACTIVATION_METHOD_TXT_FILE = "TXT_FILE";
+
     /**
      * Constructor
      */

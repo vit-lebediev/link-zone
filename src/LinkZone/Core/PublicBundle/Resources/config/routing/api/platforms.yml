@@ -24,6 +24,13 @@ linkzone_core_public_api_platforms_edit:
         _method: POST
         platformId: \d+
 
+linkzone_core_public_api_platforms_activate:
+    pattern: /{platformId}/activate
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:apiActivatePlatform }
+    methods: [POST]
+    requirements:
+        platformId: \d+
+
 linkzone_core_public_api_platforms_add_platform:
     pattern: /add
     defaults: { _controller: LinkZoneCorePublicBundle:Platforms:ajaxAddPlatform }

@@ -8,26 +8,24 @@
         {{ "platforms.activation_method_t"|trans }}:
         <table>
             <tr>
-                <td><input type="radio" ng-model="activationMethod" value="html_tag" checked="checked"></td>
+                <td><input type="radio" ng-model="activationMethod" value="{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_HTML_TAG') }}" checked="checked"></td>
                 <td>{{ "platforms.activation_method.html_tag"|trans }}</td>
             </tr>
             <tr>
-                <td><input type="radio" ng-model="activationMethod" value="meta_tag"></td>
+                <td><input type="radio" ng-model="activationMethod" value="{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_META_TAG') }}"></td>
                 <td>{{ "platforms.activation_method.meta_tag"|trans }}</td>
             </tr>
             <tr>
-                <td><input type="radio" ng-model="activationMethod" value="txt_file"></td>
+                <td><input type="radio" ng-model="activationMethod" value="{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_TXT_FILE') }}"></td>
                 <td>{{ "platforms.activation_method.txt_file"|trans }}</td>
             </tr>
         </table>
 
-        <div ng-show="isActivationMethod('html_tag')" class="round-border">
+        <div ng-show="isActivationMethod('{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_HTML_TAG') }}')" class="round-border">
             <ol>
                 <li>
                     {{ "platforms.activation_instruction.html_tag.first_item.part_one"|trans }}
-                    {% verbatim %}
-                    <code>linkzone.ru_{{ platform.activation_code }}.html</code>
-                    {% endverbatim %}
+                    <code>{{ linkzone_hostname }}_{% verbatim %}{{ platform.activation_code }}{% endverbatim %}.html</code>
                     {{ "platforms.activation_instruction.html_tag.first_item.part_two"|trans }}:
                     <div>
                         <pre>
@@ -35,7 +33,7 @@
     &lt;head&gt;
         &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
     &lt;/head&gt;
-    &lt;body&gt;Verification: &lt;span id="verification-code"&gt;{% verbatim %}{{ platform.activation_code }}{% endverbatim %}&lt;/span&gt;&lt;/body&gt;
+    &lt;body&gt;Verification: &lt;span id="{{ verification_code_string_name }}"&gt;{% verbatim %}{{ platform.activation_code }}{% endverbatim %}&lt;/span&gt;&lt;/body&gt;
 &lt;/html&gt;</pre>
                     </div>
                 </li>
@@ -43,37 +41,41 @@
                 <li>
                     {{ "platforms.activation_instruction.html_tag.third_item"|trans }}
                     {% verbatim %}
-                    <a href="{{ platform.url }}linkzone.ru_{{ platform.activation_code }}.html">{{ platform.url }}linkzone.ru_{{ platform.activation_code }}.html</a>
+                        <a href="{{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.activation_code }}.html">
+                            {{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.activation_code }}.html
+                        </a>
                     {% endverbatim %}
                 </li>
                 <li>{{ "platforms.activation_instruction.html_tag.fourth_item"|trans }}</li>
             </ol>
         </div>
-        <div ng-show="isActivationMethod('meta_tag')" class="round-border">
+        <div ng-show="isActivationMethod('{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_META_TAG') }}')" class="round-border">
             <ol>
                 <li>
                     {{ "platforms.activation_instruction.meta_tag.first_item"|trans }}
-                    <pre>&lt;meta name='linkzone.ru-verification' content='{% verbatim %}{{ platform.activation_code }}{% endverbatim %}' /&gt;</pre>
+                    <pre>&lt;meta name='{{ linkzone_hostname }}-{{ verification_code_string_name }}' content='{% verbatim %}{{ platform.activation_code }}{% endverbatim %}' /&gt;</pre>
                 </li>
                 <li>{{ "platforms.activation_instruction.meta_tag.second_item"|trans }}</li>
                 <li>{{ "platforms.activation_instruction.meta_tag.third_item"|trans }}</li>
             </ol>
         </div>
-        <div ng-show="isActivationMethod('txt_file')" class="round-border">
+        <div ng-show="isActivationMethod('{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_TXT_FILE') }}')" class="round-border">
             <ol>
                 <li>
                     {{ "platforms.activation_instruction.txt_file.first_item.part_one"|trans }}
-                    {% verbatim %}
-                    <code>linkzone.ru_{{ platform.activation_code }}.txt</code>
-                    {% endverbatim %}
+                    <code>{{ linkzone_hostname }}_{% verbatim %}{{ platform.activation_code }}{% endverbatim %}.txt</code>
                     {{ "platforms.activation_instruction.txt_file.first_item.part_two"|trans }}
                 </li>
                 <li>{{ "platforms.activation_instruction.txt_file.second_item"|trans }}</li>
                 <li>
                     {{ "platforms.activation_instruction.txt_file.third_item"|trans }}
+
                     {% verbatim %}
-                    <a href="{{ platform.url }}linkzone.ru_{{ platform.activation_code }}.txt">{{ platform.url }}linkzone.ru_{{ platform.activation_code }}.txt</a>.
+                        <a href="{{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.activation_code }}.txt">
+                            {{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.activation_code }}.txt
+                        </a>.
                     {% endverbatim %}
+
                 </li>
                 <li>{{ "platforms.activation_instruction.txt_file.fourth_item"|trans }}</li>
             </ol>

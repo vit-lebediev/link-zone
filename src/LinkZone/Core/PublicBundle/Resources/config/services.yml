@@ -41,6 +41,7 @@ services:
         class: LinkZone\Core\PublicBundle\Manager\Platform
         calls:
             - [ setContainer, ["@service_container"] ]
+            - [ init ]
 
     link_zone.core.public.manager.dialog:
         class: LinkZone\Core\PublicBundle\Manager\Dialog

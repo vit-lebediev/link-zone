@@ -2,8 +2,6 @@
 
 function MessagesController($scope, Dialog)
 {
-    $scope.urlPrefix = '/app_dev.php';
-
     $scope.dialogues = Dialog.getAll();
 }
 
@@ -11,8 +9,6 @@ MessagesController.$inject = ['$scope', 'Dialog'];
 
 function DialogsController($scope, $routeParams, $http, Dialog, Message)
 {
-    var urlPrefix = '/app_dev.php';
-
     $scope.dialog = Dialog.get({dialogId: $routeParams.dialogId});
 
     $scope.sendMessageOnEnterPress = function ($event)
@@ -24,7 +20,7 @@ function DialogsController($scope, $routeParams, $http, Dialog, Message)
     $scope.sendMessage = function()
     {
         // We use $http.post here instead of service because we did not create message service (we don't need it, I guess...)
-        $http.post(urlPrefix + '/api/messages/send', {
+        $http.post($scope.routePrefix + '/api/messages/send', {
             senderPlatformId: $scope.dialog.myPlatform.id,
             receiverPlatformId: $scope.dialog.companionPlatform.id,
             message: $scope.message
@@ -38,7 +34,7 @@ function DialogsController($scope, $routeParams, $http, Dialog, Message)
             $scope.message = null;
         })
         .error(function (data, status){
-            console.log ("Some error occured while sending message")
+            console.log ("Some error occured while sending message");
         });
     }
 

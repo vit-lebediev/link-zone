@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
+use LinkZone\Core\PublicBundle\Exception\PlatformActivationException;
+
 use LinkZone\Core\PublicBundle\Entity\Platform;
 use LinkZone\Core\PublicBundle\Form\Type\PlatformType;
 use LinkZone\Core\PublicBundle\Entity\PlatformTopic;
@@ -305,5 +307,60 @@ class PlatformsController extends BaseController
         return $this->render("LinkZoneCorePublicBundle:Platforms:partials/search-filter.html.twig", array(
             'platformSearchFilter' => $platformSearchFilter->createView(),
         ));
+    }
+
+    public function apiActivatePlatformAction($platformId, Request $request)
+    {
+        $this->_verifyIsXmlHttpRequest();
+
+        // check that platform exists
+        $platform = $this->_platformRepository->find($platformId);
+        if (!$platform) {
+            $this->_logger->info("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to activate non existing platform (ID: {$platformId})");
+            return new JsonResponse(array(
+                'message' => $this->_translator->trans("platforms.errors.no_platform", array(), "LZCorePublicBundle"),
+            ), 404);
+        }
+
+        if ($platform->getOwner() !== $this->_user) {
+            $this->_logger->warn("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to activate platfrom (ID: {$platform->getId()}), which belongs to user {$platform->getOwner()->getUsername()} (ID: {$platform->getOwner()->getId()}");
+            // TODO: throw exception
+            return new JsonResponse(array(
+                'message' => $this->_translator->trans("platforms.errors.no_platform", array(), "LZCorePublicBundle"),
+            ), 404);
+        }
+
+        if ($platform->getStatus() !== Platform::STATUS_NOT_CONFIRMED) {
+            $this->_logger->info("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to activate already activated platform (ID: {$platformId})");
+            return new JsonResponse(array(
+                'message' => $this->_translator->trans("platforms.errors.activation.already_activated", array(), "LZCorePublicBundle"),
+            ), 404);
+        }
+
+        // check activation according to the choosen activation way
+        try {
+            $requestData = json_decode($request->getContent(), true);
+
+            switch ($requestData['activationMethod']) {
+                case Platform::ACTIVATION_METHOD_HTML_TAG:
+                    $this->_platformManager->activatePlatformWithHtmlTag($platform);
+                    break;
+                case Platform::ACTIVATION_METHOD_META_TAG:
+                    $this->_platformManager->activatePlatformWithMetaTag($platform);
+                    break;
+                case Platform::ACTIVATION_METHOD_TXT_FILE:
+                    $this->_platformManager->activatePlatformWithTxtFile($platform);
+                    break;
+                default:
+                    throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.invalid_method", array(), "LZCorePublicBundle"));
+            }
+
+            return new JsonResponse();
+        } catch (PlatformActivationException $e) {
+            $this->_logger->err("The activation of platform (ID: {$platform->getId()}) failed. Details: {$e->getMessage()}");
+            return new JsonResponse(array(
+                'message' => $e->getMessage(),
+            ), 400);
+        }
     }
 }
