@@ -51,6 +51,7 @@ class Platform extends ContainerAware
             }
 
             $platform->setStatus(PlatformEntity::STATUS_ON_MODERATION);
+            $platform->setConfirmed(new \DateTime());
 
             $this->_doctrineManager->persist($platform);
             $this->_doctrineManager->flush();
@@ -93,6 +94,7 @@ class Platform extends ContainerAware
             }
 
             $platform->setStatus(PlatformEntity::STATUS_ON_MODERATION);
+            $platform->setConfirmed(new \DateTime());
 
             $this->_doctrineManager->persist($platform);
             $this->_doctrineManager->flush();
@@ -126,6 +128,7 @@ class Platform extends ContainerAware
             $httpClient->get("/{$htmlFileName}")->send();
 
             $platform->setStatus(PlatformEntity::STATUS_ON_MODERATION);
+            $platform->setConfirmed(new \DateTime());
 
             $this->_doctrineManager->persist($platform);
             $this->_doctrineManager->flush();

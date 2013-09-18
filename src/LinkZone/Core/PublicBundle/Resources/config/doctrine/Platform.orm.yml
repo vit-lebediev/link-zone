@@ -25,6 +25,8 @@ LinkZone\Core\PublicBundle\Entity\Platform:
             type: string
             length: 24
             column: confirmation_code
+        confirmed:
+            type: datetime
     manyToOne:
         owner:
             targetEntity: LinkZone\Core\PublicBundle\Entity\User

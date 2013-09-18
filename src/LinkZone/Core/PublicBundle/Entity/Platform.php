@@ -55,6 +55,11 @@ class Platform implements Taggable
     private $confirmationCode;
 
     /**
+     * @var \DateTime
+     */
+    private $confirmed;
+
+    /**
      * @var \LinkZone\Core\PublicBundle\Entity\User
      */
     private $owner;
@@ -267,6 +272,29 @@ class Platform implements Taggable
     public function getConfirmationCode()
     {
         return $this->confirmationCode;
+    }
+
+    /**
+     * Set confirmed
+     *
+     * @param \DateTime $confirmed
+     * @return Platform
+     */
+    public function setConfirmed(\DateTime $confirmed)
+    {
+        $this->confirmed = $confirmed;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmed
+     *
+     * @return \DateTime
+     */
+    public function getConfirmed()
+    {
+        return $this->confirmed;
     }
 
     /**
