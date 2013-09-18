@@ -16,8 +16,9 @@ parameters:
     secret: 0db21b7004b3128335b494ae132fa3edaaabf4c8
 
     linkzone_hostname: "linkzone.ru"
-    activation_html_file_name_format: "%linkzone_hostname%_%s.html"
-    activation_txt_file_name_format: "%linkzone_hostname%_%s.txt"
+
+    confirmation_html_file_name_format: "%linkzone_hostname%_%s.html"
+    confirmation_txt_file_name_format: "%linkzone_hostname%_%s.txt"
 
     default_date_format: "d.m.Y, H:i"
 
@@ -26,4 +27,4 @@ parameters:
     default_message_num_in_dialog: 10
     messages_to_load: 10
 
-    verification_code_string_name: "verification-code"
+    confirmation_code_string_name: "confirmation-code"

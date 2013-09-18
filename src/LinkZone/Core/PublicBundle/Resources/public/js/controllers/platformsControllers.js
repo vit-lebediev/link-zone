@@ -143,27 +143,27 @@ EditPlatformDialogController.$inject = ['$scope', 'Platform', 'dialog', 'platfor
 
 function ConfirmPlatformDialogController($scope, $http, dialog, platform)
 {
-    if (!platform.activation_code) {
+    if (!platform.confirmation_code) {
         // TODO: implement proper error handling
-        alert("No activation code on the platform !");
+        alert("No confirmation code on the platform !");
         dialog.close();
         return;
     }
 
-    $scope.activationMethod = 'HTML_TAG';
+    $scope.confirmationMethod = 'HTML_TAG';
     $scope.platform = platform;
 
     $scope.close = function(result) {
         dialog.close(result);
     }
 
-    $scope.isActivationMethod = function(method) {
-        return $scope.activationMethod === method;
+    $scope.isConfirmationMethod = function(method) {
+        return $scope.confirmationMethod === method;
     }
 
     $scope.confirmPlatform = function() {
-        $http.post($scope.routePrefix + '/api/platforms/' + platform.id + '/activate', {
-            activationMethod: $scope.activationMethod
+        $http.post($scope.routePrefix + '/api/platforms/' + platform.id + '/confirm', {
+            confirmationMethod: $scope.confirmationMethod
         })
         .success(function (data, status) {
             dialog.close(data);

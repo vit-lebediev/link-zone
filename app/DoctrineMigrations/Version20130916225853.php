@@ -15,7 +15,7 @@ class Version20130916225853 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != "postgresql", "Migration can only be executed safely on 'postgresql'.");
 
-        $this->addSql("ALTER TABLE platforms.platforms ADD activation_code VARCHAR(24) NOT NULL");
+        $this->addSql("ALTER TABLE platforms.platforms ADD confirmation_code VARCHAR(24) NOT NULL");
     }
 
     public function down(Schema $schema)
@@ -23,6 +23,6 @@ class Version20130916225853 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() != "postgresql", "Migration can only be executed safely on 'postgresql'.");
 
-        $this->addSql("ALTER TABLE platforms.platforms DROP activation_code");
+        $this->addSql("ALTER TABLE platforms.platforms DROP confirmation_code");
     }
 }

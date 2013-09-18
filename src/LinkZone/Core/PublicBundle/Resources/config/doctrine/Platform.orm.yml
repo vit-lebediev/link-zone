@@ -21,10 +21,10 @@ LinkZone\Core\PublicBundle\Entity\Platform:
             type: datetime
         hidden:
             type: boolean
-        activationCode:
+        confirmationCode:
             type: string
             length: 24
-            column: activation_code
+            column: confirmation_code
     manyToOne:
         owner:
             targetEntity: LinkZone\Core\PublicBundle\Entity\User

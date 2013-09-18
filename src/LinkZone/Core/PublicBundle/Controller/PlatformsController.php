@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-use LinkZone\Core\PublicBundle\Exception\PlatformActivationException;
+use LinkZone\Core\PublicBundle\Exception\PlatformConfirmationException;
 
 use LinkZone\Core\PublicBundle\Entity\Platform;
 use LinkZone\Core\PublicBundle\Form\Type\PlatformType;
@@ -155,7 +155,7 @@ class PlatformsController extends BaseController
             $platform->setStatus(Platform::STATUS_NOT_CONFIRMED)
                      ->setCreated(new \DateTime())
                      ->setOwner($this->_user)
-                     ->setActivationCode(Utils::getRandomString(24));
+                     ->setConfirmationCode(Utils::getRandomString(24));
 
             $reqeustPlatform = $this->getRequest()->get("platform");
 
@@ -309,21 +309,21 @@ class PlatformsController extends BaseController
         ));
     }
 
-    public function apiActivatePlatformAction($platformId, Request $request)
+    public function apiConfirmPlatformAction($platformId, Request $request)
     {
         $this->_verifyIsXmlHttpRequest();
 
         // check that platform exists
         $platform = $this->_platformRepository->find($platformId);
         if (!$platform) {
-            $this->_logger->warn("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to activate non existing platform (ID: {$platformId})");
+            $this->_logger->warn("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to confirm non existing platform (ID: {$platformId})");
             return new JsonResponse(array(
                 'message' => $this->_translator->trans("platforms.errors.no_platform", array(), "LZCorePublicBundle"),
             ), 404);
         }
 
         if ($platform->getOwner() !== $this->_user) {
-            $this->_logger->warn("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to activate platfrom (ID: {$platform->getId()}), which belongs to user {$platform->getOwner()->getUsername()} (ID: {$platform->getOwner()->getId()}");
+            $this->_logger->warn("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to confirm platfrom (ID: {$platform->getId()}), which belongs to user {$platform->getOwner()->getUsername()} (ID: {$platform->getOwner()->getId()}");
             // TODO: throw exception
             return new JsonResponse(array(
                 'message' => $this->_translator->trans("platforms.errors.no_platform", array(), "LZCorePublicBundle"),
@@ -331,37 +331,37 @@ class PlatformsController extends BaseController
         }
 
         if ($platform->getStatus() !== Platform::STATUS_NOT_CONFIRMED) {
-            $this->_logger->warn("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to activate already activated platform (ID: {$platformId})");
+            $this->_logger->warn("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to confirm already confirmed platform (ID: {$platformId})");
             return new JsonResponse(array(
-                'message' => $this->_translator->trans("platforms.errors.activation.already_activated", array(), "LZCorePublicBundle"),
+                'message' => $this->_translator->trans("platforms.errors.confirmation.already_confirmed", array(), "LZCorePublicBundle"),
             ), 404);
         }
 
-        $this->_logger->info("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) started activation process on platform {$platform->getUrl()} (ID: {$platform->getId()})");
+        $this->_logger->info("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) started confirmation process on platform {$platform->getUrl()} (ID: {$platform->getId()})");
 
-        // check activation according to the choosen activation way
+        // check confirmation according to the choosen confirmation way
         try {
             $requestData = json_decode($request->getContent(), true);
 
-            switch ($requestData['activationMethod']) {
-                case Platform::ACTIVATION_METHOD_HTML_TAG:
-                    $this->_platformManager->activatePlatformWithHtmlTag($platform);
+            switch ($requestData['confirmationMethod']) {
+                case Platform::CONFIRMATION_METHOD_HTML_TAG:
+                    $this->_platformManager->confirmPlatformWithHtmlTag($platform);
                     break;
-                case Platform::ACTIVATION_METHOD_META_TAG:
-                    $this->_platformManager->activatePlatformWithMetaTag($platform);
+                case Platform::CONFIRMATION_METHOD_META_TAG:
+                    $this->_platformManager->confirmPlatformWithMetaTag($platform);
                     break;
-                case Platform::ACTIVATION_METHOD_TXT_FILE:
-                    $this->_platformManager->activatePlatformWithTxtFile($platform);
+                case Platform::CONFIRMATION_METHOD_TXT_FILE:
+                    $this->_platformManager->confirmPlatformWithTxtFile($platform);
                     break;
                 default:
-                    throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.invalid_method", array(), "LZCorePublicBundle"));
+                    throw new PlatformConfirmationException($this->_translator->trans("platforms.errors.confirmation.invalid_method", array(), "LZCorePublicBundle"));
             }
 
             return new JsonResponse([
                 'new_status_code' => $platform->getStatus(),
                 'new_status_string' => $this->_translator->trans("platforms.statuses.{$platform->getStatus()}", array(), "LZCorePublicBundle")
             ]);
-        } catch (PlatformActivationException $e) {
+        } catch (PlatformConfirmationException $e) {
             return new JsonResponse(array(
                 'error_message' => $e->getMessage(),
             ), 400);

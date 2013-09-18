@@ -25,7 +25,7 @@ twig:
     globals:
         default_date_format: "%default_date_format%"
         messages_to_load: "%messages_to_load%"
-        verification_code_string_name: "%verification_code_string_name%"
+        confirmation_code_string_name: "%confirmation_code_string_name%"
         linkzone_hostname: "%linkzone_hostname%"
 
 # Assetic Configuration

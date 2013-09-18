@@ -1,83 +1,83 @@
 {% trans_default_domain "LZCorePublicBundle" %}
 
 <div class="modal-header">
-    {{ "platforms.activate_platform"|trans }}
+    {{ "platforms.confirm_platform"|trans }}
 </div>
 <form ng-submit="confirmPlatform()">
     <div class="modal-body">
-        {{ "platforms.activation_method_t"|trans }}:
+        {{ "platforms.confirmation_method_t"|trans }}:
         <table>
             <tr>
-                <td><input type="radio" ng-model="activationMethod" value="{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_HTML_TAG') }}" checked="checked"></td>
-                <td>{{ "platforms.activation_method.html_tag"|trans }}</td>
+                <td><input type="radio" ng-model="confirmationMethod" value="{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::CONFIRMATION_METHOD_HTML_TAG') }}" checked="checked"></td>
+                <td>{{ "platforms.confirmation_method.html_tag"|trans }}</td>
             </tr>
             <tr>
-                <td><input type="radio" ng-model="activationMethod" value="{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_META_TAG') }}"></td>
-                <td>{{ "platforms.activation_method.meta_tag"|trans }}</td>
+                <td><input type="radio" ng-model="confirmationMethod" value="{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::CONFIRMATION_METHOD_META_TAG') }}"></td>
+                <td>{{ "platforms.confirmation_method.meta_tag"|trans }}</td>
             </tr>
             <tr>
-                <td><input type="radio" ng-model="activationMethod" value="{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_TXT_FILE') }}"></td>
-                <td>{{ "platforms.activation_method.txt_file"|trans }}</td>
+                <td><input type="radio" ng-model="confirmationMethod" value="{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::CONFIRMATION_METHOD_TXT_FILE') }}"></td>
+                <td>{{ "platforms.confirmation_method.txt_file"|trans }}</td>
             </tr>
         </table>
 
-        <div ng-show="isActivationMethod('{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_HTML_TAG') }}')" class="round-border">
+        <div ng-show="isConfirmationMethod('{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::CONFIRMATION_METHOD_HTML_TAG') }}')" class="round-border">
             <ol>
                 <li>
-                    {{ "platforms.activation_instruction.html_tag.first_item.part_one"|trans }}
-                    <code>{{ linkzone_hostname }}_{% verbatim %}{{ platform.activation_code }}{% endverbatim %}.html</code>
-                    {{ "platforms.activation_instruction.html_tag.first_item.part_two"|trans }}:
+                    {{ "platforms.confirmation_instruction.html_tag.first_item.part_one"|trans }}
+                    <code>{{ linkzone_hostname }}_{% verbatim %}{{ platform.confirmation_code }}{% endverbatim %}.html</code>
+                    {{ "platforms.confirmation_instruction.html_tag.first_item.part_two"|trans }}:
                     <div>
                         <pre>
 &lt;html&gt;
     &lt;head&gt;
         &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8"&gt;
     &lt;/head&gt;
-    &lt;body&gt;Verification: &lt;span id="{{ verification_code_string_name }}"&gt;{% verbatim %}{{ platform.activation_code }}{% endverbatim %}&lt;/span&gt;&lt;/body&gt;
+    &lt;body&gt;Confirmation: &lt;span id="{{ confirmation_code_string_name }}"&gt;{% verbatim %}{{ platform.confirmation_code }}{% endverbatim %}&lt;/span&gt;&lt;/body&gt;
 &lt;/html&gt;</pre>
                     </div>
                 </li>
-                <li>{{ "platforms.activation_instruction.html_tag.second_item"|trans }}</li>
+                <li>{{ "platforms.confirmation_instruction.html_tag.second_item"|trans }}</li>
                 <li>
-                    {{ "platforms.activation_instruction.html_tag.third_item"|trans }}
+                    {{ "platforms.confirmation_instruction.html_tag.third_item"|trans }}
                     {% verbatim %}
-                        <a href="{{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.activation_code }}.html">
-                            {{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.activation_code }}.html
+                        <a href="{{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.confirmation_code }}.html">
+                            {{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.confirmation_code }}.html
                         </a>
                     {% endverbatim %}
                 </li>
-                <li>{{ "platforms.activation_instruction.html_tag.fourth_item"|trans }}</li>
+                <li>{{ "platforms.confirmation_instruction.html_tag.fourth_item"|trans }}</li>
             </ol>
         </div>
-        <div ng-show="isActivationMethod('{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_META_TAG') }}')" class="round-border">
+        <div ng-show="isConfirmationMethod('{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::CONFIRMATION_METHOD_META_TAG') }}')" class="round-border">
             <ol>
                 <li>
-                    {{ "platforms.activation_instruction.meta_tag.first_item"|trans }}
-                    <pre>&lt;meta name='{{ linkzone_hostname }}-{{ verification_code_string_name }}' content='{% verbatim %}{{ platform.activation_code }}{% endverbatim %}' /&gt;</pre>
+                    {{ "platforms.confirmation_instruction.meta_tag.first_item"|trans }}
+                    <pre>&lt;meta name='{{ linkzone_hostname }}-{{ confirmation_code_string_name }}' content='{% verbatim %}{{ platform.confirmation_code }}{% endverbatim %}' /&gt;</pre>
                 </li>
-                <li>{{ "platforms.activation_instruction.meta_tag.second_item"|trans }}</li>
-                <li>{{ "platforms.activation_instruction.meta_tag.third_item"|trans }}</li>
+                <li>{{ "platforms.confirmation_instruction.meta_tag.second_item"|trans }}</li>
+                <li>{{ "platforms.confirmation_instruction.meta_tag.third_item"|trans }}</li>
             </ol>
         </div>
-        <div ng-show="isActivationMethod('{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::ACTIVATION_METHOD_TXT_FILE') }}')" class="round-border">
+        <div ng-show="isConfirmationMethod('{{ constant('LinkZone\\Core\\PublicBundle\\Entity\\Platform::CONFIRMATION_METHOD_TXT_FILE') }}')" class="round-border">
             <ol>
                 <li>
-                    {{ "platforms.activation_instruction.txt_file.first_item.part_one"|trans }}
-                    <code>{{ linkzone_hostname }}_{% verbatim %}{{ platform.activation_code }}{% endverbatim %}.txt</code>
-                    {{ "platforms.activation_instruction.txt_file.first_item.part_two"|trans }}
+                    {{ "platforms.confirmation_instruction.txt_file.first_item.part_one"|trans }}
+                    <code>{{ linkzone_hostname }}_{% verbatim %}{{ platform.confirmation_code }}{% endverbatim %}.txt</code>
+                    {{ "platforms.confirmation_instruction.txt_file.first_item.part_two"|trans }}
                 </li>
-                <li>{{ "platforms.activation_instruction.txt_file.second_item"|trans }}</li>
+                <li>{{ "platforms.confirmation_instruction.txt_file.second_item"|trans }}</li>
                 <li>
-                    {{ "platforms.activation_instruction.txt_file.third_item"|trans }}
+                    {{ "platforms.confirmation_instruction.txt_file.third_item"|trans }}
 
                     {% verbatim %}
-                        <a href="{{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.activation_code }}.txt">
-                            {{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.activation_code }}.txt
+                        <a href="{{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.confirmation_code }}.txt">
+                            {{ platform.url }}{% endverbatim %}{{ linkzone_hostname }}{% verbatim %}_{{ platform.confirmation_code }}.txt
                         </a>.
                     {% endverbatim %}
 
                 </li>
-                <li>{{ "platforms.activation_instruction.txt_file.fourth_item"|trans }}</li>
+                <li>{{ "platforms.confirmation_instruction.txt_file.fourth_item"|trans }}</li>
             </ol>
         </div>
     </div>

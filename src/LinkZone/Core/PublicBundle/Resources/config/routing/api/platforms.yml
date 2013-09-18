@@ -24,9 +24,9 @@ linkzone_core_public_api_platforms_edit:
         _method: POST
         platformId: \d+
 
-linkzone_core_public_api_platforms_activate:
-    pattern: /{platformId}/activate
-    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:apiActivatePlatform }
+linkzone_core_public_api_platforms_confirm:
+    pattern: /{platformId}/confirm
+    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:apiConfirmPlatform }
     methods: [POST]
     requirements:
         platformId: \d+

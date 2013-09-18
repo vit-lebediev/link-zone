@@ -52,7 +52,7 @@ class Platform implements Taggable
     /**
      * @var string
      */
-    private $activationCode;
+    private $confirmationCode;
 
     /**
      * @var \LinkZone\Core\PublicBundle\Entity\User
@@ -98,9 +98,15 @@ class Platform implements Taggable
 
     const TAGGABLE_TYPE = "platform";
 
-    const ACTIVATION_METHOD_HTML_TAG = "HTML_TAG";
-    const ACTIVATION_METHOD_META_TAG = "META_TAG";
-    const ACTIVATION_METHOD_TXT_FILE = "TXT_FILE";
+    const CONFIRMATION_METHOD_HTML_TAG = "HTML_TAG";
+    const CONFIRMATION_METHOD_META_TAG = "META_TAG";
+    const CONFIRMATION_METHOD_TXT_FILE = "TXT_FILE";
+
+    public static $availableConfirmationMethods = [
+        self::CONFIRMATION_METHOD_HTML_TAG,
+        self::CONFIRMATION_METHOD_META_TAG,
+        self::CONFIRMATION_METHOD_TXT_FILE
+    ];
 
     /**
      * Constructor
@@ -241,26 +247,26 @@ class Platform implements Taggable
     }
 
     /**
-     * Set activationCode
+     * Set confirmationCode
      *
-     * @param string $activationCode
+     * @param string $confirmationCode
      * @return Platform
      */
-    public function setActivationCode($activationCode)
+    public function setConfirmationCode($confirmationCode)
     {
-        $this->activationCode = $activationCode;
+        $this->confirmationCode = $confirmationCode;
 
         return $this;
     }
 
     /**
-     * Get activationCode
+     * Get confirmationCode
      *
      * @return string
      */
-    public function getActivationCode()
+    public function getConfirmationCode()
     {
-        return $this->activationCode;
+        return $this->confirmationCode;
     }
 
     /**

@@ -47,13 +47,13 @@ platforms:
     articles_index:    Индексация статей
     confirm:           Подтвердить
     confirmed:         Подтверждена
-    activate_platform: Активация площадки
-    activation_method_t: Способ активации
-    activation_method:
+    confirm_platform:  Подтверждение площадки
+    confirmation_method_t: Способ подтверждения
+    confirmation_method:
         html_tag: HTML тег
         meta_tag: Мета тег
         txt_file: TXT-файл
-    activation_instruction:
+    confirmation_instruction:
         html_tag:
             first_item:
                 part_one: Создайте html-файл с именем
@@ -110,12 +110,12 @@ platforms:
         humor:              Юмор
     errors:
         no_platform: Площадка не найдена
-        activation:
-            invalid_method: Данный способ активации не поддерживается
-            failed: При активации площадки произошла ошибка.
-            invalid_verification_code_in_html_tag: Вы разместили неверный код активации в файле активации
-            already_activated: Площадка, которую вы пытаетесь подтвердить, уже была подтверждена
-            failed_fetch_file: У нас не получилось получить доступ к файлу подтверждения. Проверьте что вы назвали его правильно, и он доступен по правильному адресу.
+        confirmation:
+            invalid_method: Данный способ подтверждения площадки не поддерживается
+            failed: При подтверждении площадки произошла ошибка.
+            invalid_confirmation_code_in_html_tag: Вы разместили неверный код подтверждения в файле подтверждения
+            already_confirmed: Площадка, которую вы пытаетесь подтвердить, уже была подтверждена
+            failed_fetch_file: У нас не получилось получить доступ к файлу подтверждения. Проверьте, что его название правильно, и он доступен по приведенному адресу.
             invalid_html_tag_file_contents: Похоже, что содержимое файла было скопировано не полностью или с ошибками. Убедитесь, что файл содержит точную копию приведенного кода.
             failed_access_site: У нас не получилось получить доступ к вашему сайту.
             cant_find_meta_tag: Мы не смогли найти мета тег в заголовке head на вашем сайте. Убедитесь, что мета тег на месте.
