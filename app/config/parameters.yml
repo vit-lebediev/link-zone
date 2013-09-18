@@ -17,6 +17,7 @@ parameters:
 
     linkzone_hostname: "linkzone.ru"
     activation_html_file_name_format: "%linkzone_hostname%_%s.html"
+    activation_txt_file_name_format: "%linkzone_hostname%_%s.txt"
 
     default_date_format: "d.m.Y, H:i"
 

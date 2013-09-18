@@ -316,7 +316,7 @@ class PlatformsController extends BaseController
         // check that platform exists
         $platform = $this->_platformRepository->find($platformId);
         if (!$platform) {
-            $this->_logger->info("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to activate non existing platform (ID: {$platformId})");
+            $this->_logger->warn("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to activate non existing platform (ID: {$platformId})");
             return new JsonResponse(array(
                 'message' => $this->_translator->trans("platforms.errors.no_platform", array(), "LZCorePublicBundle"),
             ), 404);
@@ -331,11 +331,13 @@ class PlatformsController extends BaseController
         }
 
         if ($platform->getStatus() !== Platform::STATUS_NOT_CONFIRMED) {
-            $this->_logger->info("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to activate already activated platform (ID: {$platformId})");
+            $this->_logger->warn("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) tried to activate already activated platform (ID: {$platformId})");
             return new JsonResponse(array(
                 'message' => $this->_translator->trans("platforms.errors.activation.already_activated", array(), "LZCorePublicBundle"),
             ), 404);
         }
+
+        $this->_logger->info("User {$this->_user->getUsername()} (ID: {$this->_user->getId()}) started activation process on platform {$platform->getUrl()} (ID: {$platform->getId()})");
 
         // check activation according to the choosen activation way
         try {
@@ -355,11 +357,13 @@ class PlatformsController extends BaseController
                     throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.invalid_method", array(), "LZCorePublicBundle"));
             }
 
-            return new JsonResponse();
+            return new JsonResponse([
+                'new_status_code' => $platform->getStatus(),
+                'new_status_string' => $this->_translator->trans("platforms.statuses.{$platform->getStatus()}", array(), "LZCorePublicBundle")
+            ]);
         } catch (PlatformActivationException $e) {
-            $this->_logger->err("The activation of platform (ID: {$platform->getId()}) failed. Details: {$e->getMessage()}");
             return new JsonResponse(array(
-                'message' => $e->getMessage(),
+                'error_message' => $e->getMessage(),
             ), 400);
         }
     }

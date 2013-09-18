@@ -25,6 +25,12 @@ class Platform extends ContainerAware
         $this->_doctrineManager = $this->container->get('doctrine')->getManager();
     }
 
+    /**
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Platform $platform
+     * @throws PlatformActivationException
+     * @throws \Guzzle\Http\Exception\ClientErrorResponseException
+     */
     public function activatePlatformWithHtmlTag(PlatformEntity $platform)
     {
         try {
@@ -40,34 +46,97 @@ class Platform extends ContainerAware
             $remoteVerificationCode = $domCrawler->filterXPath("//body/span[@id='{$this->container->getParameter("verification_code_string_name")}']")->text();
 
             if ($remoteVerificationCode !== $platform->getActivationCode()) {
+                $this->_logger->err("Activation code ({$remoteVerificationCode}) for platform (ID: {$platform->getId()}), places on remote host, is not correct. (Correct is: {$platform->getActivationCode()})");
                 throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.invalid_verification_code_in_html_tag", array(), "LZCorePublicBundle"));
             }
 
-            $platform->setStatus(PlatformEntity::STATUS_ACTIVE);
+            $platform->setStatus(PlatformEntity::STATUS_ON_MODERATION);
+
             $this->_doctrineManager->persist($platform);
             $this->_doctrineManager->flush();
 
-            $this->_logger->info("Activation of platform with ID {$platform->getId()} with HTML TAG completed successfully.");
+            $this->_logger->info("Activation of platform with ID {$platform->getId()} with HTML TAG has completed successfully.");
         } catch (HttpClientErrorResponseException $e) {
-            $this->_logger->err("Failed fetching verification HTML TAG file from client site (Platform url: {$platform->getUrl()}, ID: {$platform->getId()})");
+            $this->_logger->err("Failed fetching verification HTML TAG file from platform {$platform->getUrl()} (ID: {$platform->getId()})");
             throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.failed_fetch_file", array(), "LZCorePublicBundle"), 0, $e);
         } catch (PlatformActivationException $e) {
             throw $e;
         } catch (\InvalidArgumentException $e) {
+            $this->_logger->err("Invalid HTML TAG file contents on platform activation (ID: {$platform->getId})");
             throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.invalid_html_tag_file_contents", array(), "LZCorePublicBundle"), 0, $e);
         } catch (\Exception $e) {
             throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.failed", array(), "LZCorePublicBundle"), 0, $e);
         }
     }
 
+    /**
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Platform $platform
+     * @throws PlatformActivationException
+     * @throws \Guzzle\Http\Exception\ClientErrorResponseException
+     */
     public function activatePlatformWithMetaTag(PlatformEntity $platform)
     {
+        try {
+            $httpClient = new HttpClient($platform->getUrl());
 
+            $response = $httpClient->get("/")->send();
+
+            $asString = true;
+            $domCrawler = new DomCrawler($response->getBody($asString));
+
+            $remoteVerificationCode = $domCrawler->filterXPath("//head/meta[@name='{$this->container->getParameter("linkzone_hostname")}-{$this->container->getParameter("verification_code_string_name")}']")->attr("content");
+
+            if ($remoteVerificationCode !== $platform->getActivationCode()) {
+                $this->_logger->err("Activation code ({$remoteVerificationCode}) for platform (ID: {$platform->getId()}), places on remote host, is not correct. (Correct is: {$platform->getActivationCode()})");
+                throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.invalid_verification_code_in_html_tag", array(), "LZCorePublicBundle"));
+            }
+
+            $platform->setStatus(PlatformEntity::STATUS_ON_MODERATION);
+
+            $this->_doctrineManager->persist($platform);
+            $this->_doctrineManager->flush();
+
+            $this->_logger->info("Activation of platform with ID {$platform->getId()} with META TAG has completed successfully.");
+        } catch (HttpClientErrorResponseException $e) {
+            $this->_logger->err("Failed fetching verification META TAG data from platform {$platform->getUrl()} (ID: {$platform->getId()})");
+            throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.failed_fetch_file", array(), "LZCorePublicBundle"), 0, $e);
+        } catch (PlatformActivationException $e) {
+            throw $e;
+        } catch (\InvalidArgumentException $e) {
+            $this->_logger->err("Invalid META TAG file contents or missing meta tag on platform activation (ID: {$platform->getId()})");
+            throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.cant_find_meta_tag", array(), "LZCorePublicBundle"), 0, $e);
+        } catch (\Exception $e) {
+            throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.failed", array(), "LZCorePublicBundle"), 0, $e);
+        }
     }
 
+    /**
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\Platform $platform
+     * @throws PlatformActivationException
+     */
     public function activatePlatformWithTxtFile(PlatformEntity $platform)
     {
+        try {
+            $httpClient = new HttpClient($platform->getUrl());
 
+            $htmlFileName = sprintf($this->container->getParameter("activation_txt_file_name_format"), $platform->getActivationCode());
+
+            $httpClient->get("/{$htmlFileName}")->send();
+
+            $platform->setStatus(PlatformEntity::STATUS_ON_MODERATION);
+
+            $this->_doctrineManager->persist($platform);
+            $this->_doctrineManager->flush();
+
+            $this->_logger->info("Activation of platform with ID {$platform->getId()} with TXT FILE has completed successfully.");
+        } catch (HttpClientErrorResponseException $e) {
+            $this->_logger->err("Failed fetching verification TXT FILE file from platform {$platform->getUrl()} (ID: {$platform->getId()})");
+            throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.failed_fetch_file", array(), "LZCorePublicBundle"), 0, $e);
+        } catch (\Exception $e) {
+            throw new PlatformActivationException($this->_translator->trans("platforms.errors.activation.failed", array(), "LZCorePublicBundle"), 0, $e);
+        }
     }
 
     /**

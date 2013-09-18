@@ -62,8 +62,9 @@ function PlatformsController($scope, $dialog, Platform)
             }
         });
 
-        dialog.open().then(function(platform) {
-            // do nothing...
+        dialog.open().then(function(data) {
+            platform.status_code = data.new_status_code;
+            platform.status_string = data.new_status_string;
         });
     }
 
@@ -168,7 +169,7 @@ function ConfirmPlatformDialogController($scope, $http, dialog, platform)
             dialog.close(data);
         })
         .error(function (data, status) {
-            console.log ("Some error occured while sending message");
+            console.log (status + " Error during platform confirmation: " + data.error_message);
         });
     }
 }
