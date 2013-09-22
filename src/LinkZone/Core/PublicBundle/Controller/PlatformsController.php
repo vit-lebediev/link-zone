@@ -59,9 +59,9 @@ class PlatformsController extends BaseController
             $filter['topicId'] = $topicId;
         }
 
-        if (isset($request->get("platform_search")['owner']['lastLogin'])
-                AND $lastLogin = $request->get("platform_search")['owner']['lastLogin']
-                AND !empty($lastLogin))
+        $lastLogin = $request->get("lastLogin");
+
+        if (!empty($lastLogin))
         {
             $thereIsFilter = true;
             $filter['lastLogin'] = $lastLogin;

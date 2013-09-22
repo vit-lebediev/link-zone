@@ -12,7 +12,12 @@
                     </tr>
                     <tr>
                         <td>{{ "platforms.search.last_login"|trans }}</td>
-                        <td>{{ form_widget(platformSearchFilter.owner.lastLogin) }}</td>
+                        <td>
+                            <div class="control-group input-append">
+                                <input type="text" ng-model="lastLogin" data-date-format="dd/mm/yyyy" bs-datepicker>
+                                <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>{{ "platforms.keywords"|trans }}</td>

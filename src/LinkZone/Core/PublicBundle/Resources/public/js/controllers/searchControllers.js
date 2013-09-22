@@ -8,7 +8,8 @@ function PlatformsSearchController($scope, $dialog, Platform)
 
     $scope.search = function() {
         $scope.platforms = Platform.search({
-            topicId: this.filter_topic
+            topicId: this.filter_topic,
+            lastLogin: this.lastLogin
         });
     }
 
