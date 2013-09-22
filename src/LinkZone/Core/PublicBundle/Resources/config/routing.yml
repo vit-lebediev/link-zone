@@ -59,25 +59,25 @@ linkzone_core_public_platforms_ajax_tags:
 
 linkzone_core_public_platforms_search:
     pattern: /platforms/search
-    defaults: { _controller: LinkZoneCorePublicBundle:Platforms:search }
+    defaults: { _controller: LinkZoneCorePublicBundle:Default:index }
     requirements:
         _method: GET
 
 linkzone_core_public_requests_exchange:
     pattern: /orders/for-exchange
-    defaults: { _controller: LinkZoneCorePublicBundle:Requests:exchange }
+    defaults: { _controller: LinkZoneCorePublicBundle:Default:index }
     requirements:
         _method: GET
 
 linkzone_core_public_requests_in_progress:
     pattern: /orders/in-progress
-    defaults: { _controller: LinkZoneCorePublicBundle:Requests:inProgress }
+    defaults: { _controller: LinkZoneCorePublicBundle:Default:index }
     requirements:
         _method: GET
 
 linkzone_core_public_requests_finished:
     pattern: /orders/finished
-    defaults: { _controller: LinkZoneCorePublicBundle:Requests:finished }
+    defaults: { _controller: LinkZoneCorePublicBundle:Default:index }
     requirements:
         _method: GET
 
