@@ -8,7 +8,7 @@
             <div>{{ "messages.last_received"|trans }}:</div>
             <div class="message"></div>
             {% verbatim %}
-            <a ng-href="{{ urlPrefix }}/messages/dialog/{{ dialog.id }}" target="_blank">{{ dialog.lastMessage }}</a>
+            <a ng-href="{{ routePrefix }}/messages/dialog/{{ dialog.id }}" target="_blank">{{ dialog.lastMessage }}</a>
             {% endverbatim %}
         </div>
         <div>
