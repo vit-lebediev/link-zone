@@ -64,7 +64,7 @@ class PlatformRepository extends EntityRepository
                 case "lastLogin":
                     $qb->leftJoin("platform.owner", "owner");
                     $andCondition->add($qb->expr()->gte("owner.lastLogin", ":lastLogin"));
-                    $qb->setParameter(":lastLogin", new \DateTime($this->_parseDateArrayToString($value)));
+                    $qb->setParameter(":lastLogin", new \DateTime($value));
                     break;
                 case "platformSearchTags":
                     break;
