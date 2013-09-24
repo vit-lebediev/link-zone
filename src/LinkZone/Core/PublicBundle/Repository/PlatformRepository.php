@@ -5,6 +5,7 @@ namespace LinkZone\Core\PublicBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\Common\Collections\ArrayCollection;
+use LinkZone\Core\PublicBundle\Entity\User;
 
 /**
  * PlatformRepository
@@ -26,7 +27,16 @@ class PlatformRepository extends EntityRepository
         ));
     }
 
-    public function findAllNotHiddenExceptForUser($user)
+    /**
+     * Return query builder where:
+     * - not show hidden
+     * - owner not $user
+     * - sort by platform.created desc
+     *
+     * @param \LinkZone\Core\PublicBundle\Entity\User $user
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getQbAllNotHiddenExceptForUser(User $user)
     {
         $qb = $this->createQueryBuilder("platform");
         $qb->where($qb->expr()->andx(
@@ -39,7 +49,17 @@ class PlatformRepository extends EntityRepository
 
         $qb->orderBy("platform.created", "DESC");
 
-        return new ArrayCollection($qb->getQuery()->getResult());
+        return $qb;
+    }
+
+    /**
+     * @param $user
+     *
+     * @return ArrayCollection
+     */
+    public function findAllNotHiddenExceptForUser($user)
+    {
+        return new ArrayCollection($this->getQbAllNotHiddenExceptForUser($user)->getQuery()->getResult());
     }
 
     /**

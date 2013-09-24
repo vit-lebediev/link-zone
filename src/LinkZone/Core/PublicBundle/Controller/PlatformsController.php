@@ -3,6 +3,7 @@
 namespace LinkZone\Core\PublicBundle\Controller;
 
 use DoctrineExtensions\Taggable\TagManager;
+use LinkZone\Core\PublicBundle\Helper\TableOrmHelper;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -64,59 +65,27 @@ class PlatformsController extends BaseController
     {
         $this->_verifyIsXmlHttpRequest();
 
-        $thereIsFilter      = false;
-        $lastLogin          = null;
-        $filter             = array();
-        $platformSearchTags = array();
+        // Here you may set sorting fields name
+        $allowedSortingFields = array('platform.topic', 'platform.id');
 
-        $platform = new Platform();
-        if ($topicId = $request->get("topicId") AND is_numeric($topicId))
-        {
-            $platform->setTopic($this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:PlatformTopic")->find($topicId));
-            $thereIsFilter = true;
-            $filter['topicId'] = $topicId;
-        }
+        // Prepare initial query builder
+        $platformsQb = $this->_platformRepository->getQbAllNotHiddenExceptForUser($this->_user);
 
-        if (isset($request->get("platform_search")['owner']['lastLogin'])
-                AND $lastLogin = $request->get("platform_search")['owner']['lastLogin']
-                AND !empty($lastLogin))
-        {
-            $thereIsFilter = true;
-            $filter['lastLogin'] = $lastLogin;
-        }
+        // Add sorting and pagination support
+        $tableHelper = new TableOrmHelper($request, $platformsQb);
+        $tableHelper->addSortingHelper($allowedSortingFields, $this->_logger);
 
-        if ($rawTags = mb_strtolower($request->get("platform_tags")) AND strlen($rawTags) > 0)
-        {
-            $thereIsFilter = true;
-            $tags = $this->_tagManager->loadOrCreateTags($this->_tagManager->splitTagNames($rawTags));
-            $filter['platformSearchTags'] = $tags;
-        }
+        // Execute query
+        $platforms = $tableHelper->executeQuery();
 
-        $platformSearchFilter = $this->createForm(new PlatformSearchFilter(), $platform, array(
-            'container' => $this->container,
-            'lastLogin' => $lastLogin,
-        ));
-
-        if ($thereIsFilter) {
-            $platforms = $this->_platformRepository->findAllByFilterExceptForUser($this->_user, $filter);
-        } else {
-            $platforms = $this->_platformRepository->findAllNotHiddenExceptForUser($this->_user);
-        }
-
+        // Result processing
         $platformArray = array();
-
         foreach ($platforms as $platform) {
             $platformArray[] = $this->_platformManager->toArray($platform);
         }
 
+        // Send to view
         return new JsonResponse($platformArray);
-
-        /**
-        return $this->render("LinkZoneCorePublicBundle:Platforms:search.html.twig", array(
-            'platforms' => $platforms,
-            'platformSearchFilter' => $platformSearchFilter->createView(),
-            'platformSearchTags' => $platformSearchTags,
-        ));*/
     }
 
     /**

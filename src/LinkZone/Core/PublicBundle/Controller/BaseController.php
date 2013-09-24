@@ -4,6 +4,7 @@ namespace LinkZone\Core\PublicBundle\Controller;
 
 use LinkZone\Core\PublicBundle\Entity\User;
 use LinkZone\Core\PublicBundle\Repository\PlatformRepository;
+use Symfony\Bridge\Monolog\Logger;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Symfony\Bundle\MonologBundle\MonologBundle;
@@ -12,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class BaseController extends Controller
 {
     /**
-     * @var MonologBundle
+     * @var Logger
      */
     protected $_logger;
     protected $_doctrineManager;

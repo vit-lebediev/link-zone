@@ -14,11 +14,11 @@
                 {% verbatim %}<a href="{{ platform.url }}">{{ platform.url }}</a>{% endverbatim %}
             </td>
 
-            <td data-title="'{{ "platforms.tyc"|trans }}'">
+            <td data-title="'{{ "platforms.tyc"|trans }}'" sortable="platform.id">
                 {% verbatim %}{{ platform.id }}{% endverbatim %}
             </td>
 
-            <td data-title="'{{ "platforms.pr"|trans }}'" sortable="topic">
+            <td data-title="'{{ "platforms.pr"|trans }}'" sortable="platform.topic">
                 {% verbatim %}{{ platform.topic }}{% endverbatim %}
             </td>
 
