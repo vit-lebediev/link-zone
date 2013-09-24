@@ -49,6 +49,7 @@ platforms:
     confirmed:         Подтверждена
     confirm_platform:  Подтверждение площадки
     confirmation_method_t: Способ подтверждения
+    id:                ID
     confirmation_method:
         html_tag: HTML тег
         meta_tag: Мета тег

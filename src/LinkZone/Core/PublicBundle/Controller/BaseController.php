@@ -2,15 +2,29 @@
 
 namespace LinkZone\Core\PublicBundle\Controller;
 
+use LinkZone\Core\PublicBundle\Entity\User;
+use LinkZone\Core\PublicBundle\Repository\PlatformRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class BaseController extends Controller
 {
+    /**
+     * @var MonologBundle
+     */
     protected $_logger;
     protected $_doctrineManager;
+
+    /**
+     * @var User
+     */
     protected $_user;
+
+    /**
+     * @var PlatformRepository
+     */
     protected $_platformRepository;
     protected $_translator;
     protected $_validator;

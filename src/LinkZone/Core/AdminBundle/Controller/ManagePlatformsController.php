@@ -3,6 +3,7 @@
 namespace LinkZone\Core\AdminBundle\Controller;
 
 // import core Symfony components
+use Doctrine\Common\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -16,6 +17,9 @@ use LinkZone\Core\AdminBundle\Entity\LogPlatformStatusChangesEntry;
 
 class ManagePlatformsController extends Controller
 {
+    /**
+     * @var ObjectRepository
+     */
     private $_platformRepository;
     private $_doctrineManager;
     private $_translator;

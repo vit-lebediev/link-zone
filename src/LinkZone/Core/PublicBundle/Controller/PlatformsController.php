@@ -2,6 +2,7 @@
 
 namespace LinkZone\Core\PublicBundle\Controller;
 
+use DoctrineExtensions\Taggable\TagManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -17,8 +18,19 @@ use LinkZone\Core\PublicBundle\DependencyInjection\Helper\Utils;
 
 class PlatformsController extends BaseController
 {
+    /**
+     * @var TagManager
+     */
     private $_tagManager;
+
+    /**
+     * @var \LinkZone\Core\PublicBundle\Manager\Platform
+     */
     private $_platformManager;
+
+    /**
+     * @var PlatformTopic
+     */
     private $_platformTopicRepository;
 
     public function init()
@@ -42,6 +54,12 @@ class PlatformsController extends BaseController
         ));
     }
 
+    /**
+     * Platforms Search
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function ajaxApiSearchPlatformsAction(Request $request)
     {
         $this->_verifyIsXmlHttpRequest();
@@ -93,11 +111,12 @@ class PlatformsController extends BaseController
 
         return new JsonResponse($platformArray);
 
+        /**
         return $this->render("LinkZoneCorePublicBundle:Platforms:search.html.twig", array(
             'platforms' => $platforms,
             'platformSearchFilter' => $platformSearchFilter->createView(),
             'platformSearchTags' => $platformSearchTags,
-        ));
+        ));*/
     }
 
     /**

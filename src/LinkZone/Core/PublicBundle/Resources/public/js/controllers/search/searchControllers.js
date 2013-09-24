@@ -4,8 +4,6 @@ function PlatformsSearchController($scope, $dialog, Platform)
 {
     var urlPrefix = '/app_dev.php';
 
-    $scope.platforms = Platform.search();
-
     $scope.search = function() {
         $scope.platforms = Platform.search({
             topicId: this.filter_topic
