@@ -59,15 +59,15 @@ class PlatformsController extends BaseController
             $filter['topicId'] = $topicId;
         }
 
-        if (isset($request->get("platform_search")['owner']['lastLogin'])
-                AND $lastLogin = $request->get("platform_search")['owner']['lastLogin']
-                AND !empty($lastLogin))
+        $lastLogin = $request->get("lastLogin");
+
+        if (!empty($lastLogin))
         {
             $thereIsFilter = true;
             $filter['lastLogin'] = $lastLogin;
         }
 
-        if ($rawTags = mb_strtolower($request->get("platform_tags")) AND strlen($rawTags) > 0)
+        if ($rawTags = mb_strtolower($request->get("platformTags")) AND strlen($rawTags) > 0)
         {
             $thereIsFilter = true;
             $tags = $this->_tagManager->loadOrCreateTags($this->_tagManager->splitTagNames($rawTags));
@@ -92,12 +92,6 @@ class PlatformsController extends BaseController
         }
 
         return new JsonResponse($platformArray);
-
-        return $this->render("LinkZoneCorePublicBundle:Platforms:search.html.twig", array(
-            'platforms' => $platforms,
-            'platformSearchFilter' => $platformSearchFilter->createView(),
-            'platformSearchTags' => $platformSearchTags,
-        ));
     }
 
     /**
@@ -225,7 +219,7 @@ class PlatformsController extends BaseController
 
         $tagRepo = $this->getDoctrine()->getRepository("LinkZoneCorePublicBundle:Tag");
 
-        return new JsonResponse($tagRepo->getTagsStartingWithPrefix(Platform::TAGGABLE_TYPE, mb_strtolower($this->getRequest()->get("term"))));
+        return new JsonResponse($tagRepo->getTagsStartingWithPrefix(Platform::TAGGABLE_TYPE, mb_strtolower($this->getRequest()->get("term")), $this->getRequest()->get("page_limit")));
     }
 
     public function ajaxApiListPlatformsAction()
