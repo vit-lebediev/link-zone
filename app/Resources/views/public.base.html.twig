@@ -10,6 +10,8 @@
 
         <link rel="stylesheet" href="{{ asset("bundles/linkzonecoreadmin/css/common.css") }}" />
         {% stylesheets
+            'bundles/linkzonecorepublic/css/lib/bootstrap/*'
+            'bundles/linkzonecorepublic/css/lib/select2/*'
             'bundles/linkzonecorepublic/css/*'
             'bundles/linkzonecorepublic/css/pages/*'
             filter='cssrewrite' %}
@@ -46,9 +48,15 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular-resource.min.js"></script>
         <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/lib/underscore.min.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/lib/select2/select2.min.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/lib/select2/select2_locale_ru.js") }}"></script>
         <script src="{{ asset("bundles/linkzonecorepublic/js/lib/angular/ui-bootstrap-tpls.min.js") }}"></script>
         <script src="{{ asset("bundles/linkzonecorepublic/js/lib/angular/ui-bootstrap.min.js") }}"></script>
         <script src="{{ asset("bundles/linkzonecorepublic/js/lib/angular/ui-utils.min.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/lib/angular/ui-select2.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/lib/bootstrap/bootstrap-datepicker.js") }}"></script>
+        <script src="{{ asset("bundles/linkzonecorepublic/js/lib/angular/angular-strap.min.js") }}"></script>
         <script src="{{ asset("bundles/linkzonecorepublic/js/lib/angular/ng-tags-input.min.js") }}"></script>
         <script src="{{ asset("bundles/linkzonecorepublic/js/application.js") }}"></script>
 
@@ -62,7 +70,6 @@
         <script src="{{ asset("bundles/linkzonecorepublic/js/filters.js") }}"></script>
         <script src="{{ asset("bundles/linkzonecoreadmin/js/base.js") }}"></script>
         <script src="{{ asset("bundles/linkzonecoreadmin/js/jQueryPlugins.js") }}"></script>
-        <script src="{{ asset("bundles/linkzonecorepublic/js/tag-it.min.js") }}"></script>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
